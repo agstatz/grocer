@@ -1,5 +1,5 @@
 @media (prefers-color-scheme: dark) {
-    body { background: #333; color: white; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif}
+    body { background: #333; color: white; }
 }
 
 @media (prefers-color-scheme: light) {
@@ -12,7 +12,10 @@
     font-style: normal;
     font-weight: 400;
     src: local(''),
-         url('../fonts/readex-pro-v5-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('./fonts/readex-pro-v5-latin-regular.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
 }
 
-  
+body {
+    font-family: Readex Pro, Calibri, sans-serif;
+}
+
