@@ -1,2 +1,7 @@
 #ignore node modules
 node_modules/
+
+#ignore secrets
+secrets.json
+
+yarn.lock

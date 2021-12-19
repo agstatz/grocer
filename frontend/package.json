@@ -10,6 +10,9 @@
     "electron": "^16.0.4"
   },
   "scripts": {
-      "start": "electron ."
+    "start": "electron ."
+  },
+  "dependencies": {
+    "googleapis": "^92.0.0"
   }
 }
