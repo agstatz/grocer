@@ -2,36 +2,34 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-}
-
 .App-link {
-    color: #61dafb;
+    color: #e5383b;
+}
+
+h1 {
+    pointer-events: none;
+}
+
+.no-click {
+    pointer-events: none;
 }
 
 /* Light and Dark Mode */
 @media (prefers-color-scheme: dark) {
-    body { background: #2C2B3C; color: white; }
+    body { background: #1d2022; color: white; }
+
+    h1 {
+        color: #FFFFFF;
+    }
 
     .basic-container {
-        display: block;
-        background-color: #403F4C;
+        border-style: solid;
+        border-color: #26292b;
+        border-width: 1px;
+        background-color: #31373c;
         align-items: center;
         justify-content: center;
-        font-size: calc(10px + 2vmin);
+        font-size: calc(8px + 2vmin);
         padding: calc(20px + 5vmin);
         margin: calc(20px + 7.5vmin);
         border-radius: 10px;
