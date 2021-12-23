@@ -2,3 +2,5 @@
 /react-electron/node_modules/
 
 yarn.lock
+
+/react-electron/secrets.json
