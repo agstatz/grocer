@@ -2,6 +2,7 @@ import './App.css';
 import React from "react";
 import { SearchPanel, SearchPanelChoice, SearchPanelVariant } from "react-search-panel";
 import { useEffect, useState } from "react";
+import { Post } from "./sheets";
 
 const MIN_INPUT = 3;
 

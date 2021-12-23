@@ -2,6 +2,6 @@
 /react-electron/node_modules/
 
 #ignore secrets
-/react-electron/secrets.json/
+secrets.json/
 
 yarn.lock

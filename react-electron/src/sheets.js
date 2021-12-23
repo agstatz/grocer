@@ -1,4 +1,5 @@
 import { google } from 'googleapis';
+import React from "react";
 
 export async function getProps() {
 
@@ -15,7 +16,17 @@ export async function getProps() {
 
     const return_values = response.data.values[0];
 
+    console.log(return_values);
+
     return {
         return_values
     }
+}
+
+export default function Post() {
+    return (
+        <div>
+            Bing bong
+        </div>
+    )
 }
