@@ -10,10 +10,10 @@ function App() {
   const [input, setInput] = React.useState("");
   const [selectedChoices, setSelectedChoices] = useState(choices);
 
-  const handleSearchChange = (event: React.ChangeEvent) => {
+  /*const handleSearchChange = (event: React.ChangeEvent) => {
       const target = event.target;
       setInput(target.value);
-  };
+  };*/
 
   /*useEffect(() => {
     const search = async () => {
