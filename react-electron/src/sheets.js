@@ -25,8 +25,7 @@ export async function getProps() {
 
 export default function Post() {
     return (
-        <div>
-            Bing bong
+        <div>Bing
         </div>
     )
 }
