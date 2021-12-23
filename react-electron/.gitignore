@@ -6,7 +6,7 @@
 .pnp.js
 
 #ignore secrets
-/secrets.json
+.\secrets.json
 
 # testing
 /coverage
