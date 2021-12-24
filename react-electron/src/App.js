@@ -1,11 +1,13 @@
 import './App.css';
 import React from "react";
-import { SearchPanel, SearchPanelChoice, SearchPanelVariant } from "react-search-panel";
+import { SearchPanel, SearchPanelVariant } from "react-search-panel";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import NextButton from "./components/NextButton.js";
 
-const MIN_INPUT = 3;
+// Set DEV_MODE to true to use a local database
 const DEV_MODE = true;
+const MIN_RESULT = 1;
 
 // The URL here plugs in to the https://sheet.best API which allows for a simple way
 // to use a google sheet as a backend. Replace as needed
@@ -15,6 +17,7 @@ const App = () => {
   const [choices, setChoices] = React.useState("");
   const [input, setInput] = React.useState("");
   const [mealData, setMealData] = React.useState("");
+  const [displayButton, setDisplayButton] = React.useState(false);
   const [selectedChoices, setSelectedChoices] = useState(choices);
 
   useEffect(() => {
@@ -24,7 +27,6 @@ const App = () => {
         const getDevDatabase = async () => {
             const response = await axios.get("./developmentDatabase.json");
             setMealData(response.data);
-            console.log("Called useEffect 1");
         }
         getDevDatabase();
     } else {
@@ -37,29 +39,41 @@ const App = () => {
     
   }, [])
 
+
   useEffect(() => {
-    console.log("updated input");
-    const search = async () => {
-        if (input.length >= MIN_INPUT) {
-            setChoices(getSearchResults(input));
+
+    // Finds any meals in meal data that match input
+    const getSearchResults = () => {
+        let matchList = [];
+        var i = 0;
+        for (i = 0; i < mealData.length; i++) {
+          if (mealData[i].MEAL_NAME.toLowerCase().startsWith(input.toLowerCase())) {
+              matchList.push({
+                  key: mealData[i].ID,
+                  description: mealData[i].MEAL_NAME
+              })
+          }
         }
+
+        return matchList
+    }
+
+    const search = async () => {
+        setChoices(getSearchResults());
     };
     search();
   }, [input]);
 
-  const getSearchResults = ({search_str}) => {
-      let matchList = [];
-      var i = 0;
-      for (i = 0; i < mealData.length; i++) {
-        if (mealData[i].MEAL_NAME.startsWith(search_str)) {
-            matchList.push({
-                key: mealData[i].ID,
-                description: mealData[i].MEAL_NAME
-            })
-        }
-      }
-      return matchList
-  }
+  // When there are selected meals, give the user the option to move on
+  // else, we do not let the user move to the next page.
+  useEffect(() => {
+    if (selectedChoices.length > 0) {
+        setDisplayButton(true);
+    } else {
+        setDisplayButton(false);
+    }
+        
+  }, [selectedChoices])
 
   
   return (
@@ -71,6 +85,7 @@ const App = () => {
                 <p class="no-click">Search meals, order ingredients fast and simple.</p>
             </div>
             <div>
+                
                 <SearchPanel 
                     choices={choices}
                     chips
@@ -84,7 +99,8 @@ const App = () => {
                     value={input}
                     width={'calc(300 + 10vmin)'}
                 />
-                <button>Next</button>
+                <br />
+                <div><NextButton display={displayButton}/></div>
             </div>
         </div>
         <p class="footnote">Grocer 2021, created by Ashton Statz</p>

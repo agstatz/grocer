@@ -3,12 +3,10 @@ const { BrowserWindow, app } = require('electron');
 require('@electron/remote/main').initialize();
 
 function createWindow() {
-    process.env.GOOGLE_API_KEY = '../secrets.json';
-    process.env.SHEET_ID = '1tOyRUbwJunCioOJVNMZ01Q4iC4Y7VrYg8Jfx54KQSsA';
 
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1020,
+        height: 720,
         webPreferences: {
             enableRemoteModule: true
         }

@@ -18,9 +18,7 @@ h1 {
 @media (prefers-color-scheme: dark) {
     body { background: #1d2022; color: white; }
 
-    h1 {
-        color: #FFFFFF;
-    }
+    h1 { color: #FFFFFF; }
 
     .basic-container {
         border-style: solid;
@@ -38,6 +36,21 @@ h1 {
 
 @media (prefers-color-scheme: light) {
     body { background: #ddd; color: black; }
+
+    h1 { color: black; }
+
+    .basic-container {
+        border-style: solid;
+        border-color: #707376;
+        border-width: 1px;
+        background-color: #bcc3c9;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(8px + 2vmin);
+        padding: calc(20px + 5vmin);
+        margin: calc(20px + 7.5vmin);
+        border-radius: 10px;
+    }
 }
 
 /* font handling for the entire project
@@ -48,6 +61,11 @@ h1 {
     font-weight: 400;
     src: local(''),
          url('./readex-pro-v5-latin-regular.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
+}
+
+h1 {
+    font-family: Readex Pro, Calibri, sans-serif;
+    font-size: calc(25px + 2vmin);
 }
 
 body {
