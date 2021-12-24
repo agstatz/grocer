@@ -5,9 +5,6 @@
 /.pnp
 .pnp.js
 
-#ignore secrets
-.\secrets.json
-
 # testing
 /coverage
 

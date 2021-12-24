@@ -1,0 +1,177 @@
+[
+    {
+        "ID": "1",
+        "INGREDIENTS": "Russet Potatoes, Olive Oil, Salt, Pepper",
+        "MEAL_NAME": "Baked Potatoes",
+        "OPTIONAL": "Cheese, Sour Cream, Butter, Sriracha",
+        "VEGETARIAN": "Yes"
+    },
+    {
+        "ID": "2",
+        "INGREDIENTS": "Bacon, Lettuce, Tomato, Asiago Bread",
+        "MEAL_NAME": "BLTs",
+        "OPTIONAL": "Swiss Cheese, Avocado",
+        "VEGETARIAN": "-Bacon"
+    },
+    {
+        "ID": "3",
+        "INGREDIENTS": "Buns, Patties, Lettuce, Tomato, Onion",
+        "MEAL_NAME": "Burgers/Hotdogs",
+        "OPTIONAL": "Cheese, Pickles",
+        "VEGETARIAN": "-Patties, +Veggie Patties"
+    },
+    {
+        "ID": "4",
+        "INGREDIENTS": "Grilled Chicken, Lettuce, Tomato, Onion, Avocado, Garlic, Salsa, Lime, Rice, Beans",
+        "MEAL_NAME": "Burrito Bowl/Taco Night",
+        "OPTIONAL": "Cilantro",
+        "VEGETARIAN": "-Chicken"
+    },
+    {
+        "ID": "5",
+        "INGREDIENTS": "Cherry Tomatoes, Garlic, Red Onion, Balsamic Vinegar, Olive Oil, Salt, Mozzarella",
+        "MEAL_NAME": "Chicken Bruschetta",
+        "OPTIONAL": "Basil",
+        "VEGETARIAN": "-Chicken, +Bread"
+    },
+    {
+        "ID": "6",
+        "INGREDIENTS": "Grilled Chicken, Tortillas, Lettuce, Cherry Tomatoes, Croutons, Caesar Dressing",
+        "MEAL_NAME": "Chicken Caesar Wraps",
+        "OPTIONAL": "Avocado",
+        "VEGETARIAN": "-Caesar Dressing, -Grilled Chicken, +Ranch Dressing"
+    },
+    {
+        "ID": "7",
+        "INGREDIENTS": "Chicken, Egg, Breadcrumbs, Flour, Mozzerella Cheese, Olive Oil, Red Sauce, Garlic",
+        "MEAL_NAME": "Chicken Parmesan",
+        "OPTIONAL": "",
+        "VEGETARIAN": "-Chicken, +Eggplant"
+    },
+    {
+        "ID": "8",
+        "INGREDIENTS": "Chicken, Egg, Flour, Lemon, Capers (Peas), Salt, Pepper, Garlic",
+        "MEAL_NAME": "Chicken Picatta",
+        "OPTIONAL": "",
+        "VEGETARIAN": "No"
+    },
+    {
+        "ID": "9",
+        "INGREDIENTS": "Tomatoes, Milk, Butter, Paneer",
+        "MEAL_NAME": "Curry with Naan",
+        "OPTIONAL": "Rice, Naan",
+        "VEGETARIAN": "Yes"
+    },
+    {
+        "ID": "10",
+        "INGREDIENTS": "1 lb Fettucini, Butter, Garlic, Heavy Cream, Salt, Parmesan Cheese, Pepper",
+        "MEAL_NAME": "Fettucini Alfredo",
+        "OPTIONAL": "Italian Parsley, Chicken",
+        "VEGETARIAN": "-Chicken"
+    },
+    {
+        "ID": "11",
+        "INGREDIENTS": "Chicken, Olive Oil, Salt, Lemon, Garlic, Red Potatoes",
+        "MEAL_NAME": "Grilled Caesar Chicken w/ Potatoes",
+        "OPTIONAL": "",
+        "VEGETARIAN": "-Chicken"
+    },
+    {
+        "ID": "12",
+        "INGREDIENTS": "1 lb Cheddar/Colby Cheese, Bread Loaf, Tomato Soup",
+        "MEAL_NAME": "Grilled Cheese w/ Tomato Soup",
+        "OPTIONAL": "Tomato Pepper Soup",
+        "VEGETARIAN": "Yes"
+    },
+    {
+        "ID": "13",
+        "INGREDIENTS": "Chicken, Red & Yellow Bell Pepper, Red Onion, Red Potato, Soy Sauce, Olive Oil, Honey",
+        "MEAL_NAME": "Kabobs",
+        "OPTIONAL": "Mushrooms, Asparagus, Zucchini, Parsley",
+        "VEGETARIAN": "-Chicken"
+    },
+    {
+        "ID": "14",
+        "INGREDIENTS": "Garlic, Spanish Onion, Carrots, Potato, Zucchini, Yellow Squash, Basil, Flour, Canned Diced Tomatoes, Canned Garbanzo Beans, Marinara Sauce, Chicken Broth, Parmesan Cheese",
+        "MEAL_NAME": "Minestrone Soup",
+        "OPTIONAL": "Lettuce, Romano Cheese",
+        "VEGETARIAN": "-Chicken Broth,  +Vegetable Broth"
+    },
+    {
+        "ID": "15",
+        "INGREDIENTS": "Rotini, Mushroom, Spinach, White Onion, Garlic, Milk, Flour, Tomato, Olive/Vegetable Oil, Salt, Black Pepper, Oregano, Basil, Thyme, Parmesan",
+        "MEAL_NAME": "Mushroom and Spinach Pasta",
+        "OPTIONAL": "Breadsticks",
+        "VEGETARIAN": null
+    },
+    {
+        "ID": "16",
+        "INGREDIENTS": "Shredded Mozzarella, Bread, Pepperoni, Pizza Sauce, Italian Seasoning, Parmesan, Butter",
+        "MEAL_NAME": "Pizza Melt",
+        "OPTIONAL": "",
+        "VEGETARIAN": "-Pepperoni"
+    },
+    {
+        "ID": "17",
+        "INGREDIENTS": "Shredded Mozzarella, Bread, Pepperoni, Pizza Sauce, Italian Seasoning, Parmesan, Butter",
+        "MEAL_NAME": "Pizza Rollups",
+        "OPTIONAL": "",
+        "VEGETARIAN": "-Pepperoni"
+    },
+    {
+        "ID": "18",
+        "INGREDIENTS": "Potatoes, Cheese",
+        "MEAL_NAME": "Potatoes Au Gratin",
+        "OPTIONAL": "",
+        "VEGETARIAN": "Yes"
+    },
+    {
+        "ID": "19",
+        "INGREDIENTS": "Mexican Cheese, Tortillas",
+        "MEAL_NAME": "Quesdaillas",
+        "OPTIONAL": "Chicken, Tomatoes, Onions, Avocadoes",
+        "VEGETARIAN": "-Chicken"
+    },
+    {
+        "ID": "20",
+        "INGREDIENTS": "Ravioli",
+        "MEAL_NAME": "Ravioli",
+        "OPTIONAL": "Red Sauce, Pesto",
+        "VEGETARIAN": "Yes"
+    },
+    {
+        "ID": "21",
+        "INGREDIENTS": "Spaghetti",
+        "MEAL_NAME": "Spaghetti",
+        "OPTIONAL": "Red sauce, Breadsticks",
+        "VEGETARIAN": "Yes"
+    },
+    {
+        "ID": "22",
+        "INGREDIENTS": "Apple, Spinach, Red Onion, Walnut, Feta Cheese",
+        "MEAL_NAME": "Spinach Apple Salad",
+        "OPTIONAL": "Dried Cranberries, Lemon Juice, Dijon Mustard",
+        "VEGETARIAN": "Yes"
+    },
+    {
+        "ID": "23",
+        "INGREDIENTS": "Chicken, Bell Pepper, Broccoli, Onion, White Mushroom, Garlic",
+        "MEAL_NAME": "Stir Fry",
+        "OPTIONAL": "Jalapeno",
+        "VEGETARIAN": "-Chicken, +Tofu"
+    },
+    {
+        "ID": "24",
+        "INGREDIENTS": "Tortellini",
+        "MEAL_NAME": "Tortellini",
+        "OPTIONAL": "Red Sauce, Pesto",
+        "VEGETARIAN": "Yes"
+    },
+    {
+        "ID": "25",
+        "INGREDIENTS": "Penne, Heavy Cream, Parmesan Cheese, Parsley, Vodka, 28 oz Crushed Tomatoes",
+        "MEAL_NAME": "Vodka Sauce Pasta",
+        "OPTIONAL": "",
+        "VEGETARIAN": "Yes"
+    }
+]

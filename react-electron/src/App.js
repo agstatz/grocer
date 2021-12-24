@@ -2,42 +2,66 @@ import './App.css';
 import React from "react";
 import { SearchPanel, SearchPanelChoice, SearchPanelVariant } from "react-search-panel";
 import { useEffect, useState } from "react";
-import { Post } from "./sheets";
+import axios from "axios";
 
 const MIN_INPUT = 3;
+const DEV_MODE = true;
 
-function App() {
-  const choices = React.useState("");
+// The URL here plugs in to the https://sheet.best API which allows for a simple way
+// to use a google sheet as a backend. Replace as needed
+const url = 'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
+
+const App = () => {
+  const [choices, setChoices] = React.useState("");
   const [input, setInput] = React.useState("");
+  const [mealData, setMealData] = React.useState("");
   const [selectedChoices, setSelectedChoices] = useState(choices);
 
-  /*const handleSearchChange = (event: React.ChangeEvent) => {
-      const target = event.target;
-      setInput(target.value);
-  };*/
+  useEffect(() => {
+    // There are limited calls to the google sheets API, so in the case that
+    // we are in development mode, just use a local testing file.
+    if (DEV_MODE) {
+        const getDevDatabase = async () => {
+            const response = await axios.get("./developmentDatabase.json");
+            setMealData(response.data);
+            console.log("Called useEffect 1");
+        }
+        getDevDatabase();
+    } else {
+        const getDatabase = async () => {
+            const response = await axios.get(url);
+            setMealData(response.data);
+        };
+        getDatabase();
+    }
+    
+  }, [])
 
-  /*useEffect(() => {
+  useEffect(() => {
+    console.log("updated input");
     const search = async () => {
-      const resultChoices: Array<SearchPanelChoice> = [];
-
-      // Only perform a search if end user has typed a minimum number of characters
-      if (input.length >= MIN_INPUT) {
-        const url = `${baseUrl}${input}`;
-        const response = await axios(url);
-        const results = await response.data;
-
-        // Transform results to choices.
-        results.forEach((result: ShowContainer) => {
-          const choice = { key: result.show.id.toString(), description: result.show.name };
-          resultChoices.push(choice);
-        });
-      }
-      setChoices(resultChoices);
-      setIsLoading(false);
+        if (input.length >= MIN_INPUT) {
+            setChoices(getSearchResults(input));
+        }
     };
     search();
-  }, [input]);*/
+  }, [input]);
 
+  const getSearchResults = ({search_str}) => {
+      let matchList = [];
+      var i = 0;
+      for (i = 0; i < mealData.length; i++) {
+        if (mealData[i].MEAL_NAME.startsWith(search_str)) {
+            matchList.push({
+                key: mealData[i].ID,
+                description: mealData[i].MEAL_NAME
+            })
+        }
+      }
+      return matchList
+  }
+
+  
   return (
     <div className="App">
         <title>grocer</title>
@@ -60,10 +84,12 @@ function App() {
                     value={input}
                     width={'calc(300 + 10vmin)'}
                 />
+                <button>Next</button>
             </div>
         </div>
+        <p class="footnote">Grocer 2021, created by Ashton Statz</p>
     </div>
   );
-}
+};
 
 export default App;

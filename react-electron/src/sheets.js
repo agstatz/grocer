@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import React from "react";
 
 export async function getProps() {
 
