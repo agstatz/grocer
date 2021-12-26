@@ -4,12 +4,15 @@
  */
 import React from 'react';
 import { Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-const NextButton = ({display, onClick}) => {
+const NextButton = ({display, text, link}) => {
     if (display === true) {
         return (
             <div className="NextButton">
-                <div><Button onClick={onClick}>Next</Button></div>
+                <div>
+                    <Link to={link}><Button>{text}</Button></Link>
+                </div>
             </div>
         );
     } else {

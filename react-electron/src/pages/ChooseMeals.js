@@ -7,17 +7,16 @@ import React from "react";
 import { SearchPanel, SearchPanelVariant } from "react-search-panel";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import NextButton from "../components/NextButton.js";
+import NavButton from "../components/NavButton.js";
 
 // Set DEV_MODE to true to use a local database
 const DEV_MODE = true;
-const MIN_RESULT = 1;
 
 // The URL here plugs in to the https://sheet.best API which allows for a simple way
 // to use a google sheet as a backend. Replace as needed
-const url = 'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
+const sheetsAPIurl = 'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
 
-const ChooseMeals = () => {
+const ChooseMeals = ({page}) => {
     const [choices, setChoices] = React.useState("");
     const [input, setInput] = React.useState("");
     const [mealData, setMealData] = React.useState("");
@@ -35,17 +34,13 @@ const ChooseMeals = () => {
           getDevDatabase();
       } else {
           const getDatabase = async () => {
-              const response = await axios.get(url);
+              const response = await axios.get(sheetsAPIurl);
               setMealData(response.data);
           };
           getDatabase();
       }
       
     }, [])
-
-    const handleNext = () => {
-        console.log("chungus");
-    }
   
     useEffect(() => {
   
@@ -104,9 +99,9 @@ const ChooseMeals = () => {
                     value={input}
                     width={'calc(300 + 10vmin)'}
                 />
-                <br />
-                <div><NextButton display={displayButton} onClick={handleNext}/></div>
             </div>
+            <br />
+            <div><NavButton display={true} text={"Next"} link="/ingredients"/></div>
         </div>
     );
   };
