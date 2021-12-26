@@ -5,11 +5,11 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 
-const NextButton = ({display}) => {
+const NextButton = ({display, onClick}) => {
     if (display === true) {
         return (
             <div className="NextButton">
-                <div><Button>Next</Button></div>
+                <div><Button onClick={onClick}>Next</Button></div>
             </div>
         );
     } else {
