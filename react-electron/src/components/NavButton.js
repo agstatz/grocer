@@ -1,15 +1,20 @@
 /**
- * NextButton
- * Wrapper class for semantic-ui-button
+ * NavButton
+ * Wrapper class for a semantic-ui-button styled
+ * button, takes in text, link, and whether to display
+ * or not as properties
+ * 
+ * @date 12/27/2021
+ * @author Ashton Statz
  */
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const NextButton = ({display, text, link}) => {
+const NavButton = ({display, text, link}) => {
     if (display === true) {
         return (
-            <div className="NextButton">
+            <div className="NavButton">
                 <div>
                     <Link to={link}><Button>{text}</Button></Link>
                 </div>
@@ -17,11 +22,11 @@ const NextButton = ({display, text, link}) => {
         );
     } else {
         return (
-            <div className="NextButton"></div>
+            <div className="NavButton"></div>
         )
     }
     
 };
   
-export default NextButton;
+export default NavButton;
   

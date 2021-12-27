@@ -2,6 +2,9 @@
  * ChooseIngredients.js
  * Page where the user chooses ingredients based on
  * which meals they have chosen.
+ * 
+ * @date 12/27/2021
+ * @author Ashton Statz
  */
 
 import React from "react";

@@ -1,12 +1,12 @@
 /**
  * App.js
- * Primary shell for the entire application
+ * Primary file for the entire application
  * 
- * @author: Ashton Statz
- * @date: 12/26/21
+ * @author Ashton Statz
+ * @date 12/26/21
  */
 
-import './App.css';
+import './styles/App.css';
 import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ChooseMeals, ChooseIngredients } from "./pages/";
@@ -31,7 +31,7 @@ const App = () => {
                 <Router>
                     <Routes>
                         <Route exact path='/' element={ <ChooseMeals handleChange={updateMeals} />} />
-                        <Route exact path='/ingredients' element={ <ChooseIngredients />} />
+                        <Route exact path='/ingredients' element={ <ChooseIngredients meals={meals} />} />
                         <Route path='*' element={<div>No page found</div>} />
                     </Routes>
                 </Router>

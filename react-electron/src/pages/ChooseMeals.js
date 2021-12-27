@@ -2,6 +2,8 @@
  * ChooseMeals.js
  * Page where the user chooses their meals
  * 
+ * @date 12/2/2021
+ * @author Ashton Statz
  */
 import React from "react";
 import { SearchPanel, SearchPanelVariant } from "react-search-panel";

@@ -1,3 +1,12 @@
+/**
+ * main.js
+ * Sets up everything necessary on the electron end
+ * of the application
+ * 
+ * @date 12/27/2021
+ * @author Ashton Statz
+ */
+
 const { BrowserWindow, app } = require('electron');
 
 require('@electron/remote/main').initialize();
