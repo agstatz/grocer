@@ -32,7 +32,6 @@ const ChooseMeals = ({handleChange}) => {
           const getDevDatabase = async () => {
               const response = await axios.get("./developmentDatabase.json");
               setMealData(response.data);
-              handleChange("Dingo");
           }
           getDevDatabase();
       } else {
@@ -73,12 +72,31 @@ const ChooseMeals = ({handleChange}) => {
     // else, we do not let the user move to the next page.
     useEffect(() => {
       if (selectedChoices.length > 0) {
+          const ingredientArray = getIngredients();
           setDisplayButton(true);
       } else {
           setDisplayButton(false);
       }
           
     }, [selectedChoices])
+
+    const getIngredients = () => {
+        let ingredients = [];
+
+        for (let i = 0; i < selectedChoices.length; i++) {
+            for (let j = 0; j < mealData.length; j++) {
+                if (selectedChoices[i].description === mealData[j].MEAL_NAME) {
+                    console.log(mealData[j].INGREDIENTS);
+                    ingredients.push({
+                        MEAL_NAME: mealData[j].MEAL_NAME,
+                        INGREDIENTS: mealData[j].INGREDIENTS,
+                        OPTIONAL: mealData[j].OPTIONAL,
+                        VEGETARIAN: mealData[j].VEGETARIAN
+                    });
+                }
+            }
+        }
+    }
   
     
     return (
