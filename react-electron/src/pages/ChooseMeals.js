@@ -16,7 +16,7 @@ const DEV_MODE = true;
 // to use a google sheet as a backend. Replace as needed
 const sheetsAPIurl = 'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
 
-const ChooseMeals = ({page}) => {
+const ChooseMeals = ({handleChange}) => {
     const [choices, setChoices] = React.useState("");
     const [input, setInput] = React.useState("");
     const [mealData, setMealData] = React.useState("");
@@ -30,6 +30,7 @@ const ChooseMeals = ({page}) => {
           const getDevDatabase = async () => {
               const response = await axios.get("./developmentDatabase.json");
               setMealData(response.data);
+              handleChange("Dingo");
           }
           getDevDatabase();
       } else {
@@ -101,7 +102,7 @@ const ChooseMeals = ({page}) => {
                 />
             </div>
             <br />
-            <div><NavButton display={true} text={"Next"} link="/ingredients"/></div>
+            <div><NavButton display={displayButton} text={"Next"} link="/ingredients"/></div>
         </div>
     );
   };

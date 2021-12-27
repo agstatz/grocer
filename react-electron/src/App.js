@@ -1,17 +1,36 @@
+/**
+ * App.js
+ * Primary shell for the entire application
+ * 
+ * @author: Ashton Statz
+ * @date: 12/26/21
+ */
+
 import './App.css';
 import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ChooseMeals, ChooseIngredients } from "./pages/";
+import { useState } from "react";
 
 
 const App = () => {
+
+    const [meals, setMeals] = React.useState("");
+
+    // handle updating the meals object in App.js
+    // when a change happens in ChooseMeals 
+    const updateMeals = ({newMeals}) => {
+        setMeals(newMeals);
+        console.log("BEEF");
+        console.log(newMeals[0].ID);
+    }
 
     return (
         <div className="App">
             <div class="basic-container">
                 <Router>
                     <Routes>
-                        <Route exact path='/' element={ <ChooseMeals />} />
+                        <Route exact path='/' element={ <ChooseMeals handleChange={updateMeals} />} />
                         <Route exact path='/ingredients' element={ <ChooseIngredients />} />
                         <Route path='*' element={<div>No page found</div>} />
                     </Routes>
