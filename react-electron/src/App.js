@@ -15,14 +15,15 @@ import { useState } from "react";
 
 const App = () => {
 
-    const [meals, setMeals] = React.useState("");
+    const [meals, setMeals] = useState("");
 
     // handle updating the meals object in App.js
     // when a change happens in ChooseMeals 
-    const updateMeals = ({newMeals}) => {
-        setMeals(newMeals);
-        console.log("BEEF");
-        console.log(newMeals[0].ID);
+    const updateMeals = (selectedMealsList) => {
+        console.log(selectedMealsList);
+        setMeals(selectedMealsList);
+        console.log("MEALS:")
+        console.log(meals);
     }
 
     return (

@@ -1,6 +1,6 @@
 /**
  * NavButton
- * Wrapper class for a semantic-ui-button styled
+ * Wrapper for a semantic-ui-button styled
  * button, takes in text, link, and whether to display
  * or not as properties
  * 

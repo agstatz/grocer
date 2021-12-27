@@ -8,15 +8,24 @@
  */
 
 import React from "react";
-import NavButton from "../components/NavButton.js"
+import useEffect from "react";
+import { NavButton, IngredientSelector } from "../components";
 
 const ChooseIngredients = ({selectedMeals}) => {
+
+    useEffect(() => {
+        console.log(selectedMeals);
+            
+    }, [])
+
     return (
         <div>
+            <h1>grocer</h1>
             <p class="no-click">Choose Ingredients</p>
-                <NavButton text={"Back"} display={true} link={"/"} />
-                <br />
-                <NavButton text={"Next"} display={true} link={"/order"} />
+            
+            <NavButton text={"Back"} display={true} link={"/"} />
+            <br />
+            <NavButton text={"Next"} display={true} link={"/order"} />
         </div>
     )
 }

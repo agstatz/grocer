@@ -18,6 +18,7 @@ const DEV_MODE = true;
 // to use a google sheet as a backend. Replace as needed
 const sheetsAPIurl = 'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
 
+
 const ChooseMeals = ({handleChange}) => {
     const [choices, setChoices] = React.useState("");
     const [input, setInput] = React.useState("");
@@ -46,7 +47,7 @@ const ChooseMeals = ({handleChange}) => {
   
     useEffect(() => {
   
-      // Finds any meals in meal data that match input
+      // Searches list of meals for similar meal names
       const getSearchResults = () => {
           let matchList = [];
           var i = 0;
@@ -73,6 +74,7 @@ const ChooseMeals = ({handleChange}) => {
     useEffect(() => {
       if (selectedChoices.length > 0) {
           const ingredientArray = getIngredients();
+          handleChange(ingredientArray);
           setDisplayButton(true);
       } else {
           setDisplayButton(false);
@@ -80,13 +82,13 @@ const ChooseMeals = ({handleChange}) => {
           
     }, [selectedChoices])
 
+    // Gets a list of ingredients for every selected meal
     const getIngredients = () => {
         let ingredients = [];
 
         for (let i = 0; i < selectedChoices.length; i++) {
             for (let j = 0; j < mealData.length; j++) {
                 if (selectedChoices[i].description === mealData[j].MEAL_NAME) {
-                    console.log(mealData[j].INGREDIENTS);
                     ingredients.push({
                         MEAL_NAME: mealData[j].MEAL_NAME,
                         INGREDIENTS: mealData[j].INGREDIENTS,
@@ -96,6 +98,8 @@ const ChooseMeals = ({handleChange}) => {
                 }
             }
         }
+
+        return ingredients;
     }
   
     
@@ -105,6 +109,7 @@ const ChooseMeals = ({handleChange}) => {
                 <h1>grocer</h1>
                 <p class="no-click">Search meals, order ingredients fast and simple.</p>
             </div>
+            <br />
             <div>
                 
                 <SearchPanel 
@@ -125,7 +130,7 @@ const ChooseMeals = ({handleChange}) => {
             <div><NavButton display={displayButton} text={"Next"} link="/ingredients"/></div>
         </div>
     );
-  };
-  
-  export default ChooseMeals;
+}
+
+export default ChooseMeals;
   
