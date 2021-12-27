@@ -2,7 +2,7 @@
  * ChooseMeals.js
  * Page where the user chooses their meals
  * 
- * @date 12/2/2021
+ * @date 12/27/2021
  * @author Ashton Statz
  */
 import React from "react";
@@ -17,7 +17,6 @@ const DEV_MODE = true;
 // The URL here plugs in to the https://sheet.best API which allows for a simple way
 // to use a google sheet as a backend. Replace as needed
 const sheetsAPIurl = 'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
-
 
 const ChooseMeals = ({handleChange}) => {
     const [choices, setChoices] = React.useState("");

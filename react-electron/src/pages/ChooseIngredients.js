@@ -11,18 +11,15 @@ import React from "react";
 import useEffect from "react";
 import { NavButton, IngredientSelector } from "../components";
 
-const ChooseIngredients = ({selectedMeals}) => {
+const ChooseIngredients = ({mealList}) => {
 
-    useEffect(() => {
-        console.log(selectedMeals);
-            
-    }, [])
+    console.log(mealList);
 
     return (
         <div>
             <h1>grocer</h1>
             <p class="no-click">Choose Ingredients</p>
-            
+            <IngredientSelector mealList={mealList} />
             <NavButton text={"Back"} display={true} link={"/"} />
             <br />
             <NavButton text={"Next"} display={true} link={"/order"} />

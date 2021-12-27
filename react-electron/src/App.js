@@ -9,7 +9,7 @@
 import './styles/App.css';
 import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import { ChooseMeals, ChooseIngredients } from "./pages/";
+import { ChooseMeals, ChooseIngredients, NoPageFound } from "./pages/";
 import { useState } from "react";
 
 
@@ -22,8 +22,8 @@ const App = () => {
     const updateMeals = (selectedMealsList) => {
         console.log(selectedMealsList);
         setMeals(selectedMealsList);
-        console.log("MEALS:")
-        console.log(meals);
+        //console.log("MEALS:")
+        //console.log(meals);
     }
 
     return (
@@ -32,8 +32,8 @@ const App = () => {
                 <Router>
                     <Routes>
                         <Route exact path='/' element={ <ChooseMeals handleChange={updateMeals} />} />
-                        <Route exact path='/ingredients' element={ <ChooseIngredients meals={meals} />} />
-                        <Route path='*' element={<div>No page found</div>} />
+                        <Route exact path='/ingredients' element={ <ChooseIngredients mealList={meals} />} />
+                        <Route path='*' element={<NoPageFound />} />
                     </Routes>
                 </Router>
             </div>
