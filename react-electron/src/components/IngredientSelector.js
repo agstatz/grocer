@@ -11,9 +11,21 @@ import useState from 'react';
 
 const IngredientSelector = ({mealList}) => {
 
-    let bingbong = [];
+    let ingredientList = [];
+    let displayList = ["chungus"];
 
-    const [ingredientList, setIngredientList] = React.useState("");
+    useEffect(() => {
+        createIngredientList();
+        //TODO REMOVE
+        console.log(ingredientList);
+        displayList = displayIngredientList(ingredientList);
+    }, []);
+
+    useEffect(() => {
+        
+        //TODO REMOVE
+        console.log(displayList);
+    }, [displayList])
     
     // Given the meal data, output a well-formatted
     // list of ingredients and the respective meals
@@ -114,23 +126,26 @@ const IngredientSelector = ({mealList}) => {
                 }
             }
         }
-        bingbong = outputList;
-        setIngredientList(outputList);
+        ingredientList = outputList;
     }
 
-    useEffect(() => {
-        createIngredientList();
-        console.log(bingbong);
-        displayIngredientList();
-    }, []);
-
-    const displayIngredientList = () => {
-
+    const displayIngredientList = (ingredientList) => {
+        let ingredientDisplayList = [];
+        ingredientDisplayList.push(ingredientList[0].ingredient);
+        /*console.log(ingredientList.length);
+        if (ingredientList !== null) {
+            for (let i = 0; i < ingredientList.length; i++) {
+                ingredientDisplayList.push(<div>{ingredientList[i].ingredient}</div>);
+            }
+        }
+        console.log(ingredientDisplayList);*/
+        return ingredientDisplayList;
     }
 
     
     return (
         <div className="ingredientSelector">
+            {displayList}
         </div>
     );
 };
