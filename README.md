@@ -23,6 +23,8 @@ In the project directory, to load necessary dependencies for local development, 
 
 To start up a development instance, run
 
+`cd react-electron`
+
 `yarn electron:serve`
 
 ## Additional Notes
