@@ -21,6 +21,10 @@ In the project directory, to load necessary dependencies for local development, 
 
 `yarn add react-router-dom`
 
+To start up a development instance, run
+
+`yarn electron:serve`
+
 ## Additional Notes
 
 This project uses Google Sheets API as a backend since the project is relatively small in scope.
