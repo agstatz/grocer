@@ -8,13 +8,10 @@
  */
 
 import React from "react";
-import useEffect from "react";
 import { NavButton, IngredientSelector } from "../components";
 
 const ChooseIngredients = ({mealList}) => {
-
-    console.log(mealList);
-
+    
     return (
         <div>
             <h1>grocer</h1>

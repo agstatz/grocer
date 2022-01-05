@@ -3,30 +3,22 @@
  * Modular display component to allow the user
  * to choose the ingredients they would need
  * 
- * @date 12/27/2021
+ * @date 1/4/2021
  * @author Ashton Statz
  */
 import React, { useEffect } from 'react';
-import useState from 'react';
+import { useState } from 'react';
 
 const IngredientSelector = ({mealList}) => {
-
-    let ingredientList = [];
-    let displayList = ["chungus"];
+    
+    const [ingredientList, setIngredientList] = useState([]);
+    const [displayList, setDisplayList] = useState([]);
 
     useEffect(() => {
         createIngredientList();
-        //TODO REMOVE
-        console.log(ingredientList);
-        displayList = displayIngredientList(ingredientList);
-    }, []);
+        console.log(displayList);   //TODO REMOVE
+    }, [displayList]);
 
-    useEffect(() => {
-        
-        //TODO REMOVE
-        console.log(displayList);
-    }, [displayList])
-    
     // Given the meal data, output a well-formatted
     // list of ingredients and the respective meals
     // that they belong to.
@@ -126,26 +118,23 @@ const IngredientSelector = ({mealList}) => {
                 }
             }
         }
-        ingredientList = outputList;
+        setIngredientList(outputList);
     }
 
     const displayIngredientList = (ingredientList) => {
         let ingredientDisplayList = [];
-        ingredientDisplayList.push(ingredientList[0].ingredient);
-        /*console.log(ingredientList.length);
+        
         if (ingredientList !== null) {
             for (let i = 0; i < ingredientList.length; i++) {
-                ingredientDisplayList.push(<div>{ingredientList[i].ingredient}</div>);
+                ingredientDisplayList.push(<div><input type="checkbox" checked="true"></input>{ingredientList[i].ingredient}</div>);
             }
         }
-        console.log(ingredientDisplayList);*/
         return ingredientDisplayList;
     }
-
     
     return (
         <div className="ingredientSelector">
-            {displayList}
+            {displayIngredientList(ingredientList)}
         </div>
     );
 };
