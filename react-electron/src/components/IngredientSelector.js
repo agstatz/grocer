@@ -19,6 +19,18 @@ const IngredientSelector = ({mealList}) => {
         console.log(displayList);   //TODO REMOVE
     }, [displayList]);
 
+    // Handles toggling of the checkbox
+    const handleCheckbox = index => e => {
+        let newArr = [...ingredientList];
+        newArr[index] = {
+            meal: newArr[index].meal,
+            ingredient: newArr[index].ingredient,
+            checked: !newArr[index].checked,
+        }
+
+        setIngredientList(newArr);
+    }
+
     // Given the meal data, output a well-formatted
     // list of ingredients and the respective meals
     // that they belong to.
@@ -48,7 +60,8 @@ const IngredientSelector = ({mealList}) => {
 
                     outputList.push({
                         meal: mealName,
-                        ingredient: ingredientName
+                        ingredient: ingredientName,
+                        checked: true
                     });
 
                     start = commaIndex + 2;
@@ -58,7 +71,8 @@ const IngredientSelector = ({mealList}) => {
 
                 outputList.push({
                     meal: mealName,
-                    ingredient: ingredientName
+                    ingredient: ingredientName,
+                    checked: true
                 });
 
                 commaIndex = -1;
@@ -73,7 +87,8 @@ const IngredientSelector = ({mealList}) => {
 
                     outputList.push({
                         meal: mealName,
-                        ingredient: ingredientName
+                        ingredient: ingredientName,
+                        checked: true
                     });
 
                     start = commaIndex + 2;
@@ -83,7 +98,8 @@ const IngredientSelector = ({mealList}) => {
 
                 outputList.push({
                     meal: mealName,
-                    ingredient: ingredientName
+                    ingredient: ingredientName,
+                    checked: true
                 });
 
                 commaIndex = -1;
@@ -103,7 +119,8 @@ const IngredientSelector = ({mealList}) => {
     
                         outputList.push({
                             meal: mealName,
-                            ingredient: ingredientName
+                            ingredient: ingredientName,
+                            cheked: true
                         });
     
                         start = commaIndex + 2;
@@ -126,7 +143,11 @@ const IngredientSelector = ({mealList}) => {
         
         if (ingredientList !== null) {
             for (let i = 0; i < ingredientList.length; i++) {
-                ingredientDisplayList.push(<div><input type="checkbox" checked="true"></input>{ingredientList[i].ingredient}</div>);
+                ingredientDisplayList.push(
+                    <div>
+                        <input type="checkbox" checked={ingredientList[i].checked} onChange={handleCheckbox(i)}></input>
+                        {ingredientList[i].ingredient}
+                    </div>);
             }
         }
         return ingredientDisplayList;
