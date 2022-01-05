@@ -17,9 +17,14 @@ const ChooseIngredients = ({mealList}) => {
             <h1>grocer</h1>
             <p class="no-click">Choose Ingredients</p>
             <IngredientSelector mealList={mealList} />
-            <NavButton text={"Back"} display={true} link={"/"} />
-            <br />
-            <NavButton text={"Next"} display={true} link={"/order"} />
+            <div class="ui horizontal list">
+            <div class="item">
+                <NavButton text={"Back"} display={true} link={"/"} />
+            </div>
+            <div class="item">
+                <NavButton text={"Next"} display={true} link={"/order"} />
+            </div>
+            </div>
         </div>
     )
 }

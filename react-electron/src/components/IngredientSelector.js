@@ -16,7 +16,6 @@ const IngredientSelector = ({mealList}) => {
 
     useEffect(() => {
         createIngredientList();
-        console.log(displayList);   //TODO REMOVE
     }, [displayList]);
 
     // Handles toggling of the checkbox
@@ -110,17 +109,19 @@ const IngredientSelector = ({mealList}) => {
                 // Get a list of added or removed ingredients that would make the meal vegetarian
                 // from the comma separated listing VEGETARIAN
 
+
                 if (vegetarian.toLowerCase() !== "yes" && vegetarian.toLowerCase() !== "no") {
                     // In the case there is a yes or no in the vegetarian variable,
                     // there are no additional items to parse. We parse here because
                     // we determined it wasn't a yes or no instance
+
                     while ((commaIndex = vegetarian.indexOf(",", start)) > -1) {
                         ingredientName = vegetarian.substring(start, commaIndex);
     
                         outputList.push({
                             meal: mealName,
                             ingredient: ingredientName,
-                            cheked: true
+                            checked: true
                         });
     
                         start = commaIndex + 2;
@@ -130,7 +131,8 @@ const IngredientSelector = ({mealList}) => {
     
                     outputList.push({
                         meal: mealName,
-                        ingredient: ingredientName
+                        ingredient: ingredientName,
+                        checked: true
                     });
                 }
             }
@@ -144,18 +146,33 @@ const IngredientSelector = ({mealList}) => {
         if (ingredientList !== null) {
             for (let i = 0; i < ingredientList.length; i++) {
                 ingredientDisplayList.push(
-                    <div>
-                        <input type="checkbox" checked={ingredientList[i].checked} onChange={handleCheckbox(i)}></input>
-                        {ingredientList[i].ingredient}
-                    </div>);
+                    <tr>
+                    <td class="collapsing">
+                        <div class="ui fitted slider checkbox">
+                        <input type="checkbox" checked={ingredientList[i].checked}
+                            onChange={handleCheckbox(i)}></input><label></label>
+                        </div>
+                    </td>
+                    <td>{ingredientList[i].ingredient}</td>
+                    </tr>);
             }
         }
+
         return ingredientDisplayList;
     }
     
     return (
         <div className="ingredientSelector">
-            {displayIngredientList(ingredientList)}
+            <table class="ui padded table">
+                <thead>
+                    <tr><th></th>
+                    <th>Ingredient</th></tr>
+                </thead>
+                <tbody>
+                    {displayIngredientList(ingredientList)}
+                </tbody>
+            </table>
+            <br />
         </div>
     );
 };
