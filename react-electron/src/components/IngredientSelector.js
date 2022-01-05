@@ -3,7 +3,7 @@
  * Modular display component to allow the user
  * to choose the ingredients they would need
  * 
- * @date 1/4/2021
+ * @date 1/5/2022
  * @author Ashton Statz
  */
 import React, { useEffect } from 'react';
@@ -140,15 +140,28 @@ const IngredientSelector = ({mealList}) => {
         setIngredientList(outputList);
     }
 
+    // Build the table that displays all of the ingredients from the ingredient list
     const displayIngredientList = (ingredientList) => {
         let ingredientDisplayList = [];
         
         if (ingredientList !== null) {
             for (let i = 0; i < ingredientList.length; i++) {
+                
+                // Create a header for the meal
+                if (i === 0 || ingredientList[i].meal !== ingredientList[i - 1].meal) {
+                    ingredientDisplayList.push(
+                        <tr>
+                            <td colSpan="2">
+                                {ingredientList[i].meal}
+                            </td>
+                        </tr>
+                    );
+                }
+
                 ingredientDisplayList.push(
                     <tr>
                     <td class="collapsing">
-                        <div class="ui fitted slider checkbox">
+                        <div class="ui fitted checkbox">
                         <input type="checkbox" checked={ingredientList[i].checked}
                             onChange={handleCheckbox(i)}></input><label></label>
                         </div>
@@ -163,7 +176,7 @@ const IngredientSelector = ({mealList}) => {
     
     return (
         <div className="ingredientSelector">
-            <table class="ui padded table">
+            <table class="ui padded single line table">
                 <thead>
                     <tr><th></th>
                     <th>Ingredient</th></tr>

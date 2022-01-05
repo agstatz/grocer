@@ -3,7 +3,7 @@
  * Primary file for the entire application
  * 
  * @author Ashton Statz
- * @date 12/26/21
+ * @date 1/5/22
  */
 
 import './styles/App.css';
@@ -20,10 +20,7 @@ const App = () => {
     // handle updating the meals object in App.js
     // when a change happens in ChooseMeals 
     const updateMeals = (selectedMealsList) => {
-        console.log(selectedMealsList);
         setMeals(selectedMealsList);
-        //console.log("MEALS:")
-        //console.log(meals);
     }
 
     return (
