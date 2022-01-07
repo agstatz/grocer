@@ -3,7 +3,7 @@
  * Sets up everything necessary on the electron end
  * of the application
  * 
- * @date 12/27/2021
+ * @date 1/6/2022
  * @author Ashton Statz
  */
 
@@ -19,7 +19,7 @@ function createWindow() {
         webPreferences: {
             enableRemoteModule: true
         }
-    })
+    });
 
     win.loadURL('http://localhost:3000');
 }

@@ -22,7 +22,7 @@ const ChooseIngredients = ({mealList}) => {
                 <NavButton text={"Back"} display={true} link={"/"} />
             </div>
             <div class="item">
-                <NavButton text={"Next"} display={true} link={"/order"} />
+                <NavButton text={"Next"} display={true} link={"/decision"} />
             </div>
             </div>
         </div>

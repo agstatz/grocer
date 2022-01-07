@@ -9,7 +9,7 @@
 import './styles/App.css';
 import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import { ChooseMeals, ChooseIngredients, NoPageFound } from "./pages/";
+import { ChooseMeals, ChooseIngredients, Decision, NoPageFound } from "./pages/";
 import { useState } from "react";
 
 
@@ -30,6 +30,7 @@ const App = () => {
                     <Routes>
                         <Route exact path='/' element={ <ChooseMeals handleChange={updateMeals} />} />
                         <Route exact path='/ingredients' element={ <ChooseIngredients mealList={meals} />} />
+                        <Route exact path='/decision' element={ <Decision />} />
                         <Route path='*' element={<NoPageFound />} />
                     </Routes>
                 </Router>

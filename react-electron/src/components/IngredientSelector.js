@@ -3,11 +3,10 @@
  * Modular display component to allow the user
  * to choose the ingredients they would need
  * 
- * @date 1/5/2022
+ * @date 1/6/2022
  * @author Ashton Statz
  */
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const IngredientSelector = ({mealList}) => {
     
@@ -17,8 +16,7 @@ const IngredientSelector = ({mealList}) => {
 
     useEffect(() => {
         createIngredientList();
-        // /createSelectedVegList();
-        
+        createSelectedVegList();
     }, [displayList]);
 
 
@@ -41,7 +39,7 @@ const IngredientSelector = ({mealList}) => {
     // has vegetarian status, which helps display certain options
     // for a vegetarian version of the meal
     const isSelectedVeg = mealName => {
-        for (var i = 0; i < mealList.length; i++) {
+        /*for (var i = 0; i < mealList.length; i++) {
             if (mealName === selectedVegList[i].meal) {
                 if (selectedVegList[i].veg) {
                     return true;
@@ -49,7 +47,7 @@ const IngredientSelector = ({mealList}) => {
                     return false;
                 }
             }
-        }
+        }*/
         return false;
     }
 
