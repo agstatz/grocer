@@ -72,8 +72,8 @@ const ChooseMeals = ({handleChange}) => {
     // else, we do not let the user move to the next page.
     useEffect(() => {
       if (selectedChoices.length > 0) {
-          const ingredientArray = getIngredients();
-          handleChange(ingredientArray);
+          const mealArray = getMealDetails();
+          handleChange(mealArray);
           setDisplayButton(true);
       } else {
           setDisplayButton(false);
@@ -81,14 +81,15 @@ const ChooseMeals = ({handleChange}) => {
           
     }, [selectedChoices])
 
-    // Gets a list of ingredients for every selected meal
-    const getIngredients = () => {
-        let ingredients = [];
+    // Gets a list of details including ingredients about a selected
+    // meal. Used when figuring out whether there are selected meals or not
+    const getMealDetails = () => {
+        let mealDetailsArray = [];
 
         for (let i = 0; i < selectedChoices.length; i++) {
             for (let j = 0; j < mealData.length; j++) {
                 if (selectedChoices[i].description === mealData[j].MEAL_NAME) {
-                    ingredients.push({
+                    mealDetailsArray.push({
                         MEAL_NAME: mealData[j].MEAL_NAME,
                         INGREDIENTS: mealData[j].INGREDIENTS,
                         OPTIONAL: mealData[j].OPTIONAL,
@@ -98,10 +99,9 @@ const ChooseMeals = ({handleChange}) => {
             }
         }
 
-        return ingredients;
+        return mealDetailsArray;
     }
   
-    
     return (
         <div>
             <div>
@@ -110,7 +110,6 @@ const ChooseMeals = ({handleChange}) => {
             </div>
             <br />
             <div>
-                
                 <SearchPanel 
                     choices={choices}
                     chips
