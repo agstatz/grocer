@@ -8,7 +8,7 @@
  */
 import React, { useEffect, useState } from 'react';
 
-const IngredientSelector = ({mealList}) => {
+const IngredientSelector = ({mealList, handleChange}) => {
     
     const [ingredientList, setIngredientList] = useState([]);       // the list of ingredients parsed out of mealList
     const [displayList, setDisplayList] = useState([]);             // the list holding react elements to display ingredients
@@ -16,9 +16,25 @@ const IngredientSelector = ({mealList}) => {
 
     useEffect(() => {
         createIngredientList();
-        createSelectedVegList();
+        handleChange(ingredientList);
     }, [displayList]);
 
+    useEffect(() => { 
+        // Outputs a well-formatted list of meals
+        // and whether the user wants them vegetarian
+        const createSelectedVegList = () => {
+            let outputList = [];
+            for (var i = 0; i < mealList.length; i++) {
+                outputList.push({
+                    meal: mealList[i].MEAL_NAME,
+                    veg: isVegetarian(mealList[i].MEAL_NAME)
+                });
+            }
+            console.log(outputList);
+            setSelectedVegList(outputList);
+        }
+        createSelectedVegList();
+    }, []);
 
     // given a meal name, we return whether the meal on its own is
     // a vegetarian meal or not
@@ -32,22 +48,6 @@ const IngredientSelector = ({mealList}) => {
                 }
             }
         }
-        return false;
-    }
-
-    // checks selectedVegList to determine whether the given meal
-    // has vegetarian status, which helps display certain options
-    // for a vegetarian version of the meal
-    const isSelectedVeg = mealName => {
-        /*for (var i = 0; i < mealList.length; i++) {
-            if (mealName === selectedVegList[i].meal) {
-                if (selectedVegList[i].veg) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }*/
         return false;
     }
 
@@ -65,23 +65,27 @@ const IngredientSelector = ({mealList}) => {
 
     // Handles toggling of the vegetarian checkbox 
     // for each meal
-    const handleVegCheckbox = meal => {
-        console.log("handling veg checkbox");
-         if (isVegetarian(meal)) {
-             // do nothing
-         } else {
-             console.log("make it veg");
-             let newArr = [...selectedVegList];
-             for (let i = 0; i < newArr.length; i++) {
-                 if (newArr[i].meal === meal) {
-                    newArr[i] = {
-                        meal: meal,
-                        veg: !newArr[i].veg
-                    };
-                    break;
-                 }
-             }
-         }
+    const handleVegCheckbox = meal => e => {
+        console.log("handling vegetarian checkbox");
+        if (isVegetarian(meal)) {
+            console.log("it's vegetarian: do nothing")
+            // Highlight and tell the user that this meal
+            // is already vegetarian
+        } else {
+            console.log("it's not vegetarian: changed the array:");
+            let newArr = [...selectedVegList];
+            console.log(newArr);
+            for (let i = 0; i < newArr.length; i++) {
+                if (newArr[i].meal === meal) {
+                newArr[i] = {
+                    meal: meal,
+                    veg: !newArr[i].veg
+                };
+                break;
+                }
+            }
+            console.log(newArr);
+        }
     }
 
     // Given the meal data, output a well-formatted
@@ -212,28 +216,26 @@ const IngredientSelector = ({mealList}) => {
         setIngredientList(outputList);
     }
 
-    // Outputs a well-formatted list of meals
-    // and whether the user wants them vegetarian
-    const createSelectedVegList = () => {
-        let outputList = [];
-        for (var i = 0; i < mealList.length; i++) {
-            outputList.push({
-                meal: mealList[i].MEAL_NAME,
-                veg: isVegetarian(mealList[i].MEAL_NAME)
-            })
-        }
-        setSelectedVegList(outputList);
-    }
-
     // Build the table that displays all of the ingredients
     // from the ingredient list
     const displayIngredientList = (ingredientList) => {
         let ingredientDisplayList = [];
         
-        if (ingredientList !== null) {
+        if (ingredientList !== undefined) {
             for (let i = 0; i < ingredientList.length; i++) {
+
+                let mealIndex = 0;
+
+                for (let j = 0; j < mealList.length; j++) {
+                    if (ingredientList[i].name === mealList[j].MEAL_NAME) {
+                        mealIndex = j;
+                    }
+                }
+
+                console.log("the meal is vegetarian: " + selectedVegList[mealIndex].veg);
                 
-                // Create a header for the meal
+                // Create a header for the meal's respective
+                // ingredients
                 if (i === 0 || ingredientList[i].meal !== ingredientList[i - 1].meal) {
                     ingredientDisplayList.push(
                         <tr>
@@ -242,7 +244,7 @@ const IngredientSelector = ({mealList}) => {
                             </td>
                             <td>
                                 <div class="ui center aligned checkbox">
-                                    <input type="checkbox" checked={isSelectedVeg(ingredientList[i].meal)} onChange={handleVegCheckbox(ingredientList[i].meal)}></input>
+                                <input type="checkbox" checked={selectedVegList[mealIndex].veg} onChange={handleVegCheckbox(ingredientList[i].meal)}></input>
                                 <label> Vegetarian</label>
                                 </div>
                             </td>
@@ -250,23 +252,39 @@ const IngredientSelector = ({mealList}) => {
                     );
                 }
 
-                if (isSelectedVeg(ingredientList[i].meal)) {
-                    if (ingredientList[i].vegAction !== undefined) {
+                let displayCurrentIngredient = true;
 
+                // Check to see if we should display a given ingredient
+                // based on whether or not it is a vegetarian item
+                // and whether the user has decided to show the veg options
+                // or not.
+                if (selectedVegList[mealIndex].veg) {
+                    if (ingredientList[i].vegAction !== undefined) {
+                        if (ingredientList[i].vegAction === "add") {
+                            console.log(ingredientList[i].meal);
+                            displayCurrentIngredient = true;
+                        }
+                    } else {
+
+                    }
+                } else {
+                    if (ingredientList[i].vegAction !== undefined) {
+                        displayCurrentIngredient = false;
                     }
                 }
 
-                ingredientDisplayList.push(
-                    <tr>
-                    <td>
-                        <div class="ui fitted checkbox">
-                        <input type="checkbox" checked={ingredientList[i].checked}
-                            onChange={handleCheckbox(i)}></input><label></label>
-                        </div>
-                    </td>
-                    <td>{ingredientList[i].ingredient}</td>
-                    <td></td>
-                    </tr>);
+                if (displayCurrentIngredient) {
+                    ingredientDisplayList.push(
+                        <tr>
+                        <td>
+                            <div class="ui fitted checkbox">
+                                <input type="checkbox" checked={ingredientList[i].checked} onChange={handleCheckbox(i)}></input><label></label>
+                            </div>
+                        </td>
+                        <td>{ingredientList[i].ingredient}</td>
+                        <td></td>
+                        </tr>);
+                }
             }
         }
 
