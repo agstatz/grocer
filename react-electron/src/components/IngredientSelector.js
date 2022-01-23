@@ -6,7 +6,7 @@
  * @date 1/6/2022
  * @author Ashton Statz
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from  'react';
 
 const IngredientSelector = ({mealList, handleChange}) => {
     
@@ -41,6 +41,10 @@ const IngredientSelector = ({mealList, handleChange}) => {
     const isVegetarian = mealName => {
         for (var i = 0; i < mealList.length; i++) {
             if (mealName === mealList[i].MEAL_NAME) {
+                if (mealList[i].VEGETARIAN === null) {
+                    return true;
+                }
+
                 if (mealList[i].VEGETARIAN.toLowerCase() === "yes") {
                     return true;
                 } else {
