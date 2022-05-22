@@ -3,308 +3,390 @@
  * Modular display component to allow the user
  * to choose the ingredients they would need
  * 
- * @date 1/6/2022
+ * @date 5/21/2022
  * @author Ashton Statz
  */
 import React, { useEffect, useState } from  'react';
+import { Popup, Button } from 'semantic-ui-react';
 
 const IngredientSelector = ({mealList, handleChange}) => {
     
-    const [ingredientList, setIngredientList] = useState([]);       // the list of ingredients parsed out of mealList
-    const [displayList, setDisplayList] = useState([]);             // the list holding react elements to display ingredients
-    const [selectedVegList, setSelectedVegList] = useState([]);     // the list of the meals and whether the user wants them vegetarian
-
-    useEffect(() => {
-        createIngredientList();
-        handleChange(ingredientList);
-    }, [displayList]);
+    const [ingredientList, setIngredientList] = useState([]);       // the final resulting list of selected foods to be purchased
+    const [augmentedMealList, setAugmentedMealList] = useState([]);             // the list of meals and their respective ingredients
 
     useEffect(() => { 
-        // Outputs a well-formatted list of meals
-        // and whether the user wants them vegetarian
-        const createSelectedVegList = () => {
-            let outputList = [];
-            for (var i = 0; i < mealList.length; i++) {
-                outputList.push({
-                    meal: mealList[i].MEAL_NAME,
-                    veg: isVegetarian(mealList[i].MEAL_NAME)
-                });
-            }
-            console.log(outputList);
-            setSelectedVegList(outputList);
-        }
-        createSelectedVegList();
+        createAugmentedMealList();
     }, []);
 
-    // given a meal name, we return whether the meal on its own is
-    // a vegetarian meal or not
-    const isVegetarian = mealName => {
-        for (var i = 0; i < mealList.length; i++) {
-            if (mealName === mealList[i].MEAL_NAME) {
-                if (mealList[i].VEGETARIAN === null) {
-                    return true;
-                }
+    // createAugmentedMealList()
+    // constructs the augmentedMealList from mealList
+    // the objects are better formed to facilitate their
+    // display and modification on the ingredient selector
+    const createAugmentedMealList = () => {
 
-                if (mealList[i].VEGETARIAN.toLowerCase() === "yes") {
-                    return true;
-                } else {
-                    return false;
-                }
+        let outputList = [];
+        
+        for (var i = 0; i < mealList.length; i++) {
+            
+            let vegetarian = getVegetarian(i);
+            let vegIsEditable = getVegIsEditable(i);
+            let vegActionList = null;
+            if (vegIsEditable) {
+                vegActionList = getVegActionList(i);
             }
+            let ingredientList = getAugmentedIngredients(i, vegActionList);
+            
+            outputList.push({
+                key: i,
+                meal: mealList[i].MEAL_NAME,
+                ingredients: ingredientList,
+                vegetarian: vegetarian,
+                vegIsEditable: vegIsEditable,
+            })
         }
+
+        setAugmentedMealList(outputList);
+    }
+
+    // getVegActionList(index)
+    // returns a list of respective ingredients and whether
+    // they should be removed or added to make a dish vegetarian
+    const getVegActionList = (index) => {
+        if (mealList[index].VEGETARIAN.length === 0 ||
+            mealList[index].VEGETARIAN.length === undefined) {
+            return null;
+        }
+
+        let ingredients = mealList[index].VEGETARIAN;
+        let outputList = [];
+        let ingredientName = "";
+        let commaIndex = -1;
+        let start = 0;
+
+        while ((commaIndex = ingredients.indexOf(",", start)) > -1) {
+            
+            ingredientName = ingredients.substring(start, commaIndex);
+
+            outputList.push({
+                ingredient: ingredientName.replace("+", "").replace("-", "").trim(),
+                action: ingredientName.substring(0, 1) === "-" ? "remove" : "add",
+            });
+
+            start = commaIndex + 2;
+        }
+
+        ingredientName = ingredients.substring(start);
+
+        outputList.push({
+            ingredient: ingredientName.replace("+", "").replace("-", "").trim(),
+            action: ingredientName.substring(0, 1) === "-" ? "remove" : "add",
+        });
+
+        commaIndex = -1;
+        start = 0;
+
+        return outputList;
+    }
+
+    // getVegetarian(index)
+    // returns default vegetarian value for a meal based on
+    // the entry in mealList VEGETARIAN property
+    const getVegetarian = (index) => {
+        if (mealList[index].VEGETARIAN.toLowerCase() === "yes") {
+            return true;
+        }
+
         return false;
     }
 
-    // Handles toggling of the checkboxes of ingredients
-    const handleCheckbox = index => e => {
-        let newArr = [...ingredientList];
-        newArr[index] = {
-            meal: newArr[index].meal,
-            ingredient: newArr[index].ingredient,
-            checked: !newArr[index].checked,
+    // getVegIsEditable(index)
+    // returns true if the meal is not by default a vegetarian meal
+    // but can be made into a vegetarian meal
+    const getVegIsEditable = (index) => {
+        const veg = mealList[index].VEGETARIAN.toLowerCase();
+        if (veg === "yes" || veg === "no") {
+            return false;
         }
 
-        setIngredientList(newArr);
+        return true;
     }
 
-    // Handles toggling of the vegetarian checkbox 
-    // for each meal
-    const handleVegCheckbox = meal => e => {
-        console.log("handling vegetarian checkbox");
-        if (isVegetarian(meal)) {
-            console.log("it's vegetarian: do nothing")
-            // Highlight and tell the user that this meal
-            // is already vegetarian
+    // getAugmentedIngredients(index, vegActionList)
+    // returns an array of all ingredients, optional and not optional,
+    // including vegetarian addons and their respective actions to make
+    // the meal vegetarian
+    const getAugmentedIngredients = (index, vegActionList) => {
+        let ingredientArray = getIngredientsAsArray(index, false, vegActionList);
+        let optionalArray = getIngredientsAsArray(index, true, vegActionList);
+        if (vegActionList) {
+            let vegIngredientArray = getIngredientsAsArray(index, undefined, vegActionList);
+            optionalArray = combineLists(optionalArray, vegIngredientArray);
+        }
+        
+        return combineLists(ingredientArray, optionalArray);
+    }
+
+    // combineLists(list1, list2)
+    // Combines list1 and list2 into a single list and returns
+    // that list. Updates keys to be enumerated correctly
+    const combineLists = (list1, list2) => {
+        if (list1 && !list2) {
+            return list1;
+        }
+
+        if (!list1 && list2) {
+            return list2;
+        }
+
+        if (!list1 && !list2) {
+            return null;
+        }
+
+        let count = list1.length;
+        for (var i = 0; i < list2.length; i++) {
+            list2[i].key = count;
+            count++;
+        }
+
+        return list1.concat(list2);
+    }
+
+    // getIngredientsAsArray(index, isOptional, vegActionList)
+    // Given a meal's index parse the comma separated string
+    // and return an array of ingredients
+    const getIngredientsAsArray = (index, isOptional, vegActionList) => {
+        var outputList = [];
+        let ingredientString = "";
+        let ingredientName = "";
+        let commaIndex = -1;
+        let start = 0;
+        let count = 0;
+
+        if (isOptional === true ) {
+            ingredientString = mealList[index].OPTIONAL;
+        } else if (isOptional === false) {
+            ingredientString = mealList[index].INGREDIENTS;
         } else {
-            console.log("it's not vegetarian: changed the array:");
-            let newArr = [...selectedVegList];
-            console.log(newArr);
-            for (let i = 0; i < newArr.length; i++) {
-                if (newArr[i].meal === meal) {
-                newArr[i] = {
-                    meal: meal,
-                    veg: !newArr[i].veg
-                };
-                break;
+            ingredientString = mealList[index].VEGETARIAN;
+        }
+
+        if (ingredientString === null || ingredientString.length === 0) {
+            return null;
+        }
+
+        // Get all of the ingredients from the comma separated listing
+            
+        while ((commaIndex = ingredientString.indexOf(",", start)) > -1) {
+            
+            ingredientName = ingredientString.substring(start, commaIndex).trim();
+
+            if (isOptional === undefined) {
+                if (ingredientName.includes("-")) {
+                    start = commaIndex + 2;
+                    count++;
+                    continue;
+                }
+
+                ingredientName = ingredientName.replace("+", "");
+            }
+
+            let action = null;
+
+            if (vegActionList) {
+                for (var i = 0; i < vegActionList.length; i++) {
+                    if (vegActionList[i].ingredient === ingredientName) {
+                        action = vegActionList[i].action;
+                        break;
+                    }
                 }
             }
-            console.log(newArr);
+
+            outputList.push({
+                key: count,
+                ingredient: ingredientName,
+                checked: !isOptional,
+                optional: isOptional,
+                vegAction: action,
+                hidden: isOptional === undefined ? true : false,
+            });
+
+            start = commaIndex + 2;
+            count++;
         }
+
+        ingredientName = ingredientString.substring(start).trim();
+
+        if (isOptional === undefined) {
+            if (ingredientName.includes("-")) {
+                return outputList;
+            }
+
+            ingredientName = ingredientName.replace("+", "");
+        }
+
+        let action = null;
+
+        if (vegActionList) {
+            for (var i = 0; i < vegActionList.length; i++) {
+                if (vegActionList[i].ingredient === ingredientName) {
+                    action = vegActionList[i].action;
+                }
+            }
+        }
+
+        outputList.push({
+            key: count,
+            ingredient: ingredientName,
+            checked: !isOptional,
+            optional: isOptional,
+            vegAction: action,
+            hidden: isOptional === undefined ? true : false,
+        });
+
+        commaIndex = -1;
+        start = 0;
+        
+        return outputList;
     }
 
-    // Given the meal data, output a well-formatted
-    // list of ingredients and the respective meals
-    // that they belong to
-    const createIngredientList = () => {
+    // updateIngredientsList(meals)
+    // given a list of meals, returns a list of solely the ingredients
+    // necessary for populating an order/grocery list
+    const updateIngredientsList = (meals) => {
         let outputList = [];
 
-        if (!mealList) {
-            return outputList;
-        }
-
-        for (let i = 0; i < mealList.length; i++) {
-            const ingredients = mealList[i].INGREDIENTS;
-            const optional = mealList[i].OPTIONAL;
-            const vegetarian = mealList[i].VEGETARIAN;
-            const mealName = mealList[i].MEAL_NAME;
-
-            let ingredientName = "";
-            let commaIndex = -1;
-            let start = 0;
-
-            if (ingredients !== null && ingredients.length > 0) {
-                // Get all of the ingredients from the comma separated listing
-                // under the variable INGREDIENTS
-                while ((commaIndex = ingredients.indexOf(",", start)) > -1) {
-                    
-                    ingredientName = ingredients.substring(start, commaIndex);
-
-                    outputList.push({
-                        meal: mealName,
-                        ingredient: ingredientName,
-                        checked: true
-                    });
-
-                    start = commaIndex + 2;
-                }
-
-                ingredientName = ingredients.substring(start);
-
-                outputList.push({
-                    meal: mealName,
-                    ingredient: ingredientName,
-                    checked: true
-                });
-
-                commaIndex = -1;
-                start = 0;
-            }
-           
-            if (optional !== null && optional.length > 0) {
-                // Get all of the ingredients from the coma separated listing
-                // under the variable OPTIONAL
-                while ((commaIndex = optional.indexOf(",", start)) > -1) {
-                    ingredientName = optional.substring(start, commaIndex);
-
-                    outputList.push({
-                        meal: mealName,
-                        ingredient: ingredientName,
-                        checked: false
-                    });
-
-                    start = commaIndex + 2;
-                }
-
-                ingredientName = optional.substring(start);
-
-                outputList.push({
-                    meal: mealName,
-                    ingredient: ingredientName,
-                    checked: false
-                });
-
-                commaIndex = -1;
-                start = 0;
+        for (let i = 0; i < meals.length; i++) {
+            if (!meals[i].ingredients) {
+                return;
             }
 
-            if (vegetarian !== null && vegetarian.length > 0) {
-                // Get a list of added or removed ingredients that would make the meal vegetarian
-                // from the comma separated listing VEGETARIAN
-
-                if (vegetarian.toLowerCase() !== "yes" && vegetarian.toLowerCase() !== "no") {
-                    // In the case there is a yes or no in the vegetarian variable,
-                    // there are no additional items to parse. We parse here because
-                    // we determined it wasn't a yes or no instance
-                    let vegAction = ""
-
-                    while ((commaIndex = vegetarian.indexOf(",", start)) > -1) {
-                        ingredientName = vegetarian.substring(start, commaIndex);
-
-                        if (ingredientName.startsWith("+")) {
-                            vegAction = "add";
-                        } else {
-                            vegAction = "remove";
-                        }
-
-                        ingredientName = ingredientName.substring(1);
-    
-                        outputList.push({
-                            meal: mealName,
-                            ingredient: ingredientName,
-                            checked: true,
-                            vegAction: vegAction
-                        });
-    
-                        start = commaIndex + 2;
-                    }
-    
-                    ingredientName = vegetarian.substring(start);
-
-                    if (ingredientName.startsWith("+")) {
-                        vegAction = "add";
-                    } else {
-                        vegAction = "remove";
-                    }
-
-                    ingredientName = ingredientName.substring(1);
-    
+            for (let j = 0; j < meals[i].ingredients.length; j++) {
+                if (meals[i].ingredients[j].checked &&
+                    !meals[i].ingredients[j].hidden) {
                     outputList.push({
-                        meal: mealName,
-                        ingredient: ingredientName,
-                        checked: true,
-                        vegAction: vegAction
-                    });
+                        ingredient: meals[i].ingredients[j].ingredient,
+                        meal: meals[i].meal,
+                    })
                 }
             }
         }
+
         setIngredientList(outputList);
+        handleChange(outputList);
     }
 
-    // Build the table that displays all of the ingredients
-    // from the ingredient list
-    const displayIngredientList = (ingredientList) => {
-        let ingredientDisplayList = [];
+    // handleCheckbox()
+    // Handles toggling a checkbox for selecting an ingredient
+    const handleCheckbox = (e) => {
+        let indices = e.target.id.split(".")
+        let outputList = [...augmentedMealList];
+        outputList[indices[1]].ingredients[indices[0]].checked = 
+            !outputList[indices[1]].ingredients[indices[0]].checked;
         
-        if (ingredientList !== undefined) {
-            for (let i = 0; i < ingredientList.length; i++) {
+        setAugmentedMealList(outputList);
+        updateIngredientsList(outputList);
+    }
 
-                let mealIndex = 0;
+    // handleVegCheckbox()
+    // Handles toggling of the vegetarian checkbox 
+    // for each meal
+    const handleVegCheckbox = e => {
+        let indices = e.target.id.split(".");
+        let index = indices[0];
+        let vegetarian = indices[1];
+        let vegIsEditable = indices[2];
 
-                for (let j = 0; j < mealList.length; j++) {
-                    if (ingredientList[i].name === mealList[j].MEAL_NAME) {
-                        mealIndex = j;
-                    }
+        if (vegIsEditable === 'false' || vegIsEditable === undefined ||
+            vegIsEditable === null) {
+            return;
+        }
+        
+        let outputList = [...augmentedMealList];
+        console.log(outputList[index].ingredients);
+        for (let i = 0; i < outputList[index].ingredients.length; i++) {
+            if (outputList[index].ingredients[i].vegAction === null) {
+                continue;
+            }
+
+            if (vegetarian === "false") {
+                if (outputList[index].ingredients[i].vegAction === "add") {
+                    outputList[index].ingredients[i].hidden = false;
+                    outputList[index].ingredients[i].checked = true;
                 }
-
-                console.log("the meal is vegetarian: " + selectedVegList[mealIndex].veg);
-                
-                // Create a header for the meal's respective
-                // ingredients
-                if (i === 0 || ingredientList[i].meal !== ingredientList[i - 1].meal) {
-                    ingredientDisplayList.push(
-                        <tr>
-                            <td colSpan="2">
-                                {ingredientList[i].meal}
-                            </td>
-                            <td>
-                                <div class="ui center aligned checkbox">
-                                <input type="checkbox" checked={selectedVegList[mealIndex].veg} onChange={handleVegCheckbox(ingredientList[i].meal)}></input>
-                                <label> Vegetarian</label>
-                                </div>
-                            </td>
-                        </tr>
-                    );
-                }
-
-                let displayCurrentIngredient = true;
-
-                // Check to see if we should display a given ingredient
-                // based on whether or not it is a vegetarian item
-                // and whether the user has decided to show the veg options
-                // or not.
-                if (selectedVegList[mealIndex].veg) {
-                    if (ingredientList[i].vegAction !== undefined) {
-                        if (ingredientList[i].vegAction === "add") {
-                            console.log(ingredientList[i].meal);
-                            displayCurrentIngredient = true;
-                        }
-                    } else {
-
-                    }
-                } else {
-                    if (ingredientList[i].vegAction !== undefined) {
-                        displayCurrentIngredient = false;
-                    }
-                }
-
-                if (displayCurrentIngredient) {
-                    ingredientDisplayList.push(
-                        <tr>
-                        <td>
-                            <div class="ui fitted checkbox">
-                                <input type="checkbox" checked={ingredientList[i].checked} onChange={handleCheckbox(i)}></input><label></label>
-                            </div>
-                        </td>
-                        <td>{ingredientList[i].ingredient}</td>
-                        <td></td>
-                        </tr>);
+    
+                if (outputList[index].ingredients[i].vegAction === "remove") {
+                    outputList[index].ingredients[i].hidden = true;
+                    outputList[index].ingredients[i].checked = false;
                 }
             }
+
+            if (vegetarian === "true") {
+                if (outputList[index].ingredients[i].vegAction === "add") {
+                    outputList[index].ingredients[i].hidden = true;
+                    outputList[index].ingredients[i].checked = false;
+                }
+    
+                if (outputList[index].ingredients[i].vegAction === "remove") {
+                    outputList[index].ingredients[i].hidden = false;
+                    outputList[index].ingredients[i].checked = true;
+                }
+            }
+            
         }
 
-        return ingredientDisplayList;
+        outputList[index].vegetarian = vegetarian === "false" ? true : false;
+        setAugmentedMealList(outputList);
+        updateIngredientsList(outputList);
     }
     
     return (
         <div className="ingredientSelector">
-            <table class="ui padded single line table">
+            <table class="ui padded table">
                 <thead>
-                    <tr><th></th>
-                    <th>Select the ingredients you need</th>
-                    <th></th></tr>
+                    <tr><th colSpan="3">Select the ingredients you need</th></tr>
                 </thead>
                 <tbody>
-                    {displayIngredientList(ingredientList)}
+                    {
+                    augmentedMealList.map((item, index) => {
+                        return (
+                            <>
+                            <tr>
+                                <td colSpan="2">
+                                    {item.meal}
+                                </td>
+                                <td>
+                                    { !item.vegIsEditable ? <Popup content="Vegetarian status cannot be changed" trigger={<div class="ui center aligned checkbox">
+                                        <input type="checkbox" checked={item.vegetarian} id={item.key + "." + item.vegetarian + "." + item.vegIsEditable} onChange={handleVegCheckbox}></input>
+                                        <label> Vegetarian</label>
+                                    </div>}/> : <div class="ui center aligned checkbox">
+                                        <input type="checkbox" checked={item.vegetarian} id={item.key + "." + item.vegetarian + "." + item.vegIsEditable} onChange={handleVegCheckbox}></input>
+                                        <label> Vegetarian</label>
+                                    </div>}
+                                    
+                                </td>
+                            </tr> 
+                                {
+                                    item.ingredients.map((ingredient) => {
+                                        return (
+                                            <>
+                                            { !ingredient.hidden ? <tr>
+                                                <td>
+                                                    <div class="ui fitted checkbox">
+                                                        <input type="checkbox" checked={ingredient.checked} id={ingredient.key + "." + item.key} onChange={handleCheckbox}></input><label></label>
+                                                    </div>
+                                                </td>
+                                                <td>{ingredient.ingredient}</td>
+                                                <td></td>
+                                            </tr> : <></>}
+                                            
+                                            </>
+                                            
+                                        )
+                                    })
+                                }
+                            </>
+                        )
+                    })}
                 </tbody>
             </table>
             <br />

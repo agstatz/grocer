@@ -5,7 +5,7 @@
  * displayed.
  * 
  * @author Ashton Statz
- * @date 1/6/2022
+ * @date 5/19/2022
  */
 
 import './styles/App.css';
@@ -23,13 +23,15 @@ const App = () => {
     // handle updating the meals in App.js
     // when a change happens in ChooseMeals 
     const updateMeals = (selectedMealsList) => {
+        console.log(selectedMealsList);
         setMeals(selectedMealsList);
     }
 
     // handle updating the ingredients stored in App.js
     // when a change occurs in ChooseIngredients
-    const updateIngredients = (newIngredients) => {
-        setIngredients(newIngredients);
+    const updateIngredients = (selectedIngredientsList) => {
+        console.log(selectedIngredientsList)
+        setIngredients(selectedIngredientsList);
     }
 
     return (
@@ -44,7 +46,7 @@ const App = () => {
                     </Routes>
                 </Router>
             </div>
-            <p class="footnote">Grocer 2021, created by Ashton Statz</p>
+            <p class="footnote">Grocer 2022, created by Ashton Statz</p>
         </div>
     );
 };

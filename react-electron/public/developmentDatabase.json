@@ -29,7 +29,7 @@
     },
     {
         "ID": "5",
-        "INGREDIENTS": "Cherry Tomatoes, Garlic, Red Onion, Balsamic Vinegar, Olive Oil, Salt, Mozzarella",
+        "INGREDIENTS": "Chicken, Cherry Tomatoes, Garlic, Red Onion, Balsamic Vinegar, Olive Oil, Salt, Mozzarella",
         "MEAL_NAME": "Chicken Bruschetta",
         "OPTIONAL": "Basil",
         "VEGETARIAN": "-Chicken, +Bread"
@@ -95,7 +95,7 @@
         "INGREDIENTS": "Garlic, Spanish Onion, Carrots, Potato, Zucchini, Yellow Squash, Basil, Flour, Canned Diced Tomatoes, Canned Garbanzo Beans, Marinara Sauce, Chicken Broth, Parmesan Cheese",
         "MEAL_NAME": "Minestrone Soup",
         "OPTIONAL": "Lettuce, Romano Cheese",
-        "VEGETARIAN": "-Chicken Broth,  +Vegetable Broth"
+        "VEGETARIAN": "-Chicken Broth, +Vegetable Broth"
     },
     {
         "ID": "15",

@@ -2,7 +2,7 @@
  * ChooseMeals.js
  * Page where the user chooses their meals
  * 
- * @date 12/27/2021
+ * @date 5/19/2022
  * @author Ashton Statz
  */
 import React from "react";
@@ -109,6 +109,7 @@ const ChooseMeals = ({handleChange}) => {
                 <p class="no-click">Search meals, order ingredients fast and simple.</p>
             </div>
             <br />
+            <h4>Select the meals for this grocery list</h4>
             <div>
                 <SearchPanel 
                     choices={choices}
