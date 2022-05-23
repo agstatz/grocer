@@ -3,7 +3,7 @@
  * Page where the user chooses ingredients based on
  * which meals they have chosen.
  * 
- * @date 1/6/2022
+ * @date 5/22/2022
  * @author Ashton Statz
  */
 
@@ -22,7 +22,7 @@ const ChooseIngredients = ({mealList, handleChange}) => {
                 <NavButton text={"Back"} display={true} link={"/"} />
             </div>
             <div class="item">
-                <NavButton text={"Next"} display={true} link={"/decision"} />
+                <NavButton text={"Next"} display={true} link={"/additional"} />
             </div>
             </div>
         </div>
