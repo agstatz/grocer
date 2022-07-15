@@ -7,21 +7,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, to load necessary dependencies for local development, do as follows:
 
-`npx create-react-app react-electron`
-
 `cd .\react-electron\`
 
-`yarn add electron concurrently wait-on cross-env`
+`yarn install`
 
-`yarn add react-search-panel`
-
-`yarn add axios`
-
-`yarn add semantic-ui-react semantic-ui-css`
-
-`yarn add react-router-dom`
-
-To start up a development instance, run
+To start up a development instance, enter the following commands
 
 `cd react-electron`
 
