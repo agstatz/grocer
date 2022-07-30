@@ -3,7 +3,7 @@
  * Modular display component to allow the user
  * to choose the ingredients they would need
  * 
- * @date 5/21/2022
+ * @date 7/15/2022
  * @author Ashton Statz
  */
 import React, { useEffect, useState } from  'react';
@@ -11,12 +11,42 @@ import { Popup, Button } from 'semantic-ui-react';
 
 const IngredientSelector = ({mealList, handleChange}) => {
     
-    const [ingredientList, setIngredientList] = useState([]);       // the final resulting list of selected foods to be purchased
-    const [augmentedMealList, setAugmentedMealList] = useState([]);             // the list of meals and their respective ingredients
+    const [ingredientList, setIngredientList] = useState([]);           // the final resulting list of selected foods to be purchased
+    const [augmentedMealList, setAugmentedMealList] = useState([]);     // the list of meals and their respective ingredients
 
+    // initialize both ingredientList and augmentedMealList
     useEffect(() => { 
-        createAugmentedMealList();
+        updateIngredientsList(createAugmentedMealList());
     }, []);
+
+    // createIngredientList()
+    // constructs the initial ingredientList which
+    // is later passed on to other pages to indicate which
+    // ingredients have been chosen by the user
+    const createIngredientList = () => {
+        let outputList = [];
+        
+        for (var i = 0; i < mealList.length; i++) {
+            
+            let vegetarian = getVegetarian(i);
+            let vegIsEditable = getVegIsEditable(i);
+            let vegActionList = null;
+            if (vegIsEditable) {
+                vegActionList = getVegActionList(i);
+            }
+            let ingredientList = getAugmentedIngredients(i, vegActionList);
+            
+            outputList.push({
+                key: i,
+                meal: mealList[i].MEAL_NAME,
+                ingredients: ingredientList,
+                vegetarian: vegetarian,
+                vegIsEditable: vegIsEditable,
+            })
+        }
+
+        setIngredientList(outputList);
+    }
 
     // createAugmentedMealList()
     // constructs the augmentedMealList from mealList
@@ -46,6 +76,7 @@ const IngredientSelector = ({mealList, handleChange}) => {
         }
 
         setAugmentedMealList(outputList);
+        return outputList;
     }
 
     // getVegActionList(index)
@@ -250,8 +281,9 @@ const IngredientSelector = ({mealList, handleChange}) => {
     }
 
     // updateIngredientsList(meals)
-    // given a list of meals, returns a list of solely the ingredients
-    // necessary for populating an order/grocery list
+    // given a list of meals, outputs a list of solely the ingredients
+    // necessary for populating an order/grocery list into the variable
+    // ingredientList
     const updateIngredientsList = (meals) => {
         let outputList = [];
 
@@ -272,6 +304,7 @@ const IngredientSelector = ({mealList, handleChange}) => {
         }
 
         setIngredientList(outputList);
+        console.log(outputList);
         handleChange(outputList);
     }
 
@@ -341,7 +374,7 @@ const IngredientSelector = ({mealList, handleChange}) => {
     
     return (
         <div className="ingredientSelector">
-            <table class="ui padded table">
+            <table className="ui padded small table">
                 <thead>
                     <tr><th colSpan="3">Select the ingredients you need</th></tr>
                 </thead>

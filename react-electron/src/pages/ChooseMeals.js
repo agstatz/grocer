@@ -106,7 +106,7 @@ const ChooseMeals = ({handleChange}) => {
         <div>
             <div>
                 <h1>grocer</h1>
-                <p class="no-click">Search meals, order ingredients fast and simple.</p>
+                <p className="no-click">Search meals, order ingredients fast and simple.</p>
             </div>
             <br />
             <h4>Select the meals for this grocery list</h4>
