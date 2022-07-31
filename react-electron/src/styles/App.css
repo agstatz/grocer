@@ -83,6 +83,7 @@ body {
 
 .print-out {
     color: black;
+    font-size: 75%;
     background-color: white;
     border-radius: 2%;
     box-shadow: inset 0 0 2px #666666;
