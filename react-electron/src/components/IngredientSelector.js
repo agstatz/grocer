@@ -124,6 +124,10 @@ const IngredientSelector = ({ mealList, handleChange }) => {
     // returns default vegetarian value for a meal based on
     // the entry in mealList VEGETARIAN property
     const getVegetarian = (index) => {
+        if (mealList[index].VEGETARIAN === null) {
+            return false;
+        }
+
         if (mealList[index].VEGETARIAN.toLowerCase() === 'yes') {
             return true;
         }
@@ -135,6 +139,10 @@ const IngredientSelector = ({ mealList, handleChange }) => {
     // returns true if the meal is not by default a vegetarian meal
     // but can be made into a vegetarian meal
     const getVegIsEditable = (index) => {
+        if (mealList[index].VEGETARIAN === null) {
+            return false;
+        }
+
         const veg = mealList[index].VEGETARIAN.toLowerCase();
         if (veg === 'yes' || veg === 'no') {
             return false;

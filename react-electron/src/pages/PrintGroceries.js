@@ -30,9 +30,9 @@ const PrintGroceries = ({ ingredients }) => {
             <h1>grocer</h1>
             <p>Printable Grocery List</p>
             <div style={{ paddingTop: '10px', paddingBottom: '20px' }}>
-                <div ref={ref} class='print-out'>
-                    <div class='ui one column stackable center aligned page grid'>
-                        <div class='column twelve wide'>
+                <div ref={ref} className='print-out'>
+                    <div className='ui one column stackable center aligned page grid'>
+                        <div className='column twelve wide'>
                             <h2
                                 style={{
                                     textAlign: 'center',
@@ -48,15 +48,15 @@ const PrintGroceries = ({ ingredients }) => {
                     </div>
                 </div>
             </div>
-            <div class='ui horizontal list'>
-                <div class='item'>
+            <div className='ui horizontal list'>
+                <div className='item'>
                     <Pdf targetRef={ref} filename='groceries.pdf'>
                         {({ toPdf }) => (
                             <Button onClick={toPdf}>Download PDF</Button>
                         )}
                     </Pdf>
                 </div>
-                <div class='item'>
+                <div className='item'>
                     <NavButton text={'Return Home'} link={'/'} display={true} />
                 </div>
             </div>

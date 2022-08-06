@@ -108,6 +108,45 @@ const PrintableList = ({ ingredients }) => {
                 continue;
             }
 
+            // Last minute check for some key words
+
+            if (list[k].ingredient.toLowerCase().indexOf('cheese') >= 0) {
+                labeledList.push({
+                    ingredient: list[k].ingredient,
+                    category: 'Dairy',
+                });
+                continue;
+            }
+
+            if (list[k].ingredient.toLowerCase().indexOf('bread') >= 0) {
+                labeledList.push({
+                    ingredient: list[k].ingredient,
+                    category: 'Bakery',
+                });
+                continue;
+            }
+
+            if (list[k].ingredient.toLowerCase().indexOf('frozen') >= 0) {
+                labeledList.push({
+                    ingredient: list[k].ingredient,
+                    category: 'Frozen',
+                });
+                continue;
+            }
+
+            if (
+                list[k].ingredient.toLowerCase().indexOf('canned') >= 0 ||
+                list[k].ingredient.toLowerCase().indexOf('soup') >= 0 ||
+                list[k].ingredient.toLowerCase().indexOf('can ') >= 0 ||
+                list[k].ingredient.toLowerCase().indexOf(' can ') >= 0
+            ) {
+                labeledList.push({
+                    ingredient: list[k].ingredient,
+                    category: 'Canned',
+                });
+                continue;
+            }
+
             labeledList.push({
                 ingredient: list[k].ingredient,
                 category: 'Other',

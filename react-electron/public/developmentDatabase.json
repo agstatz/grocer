@@ -25,7 +25,7 @@
         "INGREDIENTS": "Grilled Chicken, Lettuce, Tomato, Onion, Avocado, Garlic, Salsa, Lime, Rice, Beans",
         "MEAL_NAME": "Burrito Bowl/Taco Night",
         "OPTIONAL": "Cilantro",
-        "VEGETARIAN": "-Chicken"
+        "VEGETARIAN": "-Grilled Chicken"
     },
     {
         "ID": "5",
@@ -43,7 +43,7 @@
     },
     {
         "ID": "7",
-        "INGREDIENTS": "Chicken, Egg, Breadcrumbs, Flour, Mozzerella Cheese, Olive Oil, Red Sauce, Garlic",
+        "INGREDIENTS": "Chicken, Egg, Breadcrumbs, Flour, Mozzarella Cheese, Olive Oil, Red Sauce, Garlic",
         "MEAL_NAME": "Chicken Parmesan",
         "OPTIONAL": "",
         "VEGETARIAN": "-Chicken, +Eggplant"
@@ -64,8 +64,8 @@
     },
     {
         "ID": "10",
-        "INGREDIENTS": "1 lb Fettucini, Butter, Garlic, Heavy Cream, Salt, Parmesan Cheese, Pepper",
-        "MEAL_NAME": "Fettucini Alfredo",
+        "INGREDIENTS": "Fettuccine, Butter, Garlic, Heavy Cream, Salt, Parmesan Cheese, Pepper",
+        "MEAL_NAME": "Fettuccine Alfredo",
         "OPTIONAL": "Italian Parsley, Chicken",
         "VEGETARIAN": "-Chicken"
     },
@@ -143,7 +143,7 @@
         "ID": "21",
         "INGREDIENTS": "Spaghetti",
         "MEAL_NAME": "Spaghetti",
-        "OPTIONAL": "Red sauce, Breadsticks",
+        "OPTIONAL": "Red Sauce, Breadsticks",
         "VEGETARIAN": "Yes"
     },
     {
@@ -169,7 +169,7 @@
     },
     {
         "ID": "25",
-        "INGREDIENTS": "Penne, Heavy Cream, Parmesan Cheese, Parsley, Vodka, 28 oz Crushed Tomatoes",
+        "INGREDIENTS": "Penne, Heavy Cream, Parmesan Cheese, Parsley, Vodka, 28 oz Can Crushed Tomatoes",
         "MEAL_NAME": "Vodka Sauce Pasta",
         "OPTIONAL": "",
         "VEGETARIAN": "Yes"
