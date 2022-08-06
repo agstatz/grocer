@@ -29,7 +29,7 @@ const PrintGroceries = ({ ingredients }) => {
         <div>
             <h1>grocer</h1>
             <p>Printable Grocery List</p>
-            <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+            <div style={{ paddingTop: '10px', paddingBottom: '20px' }}>
                 <div ref={ref} class='print-out'>
                     <div class='ui one column stackable center aligned page grid'>
                         <div class='column twelve wide'>

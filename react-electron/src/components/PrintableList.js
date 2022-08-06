@@ -41,14 +41,34 @@ const PrintableList = ({ ingredients }) => {
         return outputList;
     };
 
-    // categorize(list, categories)
-    // returns a list categorized by the categories passed
-    // in the second parameter.
-    const categorize = (list, categories) => {
-        // 1. label all of the items in the grocery
-        // list with their respective categories
+    // removeDuplicates(list)
+    // removes duplicates from a list of items
+    // from a list of groceries
+    const removeDuplicates = (list) => {
+        let set = new Set();
+        for (var i = 0; i < list.length; i++) {
+            set.add(list[i].ingredient);
+        }
 
-        let labeledList = [];
+        let outputList = [];
+
+        for (var i = 0; i < set.size; i++) {
+            const currentValue = [...set][i];
+            outputList.push({
+                ingredient: currentValue,
+            });
+        }
+
+        return outputList;
+    };
+
+    // createLabeledList(list, categories)
+    // creates a list where each item is an
+    // object that holds the item's name as well
+    // as its respective category. Helper function for
+    // categorize()
+    const createLabeledList = (list, categories) => {
+        var labeledList = [];
 
         // Loop through all categories
         for (var i = 0; i < categories.length; i++) {
@@ -73,12 +93,45 @@ const PrintableList = ({ ingredients }) => {
                             ingredient: currentListItem,
                             category: currentCategoryName,
                         });
+                        list[k].found = true;
                     }
                 }
             }
         }
 
-        // 2. Use labeled list to make category buckets with
+        for (var k = 0; k < list.length; k++) {
+            console.log(
+                k + '. ' + list[k].ingredient + ' found:' + list[k].found
+            );
+
+            if (list[k].found === true) {
+                continue;
+            }
+
+            labeledList.push({
+                ingredient: list[k].ingredient,
+                category: 'Other',
+            });
+        }
+
+        return labeledList;
+    };
+
+    // categorize(list, categories)
+    // returns a list of grocery items in categorized
+    // buckets based on department/section from
+    // ingredientCategories.json
+    const categorize = (list, categories) => {
+        // 1. Remove duplicates in list
+
+        list = removeDuplicates(list);
+
+        // 2. label all of the items in the grocery
+        // list with their respective categories
+
+        let labeledList = createLabeledList(list, categories);
+
+        // 3. Use labeled list to make category buckets with
         // each list of items within that bucket
 
         // initialize categorized list with the categories
@@ -88,7 +141,6 @@ const PrintableList = ({ ingredients }) => {
         // Sort items into their category buckets
         for (var i = 0; i < labeledList.length; i++) {
             for (var j = 0; j < categorizedList.length; j++) {
-                console.log(labeledList[i].category);
                 if (labeledList[i].category === categorizedList[j].category) {
                     categorizedList[j].items.push(labeledList[i]);
                 }
