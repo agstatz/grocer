@@ -1,6 +1,8 @@
 {
-  "name": "react-electron",
-  "version": "0.1.0",
+  "name": "grocer",
+  "version": "1.0.0",
+  "author": "Ashton Statz",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@electron/remote": "^2.0.1",
@@ -52,5 +54,18 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "electron-builder": "^23.3.3"
+  },
+  "build": {
+    "appId": "com.agstatz.grocer",
+    "productName": "grocer",
+    "directory": {
+        "output": "build"
+    }
+  },
+  "nsis": {
+    "allowtoChangeInstallationDirectory": true,
+    "oneClick": false
+  }
 }
