@@ -1,5 +1,6 @@
 {
   "name": "grocer",
+  "description": "grocer desktop application",
   "version": "1.0.0",
   "author": "Ashton Statz",
   "license": "MIT",
@@ -59,10 +60,7 @@
   },
   "build": {
     "appId": "com.agstatz.grocer",
-    "productName": "grocer",
-    "directory": {
-        "output": "build"
-    }
+    "productName": "grocer"
   },
   "nsis": {
     "allowtoChangeInstallationDirectory": true,
