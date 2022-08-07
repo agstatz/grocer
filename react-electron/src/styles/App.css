@@ -1,5 +1,10 @@
 .App {
-  text-align: center;
+    width: 100%;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-left: 30px;
+
+    text-align: center;
 }
 
 body {
@@ -21,16 +26,23 @@ h1 {
     h1 { color: #FFFFFF; }
 
     .basic-container {
-        border-style: solid;
-        border-color: #26292b;
-        border-width: 1px;
-        background-color: #31373c;
+        /* for centering/sizing the container */
+        text-align: center;
         align-items: center;
         justify-content: center;
         font-size: calc(8px + 2vmin);
         padding: calc(20px + 5vmin);
-        margin: calc(20px + 7.5vmin);
+        margin-left: auto;
+        margin-right:auto;
         border-radius: 10px;
+        max-width: 1000px;
+
+        /* colors/design related items */
+        border-style: solid;
+        border-color: #26292b;
+        border-width: 1px;
+        background-color: #31373c;
+        
     }
 }
 
@@ -40,16 +52,22 @@ h1 {
     h1 { color: black; }
 
     .basic-container {
-        border-style: solid;
-        border-color: #707376;
-        border-width: 1px;
-        background-color: #bcc3c9;
+        /* for centering/sizing the container */
+        text-align: center;
         align-items: center;
         justify-content: center;
         font-size: calc(8px + 2vmin);
         padding: calc(20px + 5vmin);
-        margin: calc(20px + 7.5vmin);
+        margin-left: auto;
+        margin-right:auto;
         border-radius: 10px;
+        max-width: 1000px;
+
+        /* colors/design related items */
+        border-style: solid;
+        border-color: #707376;
+        border-width: 1px;
+        background-color: #bcc3c9;
     }
 }
 
@@ -74,7 +92,7 @@ body {
 
 .footnote {
     font-size: 12px;
-    padding-bottom: 20px;
+    padding-top: 30px;
 }
 
 .ingredient-adder {

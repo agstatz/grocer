@@ -15,6 +15,8 @@ function createWindow() {
     const win = new BrowserWindow({
         width: 1020,
         height: 720,
+        minWidth: 600,
+        minHeight: 400,
         icon: __dirname + '/grocer_icon.ico',
         webPreferences: {
             enableRemoteModule: true,
