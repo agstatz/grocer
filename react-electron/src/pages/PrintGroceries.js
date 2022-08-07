@@ -16,7 +16,7 @@ import Pdf from 'react-to-pdf';
 // in react component form
 function CurrentDate() {
     const d = new Date();
-    let month = d.getMonth();
+    let month = d.getMonth() + 1;
     let day = d.getDate();
     let year = d.getFullYear();
     return <span>{month + '/' + day + '/' + year}</span>;
