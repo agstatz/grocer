@@ -11,6 +11,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
+    "caniuse-lite": "^1.0.30001374",
     "concurrently": "^6.5.1",
     "cross-env": "^7.0.3",
     "electron": "^16.0.5",
