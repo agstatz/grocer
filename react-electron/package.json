@@ -75,7 +75,10 @@
     "productName": "grocer",
     "win": {
        "icon": "build/grocer_icon.png"
-     }
+    },
+    "mac": {
+        "icon": "build/grocer_icon.icns"
+    }
   },
   "nsis": {
     "allowtoChangeInstallationDirectory": true,

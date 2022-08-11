@@ -17,6 +17,13 @@ To start up a development instance, enter the following commands
 
 `yarn electron:serve`
 
+To package a distributable application, enter the following commands.
+This obviously may take a while to run.
+
+`cd react-electron`
+
+`yarn electron:build`
+
 ## Additional Notes
 
 This project uses Google Sheets API as a backend since the project is relatively small in scope.
