@@ -1,7 +1,7 @@
 {
   "name": "grocer",
   "description": "grocer desktop application",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "Ashton Statz",
   "license": "MIT",
   "private": true,
@@ -74,7 +74,7 @@
     },
     "productName": "grocer",
     "win": {
-       "icon": "../../public/grocer_icon.ico"
+       "icon": "build/grocer_icon.png"
      }
   },
   "nsis": {
