@@ -2,7 +2,7 @@
  * NewIngredient.js
  * Widget that handles adding a new ingredient
  *
- * @date 7/15/2022
+ * @date 8/10/2022
  * @author Ashton Statz
  */
 
@@ -43,7 +43,7 @@ const NewIngredient = ({ ingredients, handleChange }) => {
     return (
         <>
             {mode === 'empty' ? (
-                <Button onClick={changeMode}>Add More Ingredients</Button>
+                <Button onClick={changeMode}>Add More Items</Button>
             ) : mode === 'full' ? (
                 <li>
                     {ingredient}
@@ -53,7 +53,7 @@ const NewIngredient = ({ ingredients, handleChange }) => {
                 <Input
                     size='mini'
                     id='newIngredientInput'
-                    placeholder='Add an Ingredient'
+                    placeholder='Add an Item'
                     action={{ icon: 'plus', onClick: updateIngredient }}
                 ></Input>
             )}

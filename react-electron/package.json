@@ -14,7 +14,7 @@
     "caniuse-lite": "^1.0.30001374",
     "concurrently": "^6.5.1",
     "cross-env": "^7.0.3",
-    "electron": "^16.0.5",
+    "electron-is-dev": "^2.0.0",
     "googleapis": "^92.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -35,7 +35,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron:serve": "concurrently -k \"cross-env BROWSER=none yarn start\" \"yarn electron:start\"",
-    "electron:build": "",
+    "electron:build": "yarn build && electron-builder -c.extraMetadata.main=build/main.js",
     "electron:start": "wait-on tcp:3000 && electron ."
   },
   "eslintConfig": {
@@ -57,11 +57,25 @@
     ]
   },
   "devDependencies": {
-    "electron-builder": "^23.3.3"
+    "electron-builder": "^23.3.3",
+    "electron": "^16.0.5"
   },
   "build": {
+    "extends": null,
     "appId": "com.agstatz.grocer",
-    "productName": "grocer"
+    "files": [
+        "dist/**/*",
+        "build/**/*",
+        "node_modules/**/*",
+        "package.json"
+    ],
+    "directories": {
+        "buildResources": "assets"
+    },
+    "productName": "grocer",
+    "win": {
+       "icon": "../../public/grocer_icon.ico"
+     }
   },
   "nsis": {
     "allowtoChangeInstallationDirectory": true,

@@ -3,11 +3,14 @@
  * Sets up everything necessary on the electron end
  * of the application
  *
- * @date 1/6/2022
+ * @date 8/10/2022
  * @author Ashton Statz
  */
 
 const { BrowserWindow, app } = require('electron');
+
+const isDev = require('electron-is-dev');
+const path = require('path');
 
 require('@electron/remote/main').initialize();
 
@@ -23,7 +26,11 @@ function createWindow() {
         },
     });
 
-    win.loadURL('http://localhost:3000');
+    win.loadURL(
+        isDev
+            ? 'http://localhost:3000'
+            : `file://${path.join(__dirname, '../build/index.html')}`
+    );
 }
 
 app.on('ready', createWindow);

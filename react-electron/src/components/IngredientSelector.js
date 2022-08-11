@@ -3,14 +3,13 @@
  * Modular display component to allow the user
  * to choose the ingredients they would need
  *
- * @date 7/31/2022
+ * @date 8/10/2022
  * @author Ashton Statz
  */
 import React, { useEffect, useState } from 'react';
-import { Popup, Button } from 'semantic-ui-react';
+import { Popup } from 'semantic-ui-react';
 
 const IngredientSelector = ({ mealList, handleChange }) => {
-    const [ingredientList, setIngredientList] = useState([]); // the final resulting list of selected foods to be purchased
     const [augmentedMealList, setAugmentedMealList] = useState([]); // the list of meals and their respective ingredients
 
     // initialize both ingredientList and augmentedMealList
@@ -22,7 +21,9 @@ const IngredientSelector = ({ mealList, handleChange }) => {
     // constructs the initial ingredientList which
     // is later passed on to other pages to indicate which
     // ingredients have been chosen by the user
-    const createIngredientList = () => {
+
+    // DEPRECATED ??
+    /*const createIngredientList = () => {
         let outputList = [];
 
         for (var i = 0; i < mealList.length; i++) {
@@ -42,9 +43,7 @@ const IngredientSelector = ({ mealList, handleChange }) => {
                 vegIsEditable: vegIsEditable,
             });
         }
-
-        setIngredientList(outputList);
-    };
+    };*/
 
     // createAugmentedMealList()
     // constructs the augmentedMealList from mealList
@@ -322,8 +321,6 @@ const IngredientSelector = ({ mealList, handleChange }) => {
                 }
             }
         }
-
-        setIngredientList(outputList);
 
         handleChange(outputList);
     };

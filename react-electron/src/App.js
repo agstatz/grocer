@@ -79,7 +79,9 @@ const App = () => {
                     </Routes>
                 </Router>
             </div>
-            <p className='footnote'>Grocer 2022, created by Ashton Statz</p>
+            <p className='footnote'>
+                Grocer v0.1, created by Ashton Statz, 2021/2022
+            </p>
         </div>
     );
 };
