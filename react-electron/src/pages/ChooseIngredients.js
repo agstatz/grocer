@@ -21,7 +21,7 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
             />
             <div className='ui horizontal list'>
                 <div className='item'>
-                    <NavButton text={'Back'} display={true} link={'/'} />
+                    <NavButton text={'Back'} display={true} link={'/meals'} />
                 </div>
                 <div className='item'>
                     <NavButton

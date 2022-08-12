@@ -5,7 +5,7 @@
  * displayed.
  *
  * @author Ashton Statz
- * @date 7/31/2022
+ * @date 8/11/2022
  */
 
 import './styles/App.css';
@@ -18,6 +18,7 @@ import {
     NoPageFound,
     AdditionalIngredients,
     PrintGroceries,
+    LandingPage,
 } from './pages/';
 import { useState } from 'react';
 
@@ -42,9 +43,10 @@ const App = () => {
             <div className='basic-container'>
                 <Router>
                     <Routes>
+                        <Route exact path='/' element={<LandingPage />} />
                         <Route
                             exact
-                            path='/'
+                            path='/meals'
                             element={<ChooseMeals handleChange={updateMeals} />}
                         />
                         <Route
@@ -80,7 +82,7 @@ const App = () => {
                 </Router>
             </div>
             <p className='footnote'>
-                Grocer v0.1, created by Ashton Statz, 2021/2022
+                Grocer v0.1.0, created by Ashton Statz, 2021/22
             </p>
         </div>
     );

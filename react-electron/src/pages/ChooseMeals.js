@@ -2,12 +2,13 @@
  * ChooseMeals.js
  * Page where the user chooses their meals
  *
- * @date 8/7/2022
+ * @date 8/11/2022
  * @author Ashton Statz
  */
 import React from 'react';
 import { SearchPanel, SearchPanelVariant } from 'react-search-panel';
 import { useEffect, useState } from 'react';
+import { Checkbox } from 'semantic-ui-react';
 import axios from 'axios';
 import NavButton from '../components/NavButton.js';
 
@@ -21,10 +22,10 @@ const sheetsAPIurl =
     'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
 
 const ChooseMeals = ({ handleChange }) => {
-    const [choices, setChoices] = React.useState('');
-    const [input, setInput] = React.useState('');
-    const [mealData, setMealData] = React.useState('');
-    const [displayButton, setDisplayButton] = React.useState(false);
+    const [choices, setChoices] = useState('');
+    const [input, setInput] = useState('');
+    const [mealData, setMealData] = useState('');
+    const [displayButton, setDisplayButton] = useState(false);
     const [selectedChoices, setSelectedChoices] = useState(choices);
 
     useEffect(() => {
@@ -72,9 +73,9 @@ const ChooseMeals = ({ handleChange }) => {
         search();
     }, [input]);
 
-    // When there are selected meals, give the user the option to move on
-    // else, we do not let the user move to the next page.
     useEffect(() => {
+        // When there are selected meals, give the user the option to move on
+        // else, we do not let the user move to the next page.
         if (selectedChoices.length > 0) {
             const mealArray = getMealDetails();
             handleChange(mealArray);
@@ -114,7 +115,7 @@ const ChooseMeals = ({ handleChange }) => {
                 </p>
             </div>
             <br />
-            <h4>Select the meals for this grocery list</h4>
+            <h3>Select the meals for this grocery list</h3>
             <div>
                 <SearchPanel
                     choices={choices}
@@ -132,6 +133,7 @@ const ChooseMeals = ({ handleChange }) => {
             </div>
             <br />
             <div>
+                <NavButton text={'Back'} display={true} link={'/'} />
                 <NavButton
                     display={displayButton}
                     text={'Next'}

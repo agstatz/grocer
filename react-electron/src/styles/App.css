@@ -3,7 +3,6 @@
     padding-top: 50px;
     padding-right: 30px;
     padding-left: 30px;
-
     text-align: center;
 }
 
@@ -20,6 +19,8 @@ h1 {
 }
 
 /* Light and Dark Mode */
+
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
     body { background: #1d2022; color: white; }
 
@@ -30,7 +31,7 @@ h1 {
         text-align: center;
         align-items: center;
         justify-content: center;
-        font-size: calc(8px + 2vmin);
+        font-size: calc(5px + 2vmin);
         padding: calc(20px + 5vmin);
         margin-left: auto;
         margin-right:auto;
@@ -42,10 +43,18 @@ h1 {
         border-color: #26292b;
         border-width: 1px;
         background-color: #31373c;
-        
+    }
+
+    .inner-container {
+        background-color: #353b41;
+        border-radius: 10px;
+        padding-top: calc(5px + 5vmin);
+        padding-bottom: calc(20px + 5vmin);
+        margin-bottom: calc(20px + 3vmin);
     }
 }
 
+/* Light Mode */
 @media (prefers-color-scheme: light) {
     body { background: #ddd; color: black; }
 
@@ -56,7 +65,7 @@ h1 {
         text-align: center;
         align-items: center;
         justify-content: center;
-        font-size: calc(8px + 2vmin);
+        font-size: calc(5px + 2vmin);
         padding: calc(20px + 5vmin);
         margin-left: auto;
         margin-right:auto;
@@ -106,5 +115,8 @@ body {
     box-shadow: inset 0 0 2px #666666;
 }
 
-
+.questionnaire {
+    text-align: left;
+    margin-left: calc(25px + 2vmin);
+}
 
