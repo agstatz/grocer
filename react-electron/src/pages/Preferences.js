@@ -77,7 +77,7 @@ const Preferences = () => {
             <br />
             <div className='inner-container'>
                 <p className='no-click questionnaire'>
-                    Would you like to use the default recipe book, or your own
+                    Would you like to use the default recipe book or your own
                     custom recipes?
                 </p>
                 <div className='ui horizontal list'>
