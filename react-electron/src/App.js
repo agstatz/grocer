@@ -14,7 +14,6 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import {
     ChooseMeals,
     ChooseIngredients,
-    Decision,
     NoPageFound,
     AdditionalIngredients,
     PrintGroceries,
@@ -45,6 +44,12 @@ const App = () => {
 
     return (
         <div className='App'>
+            <div className='app-title'>grocer</div>
+            <br />
+            <p className='no-click'>
+                Search meals, order ingredients fast and simple.
+            </p>
+            <br />
             <div className='basic-container'>
                 <Router>
                     <Routes>
@@ -79,7 +84,6 @@ const App = () => {
                                 />
                             }
                         />
-                        <Route exact path='/decision' element={<Decision />} />
                         <Route
                             exact
                             path='/printGrocery'
@@ -94,6 +98,7 @@ const App = () => {
             <p className='footnote'>
                 Grocer v0.1.0, created by Ashton Statz, 2021/22
             </p>
+            <br />
         </div>
     );
 };

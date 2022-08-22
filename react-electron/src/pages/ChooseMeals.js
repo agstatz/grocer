@@ -130,14 +130,10 @@ const ChooseMeals = ({ handleChange, getMeals }) => {
 
     return (
         <div>
-            <div>
-                <h1>grocer</h1>
-                <p className='no-click'>
-                    Search meals, order ingredients fast and simple.
-                </p>
-            </div>
-            <br />
-            <h3>Select the meals for this grocery list</h3>
+            <h1>Choose Meals</h1>
+            <p className='align-left'>
+                Search the recipe book for meals you would like to shop for.
+            </p>
             <div>
                 <SearchPanel
                     choices={choices}

@@ -52,6 +52,16 @@ h1 {
         padding-bottom: calc(20px + 5vmin);
         margin-bottom: calc(20px + 3vmin);
     }
+
+    .breadcrumb {
+        color: white;
+        text-align: left !important;
+        align-items: left !important;
+    }
+
+    .chevron {
+        color: white !important;
+    }
 }
 
 /* Light Mode */
@@ -83,6 +93,16 @@ h1 {
         padding-bottom: calc(20px + 5vmin);
         margin-bottom: calc(20px + 3vmin);
     }
+
+    .breadcrumb {
+        color: black;
+        text-align: left !important;
+        align-items: left !important;
+    }
+
+    .chevron {
+        color: black !important;
+    }
 }
 
 /* font handling for the entire project
@@ -97,11 +117,18 @@ h1 {
 
 h1 {
     font-family: Readex Pro, Calibri, sans-serif;
-    font-size: calc(25px + 2vmin);
+    font-size: calc(28px + 2vmin);
+    text-align: left !important;
 }
 
 body {
     font-family: Readex Pro, Calibri, sans-serif;
+}
+
+.app-title {
+    font-family: Readex Pro, Calibri, sans-serif;
+    font-size: calc(32px + 2vmin); 
+    font-weight: bold;
 }
 
 .footnote {
@@ -111,6 +138,10 @@ body {
 
 .ingredient-adder {
     color: black;
+}
+
+.align-left {
+    text-align: left !important;
 }
 
 .print-out {
@@ -124,5 +155,10 @@ body {
     text-align: left;
     margin-left: calc(25px + 2vmin);
     margin-right: calc(25px + 2vmin);
+}
+
+.table-subtitle {
+    font-size: calc(10px + 3vmin);
+    font-weight: bold;
 }
 

@@ -10,6 +10,8 @@
 import React from 'react';
 import { useState, useReducer } from 'react';
 import { NavButton, NewIngredient } from '../components';
+import { Link } from 'react-router-dom';
+import { Breadcrumb } from 'semantic-ui-react';
 
 const AdditionalIngredients = ({ ingredients, handleChange }) => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -24,7 +26,28 @@ const AdditionalIngredients = ({ ingredients, handleChange }) => {
 
     return (
         <div>
-            <h1>grocer</h1>
+            <h1>Add Other Items</h1>
+            <div className='breadcrumb'>
+                <Breadcrumb size='large'>
+                    <Breadcrumb.Section link>
+                        <Link to={'/meals'}>Choose Meals</Link>
+                    </Breadcrumb.Section>
+                    <Breadcrumb.Divider
+                        icon='right chevron'
+                        className='chevron'
+                    />
+                    <Breadcrumb.Section link>
+                        <Link to={'/ingredients'}>Choose Ingredients</Link>
+                    </Breadcrumb.Section>
+                    <Breadcrumb.Divider
+                        icon='right chevron'
+                        className='chevron'
+                    />
+                    <Breadcrumb.Section active>
+                        Add Other Items
+                    </Breadcrumb.Section>
+                </Breadcrumb>
+            </div>
             <table className='ui padded small table'>
                 <thead>
                     <tr>
@@ -55,9 +78,16 @@ const AdditionalIngredients = ({ ingredients, handleChange }) => {
                 </div>
                 <div className='item'>
                     <NavButton
-                        text={'Next'}
+                        text={'Print Grocery List'}
                         display={true}
-                        link={'/decision'}
+                        link={'/printGrocery'}
+                    />
+                </div>
+                <div className='item'>
+                    <NavButton
+                        text={'Order Groceries'}
+                        display={true}
+                        link={'/orderGrocery'}
                     />
                 </div>
             </div>

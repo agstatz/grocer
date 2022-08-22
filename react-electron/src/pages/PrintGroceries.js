@@ -9,6 +9,8 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { NavButton, PrintableList } from '../components/';
+import { Link } from 'react-router-dom';
+import { Breadcrumb } from 'semantic-ui-react';
 import Pdf from 'react-to-pdf';
 
 // CurrentDate()
@@ -27,8 +29,42 @@ const PrintGroceries = ({ ingredients }) => {
 
     return (
         <div>
-            <h1>grocer</h1>
-            <p>Printable Grocery List</p>
+            <h1>Print</h1>
+            <div className='breadcrumb'>
+                <Breadcrumb size='large'>
+                    <Breadcrumb.Section link>
+                        <Link to={'/meals'}>Choose Meals</Link>
+                    </Breadcrumb.Section>
+                    <Breadcrumb.Divider
+                        icon='right chevron'
+                        className='chevron'
+                    />
+                    <Breadcrumb.Section link>
+                        <Link to={'/ingredients'}>Choose Ingredients</Link>
+                    </Breadcrumb.Section>
+                    <Breadcrumb.Divider
+                        icon='right chevron'
+                        className='chevron'
+                    />
+                    <Breadcrumb.Section link>
+                        <Link to={'/additional'}>Add Other Items</Link>
+                    </Breadcrumb.Section>
+                    <Breadcrumb.Divider
+                        icon='right chevron'
+                        className='chevron'
+                    />
+                    <Breadcrumb.Section active>Print</Breadcrumb.Section>
+                </Breadcrumb>
+            </div>
+            <br />
+            <div className='item'>
+                <Pdf targetRef={ref} filename='groceries.pdf'>
+                    {({ toPdf }) => (
+                        <Button onClick={toPdf}>Download PDF</Button>
+                    )}
+                </Pdf>
+            </div>
+            <br />
             <div style={{ paddingTop: '10px', paddingBottom: '20px' }}>
                 <div ref={ref} className='print-out'>
                     <div className='ui one column stackable center aligned page grid'>
@@ -50,11 +86,11 @@ const PrintGroceries = ({ ingredients }) => {
             </div>
             <div className='ui horizontal list'>
                 <div className='item'>
-                    <Pdf targetRef={ref} filename='groceries.pdf'>
-                        {({ toPdf }) => (
-                            <Button onClick={toPdf}>Download PDF</Button>
-                        )}
-                    </Pdf>
+                    <NavButton
+                        text={'Back'}
+                        link={'/additional'}
+                        display={true}
+                    />
                 </div>
                 <div className='item'>
                     <NavButton

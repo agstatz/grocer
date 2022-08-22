@@ -7,12 +7,17 @@
  * @author Ashton Statz
  */
 import React, { useEffect, useState } from 'react';
-import { Popup } from 'semantic-ui-react';
+import { Popup, Breadcrumb } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { NavButton } from '../components';
 
 const ChooseIngredients = ({ mealList, handleChange }) => {
     const [augmentedMealList, setAugmentedMealList] = useState([]); // the list of meals and their respective ingredients
     const [noneChecked, setNoneChecked] = useState(false);
+    const breadcrumbSections = [
+        { key: 'meals', content: 'Choose Meals', link: true },
+        { key: 'ingredients', content: 'Choose Ingredients', active: true },
+    ];
 
     // initialize both ingredientList and augmentedMealList
     useEffect(() => {
@@ -394,15 +399,28 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
 
     return (
         <div>
-            <h1>grocer</h1>
-            <p className='no-click'>Choose Ingredients</p>
+            <h1 className='no-click'>Choose Ingredients</h1>
+            <div className='breadcrumb'>
+                <Breadcrumb size='large'>
+                    <Breadcrumb.Section link>
+                        <Link to={'/meals'}>Choose Meals</Link>
+                    </Breadcrumb.Section>
+                    <Breadcrumb.Divider
+                        icon='right chevron'
+                        className='chevron'
+                    />
+                    <Breadcrumb.Section active>
+                        Choose Ingredients
+                    </Breadcrumb.Section>
+                </Breadcrumb>
+            </div>
+            <br />
+            <p className='align-left'>
+                Choose the ingredients you need to purchase in order to be
+                prepared to make each meal.
+            </p>
             <div className='ingredientSelector'>
                 <table className='ui padded small table'>
-                    <thead>
-                        <tr>
-                            <th colSpan='3'>Select the ingredients you need</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         {augmentedMealList.map((item, index) => {
                             return (
@@ -416,7 +434,11 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
                                             item.vegIsEditable
                                         }
                                     >
-                                        <td colSpan='2'>{item.meal}</td>
+                                        <td colSpan='2'>
+                                            <span className='table-subtitle'>
+                                                {item.meal}
+                                            </span>
+                                        </td>
                                         <td>
                                             {!item.vegIsEditable ? (
                                                 <Popup

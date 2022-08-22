@@ -73,10 +73,7 @@ const Preferences = () => {
 
     return (
         <div>
-            <div>
-                <h1>grocer</h1>
-                <p className='no-click'>Preferences</p>
-            </div>
+            <h1>Preferences</h1>
             <br />
             <div className='inner-container'>
                 <p className='no-click questionnaire'>
