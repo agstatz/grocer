@@ -5,7 +5,7 @@
  * displayed.
  *
  * @author Ashton Statz
- * @date 8/11/2022
+ * @date 8/22/2022
  */
 
 import './styles/App.css';
@@ -26,10 +26,15 @@ const App = () => {
     const [meals, setMeals] = useState([]); // Stores selected meals
     const [ingredients, setIngredients] = useState([]); // Stores selected ingredients
 
-    // handle updating the meals in App.js
-    // when a change happens in ChooseMeals
+    // sets meals when a change happens
+    // to meals in another component
     const updateMeals = (selectedMealsList) => {
         setMeals(selectedMealsList);
+    };
+
+    // returns list of currently stored meals
+    const getMeals = () => {
+        return meals;
     };
 
     // handle updating the ingredients stored in App.js
@@ -47,7 +52,12 @@ const App = () => {
                         <Route
                             exact
                             path='/meals'
-                            element={<ChooseMeals handleChange={updateMeals} />}
+                            element={
+                                <ChooseMeals
+                                    handleChange={updateMeals}
+                                    getMeals={getMeals}
+                                />
+                            }
                         />
                         <Route
                             exact

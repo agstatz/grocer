@@ -2,13 +2,12 @@
  * ChooseMeals.js
  * Page where the user chooses their meals
  *
- * @date 8/11/2022
+ * @date 8/22/2022
  * @author Ashton Statz
  */
 import React from 'react';
 import { SearchPanel, SearchPanelVariant } from 'react-search-panel';
 import { useEffect, useState } from 'react';
-import { Checkbox } from 'semantic-ui-react';
 import axios from 'axios';
 import NavButton from '../components/NavButton.js';
 
@@ -21,7 +20,7 @@ const DEV_MODE = true;
 const sheetsAPIurl =
     'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
 
-const ChooseMeals = ({ handleChange }) => {
+const ChooseMeals = ({ handleChange, getMeals }) => {
     const [choices, setChoices] = useState('');
     const [input, setInput] = useState('');
     const [mealData, setMealData] = useState('');
@@ -29,6 +28,23 @@ const ChooseMeals = ({ handleChange }) => {
     const [selectedChoices, setSelectedChoices] = useState(choices);
 
     useEffect(() => {
+        // check if we already have some selected meals
+        // from previous selection
+
+        if (getMeals().length > 0) {
+            let currentMeals = getMeals();
+            let newSelectedChoices = [];
+
+            for (let i = 0; i < currentMeals.length; i++) {
+                newSelectedChoices.push({
+                    key: currentMeals[i].KEY,
+                    description: currentMeals[i].MEAL_NAME,
+                });
+            }
+
+            setSelectedChoices(newSelectedChoices);
+        }
+
         // There are limited calls to the google sheets API, so in the case that
         // we are in development mode, just use a local testing file.
         if (DEV_MODE) {
@@ -46,8 +62,8 @@ const ChooseMeals = ({ handleChange }) => {
         }
     }, []);
 
+    // Searches list of meals for similar meal names
     useEffect(() => {
-        // Searches list of meals for similar meal names
         const getSearchResults = () => {
             let matchList = [];
             var i = 0;
@@ -73,11 +89,11 @@ const ChooseMeals = ({ handleChange }) => {
         search();
     }, [input]);
 
+    // When there are selected meals, give the user the option to move on
+    // else, we do not let the user move to the next page.
     useEffect(() => {
-        // When there are selected meals, give the user the option to move on
-        // else, we do not let the user move to the next page.
         if (selectedChoices.length > 0) {
-            const mealArray = getMealDetails();
+            const mealArray = getMealDetails(selectedChoices);
             handleChange(mealArray);
             setDisplayButton(true);
         } else {
@@ -87,13 +103,14 @@ const ChooseMeals = ({ handleChange }) => {
 
     // Gets a list of details including ingredients about a selected
     // meal. Used when figuring out whether there are selected meals or not
-    const getMealDetails = () => {
+    const getMealDetails = (selectedChoices) => {
         let mealDetailsArray = [];
 
         for (let i = 0; i < selectedChoices.length; i++) {
             for (let j = 0; j < mealData.length; j++) {
                 if (selectedChoices[i].description === mealData[j].MEAL_NAME) {
                     mealDetailsArray.push({
+                        KEY: selectedChoices[i].key,
                         MEAL_NAME: mealData[j].MEAL_NAME,
                         INGREDIENTS: mealData[j].INGREDIENTS,
                         OPTIONAL: mealData[j].OPTIONAL,
@@ -104,6 +121,11 @@ const ChooseMeals = ({ handleChange }) => {
         }
 
         return mealDetailsArray;
+    };
+
+    const finalSubmit = () => {
+        const mealArray = getMealDetails(selectedChoices);
+        handleChange(mealArray);
     };
 
     return (
@@ -125,20 +147,25 @@ const ChooseMeals = ({ handleChange }) => {
                     onSelectionChange={setSelectedChoices}
                     placeholder='Search'
                     variant={SearchPanelVariant.checkbox}
-                    shadow
-                    selectedChoices={selectedChoices}
+                    shadow={true}
+                    preSelectedChoices={selectedChoices}
                     value={input}
                     width={'calc(300 + 10vmin)'}
                 />
             </div>
             <br />
-            <div>
-                <NavButton text={'Back'} display={true} link={'/'} />
-                <NavButton
-                    display={displayButton}
-                    text={'Next'}
-                    link='/ingredients'
-                />
+            <div className='ui horizontal list'>
+                <div className='item'>
+                    <NavButton text={'Back'} display={true} link={'/'} />
+                </div>
+                <div className='item'>
+                    <NavButton
+                        text={'Next'}
+                        display={displayButton}
+                        onClick={finalSubmit}
+                        link={'/ingredients'}
+                    />
+                </div>
             </div>
         </div>
     );

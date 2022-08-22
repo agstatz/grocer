@@ -70,6 +70,8 @@ const IngredientSelector = ({ mealList, handleChange }) => {
             });
         }
 
+        console.log(outputList);
+        console.log(mealList);
         setAugmentedMealList(outputList);
         return outputList;
     };

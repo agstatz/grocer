@@ -18,7 +18,11 @@ const Decision = ({ ingredientList }) => {
             <p className='no-click'>OK: What will it be?</p>
             <div className='ui horizontal list'>
                 <div className='item'>
-                    <NavButton text={'Back Home'} display={true} link={'/'} />
+                    <NavButton
+                        text={'Back Home'}
+                        display={true}
+                        link={'/meals'}
+                    />
                 </div>
                 <div className='item'>
                     <NavButton
