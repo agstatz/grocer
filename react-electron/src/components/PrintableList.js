@@ -100,10 +100,6 @@ const PrintableList = ({ ingredients }) => {
         }
 
         for (var k = 0; k < list.length; k++) {
-            console.log(
-                k + '. ' + list[k].ingredient + ' found:' + list[k].found
-            );
-
             if (list[k].found === true) {
                 continue;
             }

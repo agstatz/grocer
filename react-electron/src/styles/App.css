@@ -73,10 +73,15 @@ h1 {
         max-width: 1000px;
 
         /* colors/design related items */
-        border-style: solid;
-        border-color: #707376;
-        border-width: 1px;
-        background-color: #bcc3c9;
+        background-color: #c4c9cd;
+    }
+
+    .inner-container {
+        background-color: #bbc0c5;
+        border-radius: 10px;
+        padding-top: calc(5px + 5vmin);
+        padding-bottom: calc(20px + 5vmin);
+        margin-bottom: calc(20px + 3vmin);
     }
 }
 
@@ -118,5 +123,6 @@ body {
 .questionnaire {
     text-align: left;
     margin-left: calc(25px + 2vmin);
+    margin-right: calc(25px + 2vmin);
 }
 
