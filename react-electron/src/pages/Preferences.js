@@ -1,10 +1,10 @@
 /**
- * LandingPage.js
+ * Preferences.js
  * First page a user visits. User can choose to use
  * developer database or their own database by inputting their own
  * URL
  *
- * @date 8/11/2022
+ * @date 8/22/2022
  * @author Ashton Statz
  */
 import React from 'react';
@@ -18,7 +18,7 @@ import NavButton from '../components/NavButton.js';
 const sheetsAPIurl =
     'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
 
-const LandingPage = () => {
+const Preferences = () => {
     const [displayNext, setDisplayNext] = useState(0);
     const [usingDev, setUsingDev] = useState('undefined');
     const [vegetarian, setVegetarian] = useState('undefined');
@@ -75,15 +75,13 @@ const LandingPage = () => {
         <div>
             <div>
                 <h1>grocer</h1>
-                <p className='no-click'>
-                    Before we get started, let's select some preferences.
-                </p>
+                <p className='no-click'>Preferences</p>
             </div>
             <br />
             <div className='inner-container'>
                 <p className='no-click questionnaire'>
-                    1. Would you like to use the default recipe book, or your
-                    own custom recipes?
+                    Would you like to use the default recipe book, or your own
+                    custom recipes?
                 </p>
                 <div className='ui horizontal list'>
                     <div className='item'>
@@ -130,9 +128,7 @@ const LandingPage = () => {
                 )}
             </div>
             <div className='inner-container'>
-                <p className='no-click questionnaire'>
-                    2. Are you a vegetarian?
-                </p>
+                <p className='no-click questionnaire'>Are you a vegetarian?</p>
                 <div className='ui horizontal list'>
                     <div className='item'>
                         <Button
@@ -170,4 +166,4 @@ const LandingPage = () => {
     );
 };
 
-export default LandingPage;
+export default Preferences;

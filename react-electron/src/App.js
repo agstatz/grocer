@@ -18,7 +18,7 @@ import {
     NoPageFound,
     AdditionalIngredients,
     PrintGroceries,
-    LandingPage,
+    Preferences,
 } from './pages/';
 import { useState } from 'react';
 
@@ -48,7 +48,7 @@ const App = () => {
             <div className='basic-container'>
                 <Router>
                     <Routes>
-                        <Route exact path='/' element={<LandingPage />} />
+                        <Route exact path='/' element={<Preferences />} />
                         <Route
                             exact
                             path='/meals'

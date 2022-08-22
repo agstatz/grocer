@@ -57,7 +57,11 @@ const PrintGroceries = ({ ingredients }) => {
                     </Pdf>
                 </div>
                 <div className='item'>
-                    <NavButton text={'Return Home'} link={'/'} display={true} />
+                    <NavButton
+                        text={'Return Home'}
+                        link={'/meals'}
+                        display={true}
+                    />
                 </div>
             </div>
         </div>
