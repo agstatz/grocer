@@ -26,7 +26,7 @@ const AdditionalIngredients = ({ ingredients, handleChange }) => {
 
     return (
         <div>
-            <h1>Add Other Items</h1>
+            <h1>Review List</h1>
             <div className='breadcrumb'>
                 <Breadcrumb size='large'>
                     <Breadcrumb.Section link>
@@ -43,9 +43,7 @@ const AdditionalIngredients = ({ ingredients, handleChange }) => {
                         icon='right chevron'
                         className='chevron'
                     />
-                    <Breadcrumb.Section active>
-                        Add Other Items
-                    </Breadcrumb.Section>
+                    <Breadcrumb.Section active>Review List</Breadcrumb.Section>
                 </Breadcrumb>
             </div>
             <table className='ui padded small table'>

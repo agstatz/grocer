@@ -187,28 +187,39 @@ const PrintableList = ({ ingredients }) => {
     };
 
     return (
-        <Grid>
-            {categorizedList !== [] ? (
-                categorizedList.map((category) => {
-                    return (
-                        <>
-                            {category.items.length !== 0 ? (
-                                <Grid.Column width={8}>
-                                    <h2>{category.category}</h2>
-                                    {category.items.map((item) => {
-                                        return <li>{item.ingredient}</li>;
-                                    })}
-                                </Grid.Column>
-                            ) : (
-                                <></>
-                            )}
-                        </>
-                    );
-                })
-            ) : (
-                <></>
-            )}
-        </Grid>
+        <>
+            <Grid>
+                {categorizedList !== [] ? (
+                    categorizedList.map((category) => {
+                        return (
+                            <>
+                                {category.items.length !== 0 ? (
+                                    <Grid.Column width={8}>
+                                        <h2>{category.category}</h2>
+                                        {category.items.map((item) => {
+                                            return <li>{item.ingredient}</li>;
+                                        })}
+                                    </Grid.Column>
+                                ) : (
+                                    <></>
+                                )}
+                            </>
+                        );
+                    })
+                ) : (
+                    <></>
+                )}
+            </Grid>
+            <br />
+            <p
+                style={{
+                    textAlign: 'center',
+                    paddingBottom: '15px',
+                }}
+            >
+                Created using grocer
+            </p>
+        </>
     );
 };
 

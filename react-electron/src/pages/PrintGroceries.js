@@ -47,7 +47,7 @@ const PrintGroceries = ({ ingredients }) => {
                         className='chevron'
                     />
                     <Breadcrumb.Section link>
-                        <Link to={'/additional'}>Add Other Items</Link>
+                        <Link to={'/additional'}>Review List</Link>
                     </Breadcrumb.Section>
                     <Breadcrumb.Divider
                         icon='right chevron'

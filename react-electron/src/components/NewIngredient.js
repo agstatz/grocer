@@ -7,10 +7,12 @@
  */
 
 import { React, useState } from 'react';
-import { Button, Input } from 'semantic-ui-react';
+import { Button, Input, Message } from 'semantic-ui-react';
 
 const NewIngredient = ({ ingredients, handleChange }) => {
     const [mode, setMode] = useState('empty');
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('Error');
     const [ingredient, setIngredient] = useState('');
 
     const changeMode = (value) => {
@@ -25,12 +27,24 @@ const NewIngredient = ({ ingredients, handleChange }) => {
             currentIngredients.push({ ingredient: value, meal: null });
             handleChange(currentIngredients);
             changeMode('empty');
+        } else {
+            setError(true);
         }
     };
 
     const validateIngredient = (newIngredient) => {
         if (newIngredient.length <= 1) {
+            setErrorMessage('new item must have at least one character.');
             return false;
+        }
+
+        for (let i = 0; i < ingredients.length; i++) {
+            if (ingredients[i].ingredient === newIngredient) {
+                setErrorMessage(
+                    newIngredient + ' is already included in the list.'
+                );
+                return false;
+            }
         }
 
         return true;
@@ -38,6 +52,10 @@ const NewIngredient = ({ ingredients, handleChange }) => {
 
     const setEditMode = () => {
         changeMode('edit');
+    };
+
+    const endErrorMessage = () => {
+        setError(false);
     };
 
     return (
@@ -54,13 +72,19 @@ const NewIngredient = ({ ingredients, handleChange }) => {
                     size='mini'
                     id='newIngredientInput'
                     placeholder='Add an Item'
+                    onChange={endErrorMessage}
                     action={{ icon: 'plus', onClick: updateIngredient }}
                 ></Input>
             )}
-
-            <div>
-                <br></br>
-            </div>
+            <br />
+            {error ? (
+                <Message negative color='red' size='small' compact floating>
+                    <Message.Header>Error: {errorMessage}</Message.Header>
+                </Message>
+            ) : (
+                <></>
+            )}
+            <br />
         </>
     );
 };
