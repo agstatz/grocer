@@ -19,6 +19,7 @@ import {
     PrintGroceries,
     Preferences,
 } from './pages/';
+import { PreferenceButton } from './components/';
 import { useState } from 'react';
 
 const App = () => {
@@ -50,55 +51,57 @@ const App = () => {
                 Search meals, order ingredients fast and simple.
             </p>
             <br />
-            <div className='basic-container'>
-                <Router>
-                    <Routes>
-                        <Route exact path='/' element={<Preferences />} />
-                        <Route
-                            exact
-                            path='/meals'
-                            element={
-                                <ChooseMeals
-                                    handleChange={updateMeals}
-                                    getMeals={getMeals}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path='/ingredients'
-                            element={
-                                <ChooseIngredients
-                                    mealList={meals}
-                                    handleChange={updateIngredients}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path='/additional'
-                            element={
-                                <AdditionalIngredients
-                                    ingredients={ingredients}
-                                    handleChange={updateIngredients}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path='/printGrocery'
-                            element={
-                                <PrintGroceries ingredients={ingredients} />
-                            }
-                        />
-                        <Route path='*' element={<NoPageFound />} />
-                    </Routes>
-                </Router>
-            </div>
-            <p className='footnote'>
-                Grocer v0.1.0, created by Ashton Statz, 2021/22
-            </p>
-            <br />
+            <Router>
+                <Routes>
+                    <Route
+                        exact
+                        path='/'
+                        element={
+                            <ChooseMeals
+                                handleChange={updateMeals}
+                                getMeals={getMeals}
+                            />
+                        }
+                    />
+                    <Route
+                        exact
+                        path='/preferences'
+                        element={<Preferences />}
+                    />
+                    <Route
+                        exact
+                        path='/ingredients'
+                        element={
+                            <ChooseIngredients
+                                mealList={meals}
+                                handleChange={updateIngredients}
+                            />
+                        }
+                    />
+                    <Route
+                        exact
+                        path='/additional'
+                        element={
+                            <AdditionalIngredients
+                                ingredients={ingredients}
+                                handleChange={updateIngredients}
+                            />
+                        }
+                    />
+                    <Route
+                        exact
+                        path='/printGrocery'
+                        element={<PrintGroceries ingredients={ingredients} />}
+                    />
+                    <Route path='*' element={<NoPageFound />} />
+                </Routes>
+                <br />
+                <PreferenceButton />
+                <p className='footnote'>
+                    Grocer v0.1.0, created by Ashton Statz, 2021/22
+                </p>
+                <br />
+            </Router>
         </div>
     );
 };

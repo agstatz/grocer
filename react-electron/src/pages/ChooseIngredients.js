@@ -3,7 +3,7 @@
  * Modular display component to allow the user
  * to choose the ingredients they would need
  *
- * @date 8/22/2022
+ * @date 8/23/2022
  * @author Ashton Statz
  */
 import React, { useEffect, useState } from 'react';
@@ -398,159 +398,164 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
     };
 
     return (
-        <div>
-            <h1 className='no-click'>Choose Ingredients</h1>
-            <div className='breadcrumb'>
-                <Breadcrumb size='large'>
-                    <Breadcrumb.Section link>
-                        <Link to={'/meals'}>Choose Meals</Link>
-                    </Breadcrumb.Section>
-                    <Breadcrumb.Divider
-                        icon='right chevron'
-                        className='chevron'
-                    />
-                    <Breadcrumb.Section active>
-                        Choose Ingredients
-                    </Breadcrumb.Section>
-                </Breadcrumb>
-            </div>
-            <br />
-            <p className='align-left'>
-                Choose the ingredients you need to purchase in order to be
-                prepared to make each meal.
-            </p>
-            <div className='ingredientSelector'>
-                <table className='ui padded small table'>
-                    <tbody>
-                        {augmentedMealList.map((item, index) => {
-                            return (
-                                <>
-                                    <tr
-                                        key={
-                                            item.key +
-                                            '.' +
-                                            item.vegetarian +
-                                            '.' +
-                                            item.vegIsEditable
-                                        }
-                                    >
-                                        <td colSpan='2'>
-                                            <span className='table-subtitle'>
-                                                {item.meal}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            {!item.vegIsEditable ? (
-                                                <Popup
-                                                    content='Vegetarian status cannot be changed'
-                                                    trigger={
-                                                        <div className='ui center aligned checkbox'>
-                                                            <input
-                                                                type='checkbox'
-                                                                checked={
-                                                                    item.vegetarian
-                                                                }
-                                                                id={
-                                                                    item.key +
-                                                                    '.' +
-                                                                    item.vegetarian +
-                                                                    '.' +
-                                                                    item.vegIsEditable
-                                                                }
-                                                                onChange={
-                                                                    handleVegCheckbox
-                                                                }
-                                                            ></input>
-                                                            <label>
-                                                                {' '}
-                                                                Vegetarian
-                                                            </label>
-                                                        </div>
-                                                    }
-                                                />
-                                            ) : (
-                                                <div className='ui center aligned checkbox'>
-                                                    <input
-                                                        type='checkbox'
-                                                        checked={
-                                                            item.vegetarian
-                                                        }
-                                                        id={
-                                                            item.key +
-                                                            '.' +
-                                                            item.vegetarian +
-                                                            '.' +
-                                                            item.vegIsEditable
-                                                        }
-                                                        onChange={
-                                                            handleVegCheckbox
-                                                        }
-                                                    ></input>
-                                                    <label> Vegetarian</label>
-                                                </div>
-                                            )}
-                                        </td>
-                                    </tr>
-                                    {item.ingredients.map((ingredient) => {
-                                        return (
-                                            <>
-                                                {!ingredient.hidden ? (
-                                                    <tr
-                                                        key={
-                                                            ingredient.key +
-                                                            '.' +
-                                                            item.key
-                                                        }
-                                                    >
-                                                        <td>
-                                                            <div className='ui fitted checkbox'>
+        <div className='basic-container'>
+            <div>
+                <h1 className='no-click'>Choose Ingredients</h1>
+                <div className='breadcrumb'>
+                    <Breadcrumb size='large'>
+                        <Breadcrumb.Section link>
+                            <Link to={'/'}>Choose Meals</Link>
+                        </Breadcrumb.Section>
+                        <Breadcrumb.Divider
+                            icon='right chevron'
+                            className='chevron'
+                        />
+                        <Breadcrumb.Section active>
+                            Choose Ingredients
+                        </Breadcrumb.Section>
+                    </Breadcrumb>
+                </div>
+                <br />
+                <p className='align-left'>
+                    Choose the ingredients you need to purchase in order to be
+                    prepared to make each meal.
+                </p>
+                <div className='ingredientSelector'>
+                    <table className='ui padded small table'>
+                        <tbody>
+                            {augmentedMealList.map((item, index) => {
+                                return (
+                                    <>
+                                        <tr
+                                            key={
+                                                item.key +
+                                                '.' +
+                                                item.vegetarian +
+                                                '.' +
+                                                item.vegIsEditable
+                                            }
+                                        >
+                                            <td colSpan='2'>
+                                                <span className='table-subtitle'>
+                                                    {item.meal}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {!item.vegIsEditable ? (
+                                                    <Popup
+                                                        content='Vegetarian status cannot be changed'
+                                                        trigger={
+                                                            <div className='ui center aligned checkbox'>
                                                                 <input
                                                                     type='checkbox'
                                                                     checked={
-                                                                        ingredient.checked
+                                                                        item.vegetarian
                                                                     }
                                                                     id={
-                                                                        ingredient.key +
+                                                                        item.key +
                                                                         '.' +
-                                                                        item.key
+                                                                        item.vegetarian +
+                                                                        '.' +
+                                                                        item.vegIsEditable
                                                                     }
                                                                     onChange={
-                                                                        handleCheckbox
+                                                                        handleVegCheckbox
                                                                     }
                                                                 ></input>
-                                                                <label></label>
+                                                                <label>
+                                                                    {' '}
+                                                                    Vegetarian
+                                                                </label>
                                                             </div>
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                ingredient.ingredient
-                                                            }
-                                                        </td>
-                                                        <td></td>
-                                                    </tr>
+                                                        }
+                                                    />
                                                 ) : (
-                                                    <></>
+                                                    <div className='ui center aligned checkbox'>
+                                                        <input
+                                                            type='checkbox'
+                                                            checked={
+                                                                item.vegetarian
+                                                            }
+                                                            id={
+                                                                item.key +
+                                                                '.' +
+                                                                item.vegetarian +
+                                                                '.' +
+                                                                item.vegIsEditable
+                                                            }
+                                                            onChange={
+                                                                handleVegCheckbox
+                                                            }
+                                                        ></input>
+                                                        <label>
+                                                            {' '}
+                                                            Vegetarian
+                                                        </label>
+                                                    </div>
                                                 )}
-                                            </>
-                                        );
-                                    })}
-                                </>
-                            );
-                        })}
-                    </tbody>
-                </table>
-                <br />
-            </div>
-            <div className='ui horizontal list'>
-                <div className='item'>
-                    <NavButton text={'Back'} display={true} link={'/meals'} />
+                                            </td>
+                                        </tr>
+                                        {item.ingredients.map((ingredient) => {
+                                            return (
+                                                <>
+                                                    {!ingredient.hidden ? (
+                                                        <tr
+                                                            key={
+                                                                ingredient.key +
+                                                                '.' +
+                                                                item.key
+                                                            }
+                                                        >
+                                                            <td>
+                                                                <div className='ui fitted checkbox'>
+                                                                    <input
+                                                                        type='checkbox'
+                                                                        checked={
+                                                                            ingredient.checked
+                                                                        }
+                                                                        id={
+                                                                            ingredient.key +
+                                                                            '.' +
+                                                                            item.key
+                                                                        }
+                                                                        onChange={
+                                                                            handleCheckbox
+                                                                        }
+                                                                    ></input>
+                                                                    <label></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    ingredient.ingredient
+                                                                }
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                    ) : (
+                                                        <></>
+                                                    )}
+                                                </>
+                                            );
+                                        })}
+                                    </>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                    <br />
                 </div>
-                <div className='item'>
-                    <NavButton
-                        text={'Next'}
-                        display={!noneChecked}
-                        link={'/additional'}
-                    />
+                <div className='ui horizontal list'>
+                    <div className='item'>
+                        <NavButton text={'Back'} display={true} link={'/'} />
+                    </div>
+                    <div className='item'>
+                        <NavButton
+                            text={'Next'}
+                            display={!noneChecked}
+                            link={'/additional'}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

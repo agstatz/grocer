@@ -4,7 +4,7 @@
  * developer database or their own database by inputting their own
  * URL
  *
- * @date 8/22/2022
+ * @date 8/23/2022
  * @author Ashton Statz
  */
 import React from 'react';
@@ -153,11 +153,7 @@ const Preferences = () => {
             </div>
             <br />
             <div>
-                <NavButton
-                    display={displayNext === 2}
-                    text={'Next'}
-                    link='/meals'
-                />
+                <NavButton display={displayNext === 2} text={'Next'} link='/' />
             </div>
         </div>
     );

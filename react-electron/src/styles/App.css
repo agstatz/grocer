@@ -62,6 +62,20 @@ h1 {
     .chevron {
         color: white !important;
     }
+
+    a:link, a:visited {
+        color: white;
+    }
+
+    a:hover, a:active {
+        color: #cacbcd;
+    }
+
+    .preference-button {
+        margin-top: calc(20px + 1vmin);
+        color: white !important;
+        font-size: calc(6px + 1vmin);
+    }
 }
 
 /* Light Mode */
@@ -102,6 +116,20 @@ h1 {
 
     .chevron {
         color: black !important;
+    }
+
+    a:link, a:visited {
+        color: black;
+    }
+
+    a:hover, a:active {
+        color: rgb(66, 66, 66);
+    }
+
+    .preference-button {
+        margin-top: calc(20px + 1vmin);
+        color: black !important;
+        font-size: calc(5px + 2vmin);
     }
 }
 

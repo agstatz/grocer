@@ -8,8 +8,8 @@
 import React from 'react';
 import { SearchPanel, SearchPanelVariant } from 'react-search-panel';
 import { useEffect, useState } from 'react';
+import { NavButton } from '../components/';
 import axios from 'axios';
-import NavButton from '../components/NavButton.js';
 
 // Set DEV_MODE to true to use a local database
 const DEV_MODE = true;
@@ -129,31 +129,28 @@ const ChooseMeals = ({ handleChange, getMeals }) => {
     };
 
     return (
-        <div>
-            <h1>Choose Meals</h1>
-            <p className='align-left'>
-                Search the recipe book for meals you would like to shop for.
-            </p>
+        <div className='basic-container'>
             <div>
-                <SearchPanel
-                    choices={choices}
-                    chips
-                    maximumHeight={250}
-                    onChange={(event) => setInput(event.target.value)}
-                    onSelectionChange={setSelectedChoices}
-                    placeholder='Search'
-                    variant={SearchPanelVariant.checkbox}
-                    shadow={true}
-                    preSelectedChoices={selectedChoices}
-                    value={input}
-                    width={'calc(300 + 10vmin)'}
-                />
-            </div>
-            <br />
-            <div className='ui horizontal list'>
-                <div className='item'>
-                    <NavButton text={'Back'} display={true} link={'/'} />
+                <h1>Choose Meals</h1>
+                <p className='align-left'>
+                    Search the recipe book for meals you would like to shop for.
+                </p>
+                <div>
+                    <SearchPanel
+                        choices={choices}
+                        chips
+                        maximumHeight={250}
+                        onChange={(event) => setInput(event.target.value)}
+                        onSelectionChange={setSelectedChoices}
+                        placeholder='Search'
+                        variant={SearchPanelVariant.checkbox}
+                        shadow={true}
+                        preSelectedChoices={selectedChoices}
+                        value={input}
+                        width={'calc(300 + 10vmin)'}
+                    />
                 </div>
+                <br />
                 <div className='item'>
                     <NavButton
                         text={'Next'}
