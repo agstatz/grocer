@@ -15,7 +15,7 @@ import {
     ChooseMeals,
     ChooseIngredients,
     NoPageFound,
-    AdditionalIngredients,
+    ReviewList,
     PrintGroceries,
     Preferences,
 } from './pages/';
@@ -80,9 +80,9 @@ const App = () => {
                     />
                     <Route
                         exact
-                        path='/additional'
+                        path='/review'
                         element={
-                            <AdditionalIngredients
+                            <ReviewList
                                 ingredients={ingredients}
                                 handleChange={updateIngredients}
                             />

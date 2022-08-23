@@ -48,7 +48,7 @@ const PrintGroceries = ({ ingredients }) => {
                             className='chevron'
                         />
                         <Breadcrumb.Section link>
-                            <Link to={'/additional'}>Review List</Link>
+                            <Link to={'/review'}>Review List</Link>
                         </Breadcrumb.Section>
                         <Breadcrumb.Divider
                             icon='right chevron'
@@ -94,7 +94,7 @@ const PrintGroceries = ({ ingredients }) => {
                     <div className='item'>
                         <NavButton
                             text={'Back'}
-                            link={'/additional'}
+                            link={'/review'}
                             display={true}
                         />
                     </div>

@@ -72,88 +72,96 @@ const Preferences = () => {
     };
 
     return (
-        <div>
-            <h1>Preferences</h1>
-            <br />
-            <div className='inner-container'>
-                <p className='no-click questionnaire'>
-                    Would you like to use the default recipe book or your own
-                    custom recipes?
-                </p>
-                <div className='ui horizontal list'>
-                    <div className='item'>
-                        <Button
-                            toggle
-                            active={usingDev === 'true'}
-                            size='big'
-                            style={{ height: '125px', width: '125px' }}
-                            onClick={toggleUsingDev}
-                        >
-                            Use Default List
-                        </Button>
-                    </div>
-                    <div className='item'>
-                        <Button
-                            toggle
-                            active={usingDev === 'false'}
-                            size='big'
-                            style={{ height: '125px', width: '125px' }}
-                            onClick={toggleUsingDev}
-                        >
-                            Use Custom List
-                        </Button>
-                    </div>
-                </div>
-                {usingDev === 'false' ? (
-                    <>
-                        <br />
-                        <br />
-                        <p className='no-click questionnaire'>
-                            Enter a database URL. Must be a valid sheets.best
-                            API endpoint.
-                        </p>
-                        <Input
-                            label='http://'
-                            placeholder='mysite.com'
-                            size='small'
-                            style={{ width: '80%' }}
-                        />
-                        <Button>Submit</Button>
-                    </>
-                ) : (
-                    <></>
-                )}
-            </div>
-            <div className='inner-container'>
-                <p className='no-click questionnaire'>Are you a vegetarian?</p>
-                <div className='ui horizontal list'>
-                    <div className='item'>
-                        <Button
-                            toggle
-                            active={vegetarian === 'true'}
-                            size='big'
-                            style={{ height: '125px', width: '125px' }}
-                            onClick={toggleVegetarian}
-                        >
-                            Yes
-                        </Button>
-                    </div>
-                    <div className='item'>
-                        <Button
-                            toggle
-                            active={vegetarian === 'false'}
-                            size='big'
-                            style={{ height: '125px', width: '125px' }}
-                            onClick={toggleVegetarian}
-                        >
-                            No
-                        </Button>
-                    </div>
-                </div>
-            </div>
-            <br />
+        <div className='basic-container'>
             <div>
-                <NavButton display={displayNext === 2} text={'Next'} link='/' />
+                <h1>Preferences</h1>
+                <br />
+                <div className='inner-container'>
+                    <p className='no-click questionnaire'>
+                        Would you like to use the default recipe book or your
+                        own custom recipes?
+                    </p>
+                    <div className='ui horizontal list'>
+                        <div className='item'>
+                            <Button
+                                toggle
+                                active={usingDev === 'true'}
+                                size='big'
+                                style={{ height: '125px', width: '125px' }}
+                                onClick={toggleUsingDev}
+                            >
+                                Use Default List
+                            </Button>
+                        </div>
+                        <div className='item'>
+                            <Button
+                                toggle
+                                active={usingDev === 'false'}
+                                size='big'
+                                style={{ height: '125px', width: '125px' }}
+                                onClick={toggleUsingDev}
+                            >
+                                Use Custom List
+                            </Button>
+                        </div>
+                    </div>
+                    {usingDev === 'false' ? (
+                        <>
+                            <br />
+                            <br />
+                            <p className='no-click questionnaire'>
+                                Enter a database URL. Must be a valid
+                                sheets.best API endpoint.
+                            </p>
+                            <Input
+                                label='http://'
+                                placeholder='mysite.com'
+                                size='small'
+                                style={{ width: '80%' }}
+                            />
+                            <Button>Submit</Button>
+                        </>
+                    ) : (
+                        <></>
+                    )}
+                </div>
+                <div className='inner-container'>
+                    <p className='no-click questionnaire'>
+                        Are you a vegetarian?
+                    </p>
+                    <div className='ui horizontal list'>
+                        <div className='item'>
+                            <Button
+                                toggle
+                                active={vegetarian === 'true'}
+                                size='big'
+                                style={{ height: '125px', width: '125px' }}
+                                onClick={toggleVegetarian}
+                            >
+                                Yes
+                            </Button>
+                        </div>
+                        <div className='item'>
+                            <Button
+                                toggle
+                                active={vegetarian === 'false'}
+                                size='big'
+                                style={{ height: '125px', width: '125px' }}
+                                onClick={toggleVegetarian}
+                            >
+                                No
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <NavButton
+                        display={displayNext === 2}
+                        text={'Next'}
+                        link='/'
+                    />
+                </div>
             </div>
         </div>
     );

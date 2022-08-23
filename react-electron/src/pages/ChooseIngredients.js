@@ -553,7 +553,7 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
                         <NavButton
                             text={'Next'}
                             display={!noneChecked}
-                            link={'/additional'}
+                            link={'/review'}
                         />
                     </div>
                 </div>

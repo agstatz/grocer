@@ -1,5 +1,5 @@
 /**
- * AdditionalIngredients.js
+ * ReviewList.js
  * Page where the user adds other ingredients
  * not included on their list
  *
@@ -13,7 +13,7 @@ import { NavButton, NewIngredient } from '../components';
 import { Link } from 'react-router-dom';
 import { Breadcrumb } from 'semantic-ui-react';
 
-const AdditionalIngredients = ({ ingredients, handleChange }) => {
+const ReviewList = ({ ingredients, handleChange }) => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const [localIngredientList, setLocalIngredientList] = useState(ingredients);
@@ -52,7 +52,7 @@ const AdditionalIngredients = ({ ingredients, handleChange }) => {
                 <table className='ui padded small table'>
                     <thead>
                         <tr>
-                            <th>Currently Selected Ingredients</th>
+                            <th>Currently Selected Grocery Items</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,4 +97,4 @@ const AdditionalIngredients = ({ ingredients, handleChange }) => {
     );
 };
 
-export default AdditionalIngredients;
+export default ReviewList;
