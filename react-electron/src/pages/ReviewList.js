@@ -8,18 +8,44 @@
  */
 
 import React from 'react';
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useEffect } from 'react';
 import { NavButton, NewIngredient } from '../components';
 import { Link } from 'react-router-dom';
 import { Breadcrumb } from 'semantic-ui-react';
 
 const ReviewList = ({ ingredients, handleChange }) => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
-
     const [localIngredientList, setLocalIngredientList] = useState(ingredients);
 
+    // removeDuplicates(list)
+    // removes duplicates from a list of items
+    // from a list of groceries
+    const removeDuplicates = (list) => {
+        let set = new Set();
+        for (var i = 0; i < list.length; i++) {
+            set.add(list[i].ingredient);
+        }
+
+        let outputList = [];
+
+        for (var i = 0; i < set.size; i++) {
+            const currentValue = [...set][i];
+            outputList.push({
+                ingredient: currentValue,
+            });
+        }
+
+        return outputList;
+    };
+
+    // Remove duplicates from the list
+    useEffect(() => {
+        setLocalIngredientList(removeDuplicates(localIngredientList));
+    }, []);
+
     const handleListChange = (newList) => {
-        setLocalIngredientList(newList);
+        setLocalIngredientList(removeDuplicates(newList));
+
         handleChange(newList);
         forceUpdate();
     };
@@ -49,6 +75,11 @@ const ReviewList = ({ ingredients, handleChange }) => {
                         </Breadcrumb.Section>
                     </Breadcrumb>
                 </div>
+                <br />
+                <p className='align-left'>
+                    Review the currently selected items on the grocery list and
+                    add, remove, or edit items as needed.
+                </p>
                 <table className='ui padded small table'>
                     <thead>
                         <tr>
