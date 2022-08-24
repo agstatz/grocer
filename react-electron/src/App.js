@@ -98,7 +98,7 @@ const App = () => {
                 <br />
                 <PreferenceButton />
                 <p className='footnote'>
-                    Grocer v0.1.0, created by Ashton Statz, 2021/22
+                    Grocer v0.2.0, created by Ashton Statz, 2021-22
                 </p>
                 <br />
             </Router>
