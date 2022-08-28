@@ -113,7 +113,7 @@ const ReviewList = ({ ingredients, handleChange }) => {
                                 <i className='huge print icon'></i>
                             </div>
                             <div style={{ marginTop: '10px' }}>
-                                Print Grocery List
+                                Print grocery list
                             </div>
                         </Link>
                     </div>
@@ -126,7 +126,20 @@ const ReviewList = ({ ingredients, handleChange }) => {
                                 <i className='huge shopping cart icon'></i>
                             </div>
                             <div style={{ marginTop: '10px' }}>
-                                Order Groceries
+                                Order groceries
+                            </div>
+                        </Link>
+                    </div>
+                    <div
+                        className='item'
+                        style={{ marginLeft: '30px', marginRight: '30px' }}
+                    >
+                        <Link to='/saveList'>
+                            <div className='icon-button'>
+                                <i className='huge save icon'></i>
+                            </div>
+                            <div style={{ marginTop: '10px' }}>
+                                Save for later
                             </div>
                         </Link>
                     </div>

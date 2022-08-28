@@ -5,7 +5,7 @@
  * displayed.
  *
  * @author Ashton Statz
- * @date 8/23/2022
+ * @date 8/28/2022
  */
 
 import './styles/App.css';
@@ -23,8 +23,21 @@ import { PreferenceButton } from './components/';
 import { useState } from 'react';
 
 const App = () => {
+    const [preferences, setPreferences] = useState([]);
     const [meals, setMeals] = useState([]); // Stores selected meals
     const [ingredients, setIngredients] = useState([]); // Stores selected ingredients
+
+    // sets preferences when change happens in
+    // another component (Preferences page)
+    const updatePreferences = (newPrefs) => {
+        setPreferences(newPrefs);
+    };
+
+    // allows other components to access
+    // previous preferences
+    const getPreferences = () => {
+        return preferences;
+    };
 
     // sets meals when a change happens
     // to meals in another component
@@ -66,7 +79,12 @@ const App = () => {
                     <Route
                         exact
                         path='/preferences'
-                        element={<Preferences />}
+                        element={
+                            <Preferences
+                                getPreferences={getPreferences}
+                                updatePreferences={updatePreferences}
+                            />
+                        }
                     />
                     <Route
                         exact

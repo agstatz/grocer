@@ -3,7 +3,7 @@
  * Modular display component to allow the user
  * to choose the ingredients they would need
  *
- * @date 8/23/2022
+ * @date 8/28/2022
  * @author Ashton Statz
  */
 import React, { useEffect, useState } from 'react';
@@ -341,8 +341,6 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
         ) {
             return;
         }
-
-        console.log('hello??');
 
         let outputList = [...augmentedMealList];
 

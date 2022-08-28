@@ -4,12 +4,12 @@
  * developer database or their own database by inputting their own
  * URL
  *
- * @date 8/23/2022
+ * @date 8/28/2022
  * @author Ashton Statz
  */
 import React from 'react';
 import { useState } from 'react';
-import { Button, Input } from 'semantic-ui-react';
+import { Button, Input, Grid, Checkbox } from 'semantic-ui-react';
 import NavButton from '../components/NavButton.js';
 
 // The URL here plugs in to the https://sheet.best API which allows for a simple way
@@ -18,57 +18,16 @@ import NavButton from '../components/NavButton.js';
 const sheetsAPIurl =
     'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
 
-const Preferences = () => {
-    const [displayNext, setDisplayNext] = useState(0);
-    const [usingDev, setUsingDev] = useState('undefined');
-    const [vegetarian, setVegetarian] = useState('undefined');
+const Preferences = ({ getPreferences, updatePreferences }) => {
+    const [usingDev, setUsingDev] = useState(true);
+    const [vegetarian, setVegetarian] = useState(false);
 
-    const toggleUsingDev = (e) => {
-        if (usingDev === 'undefined') {
-            if (e.target.innerHTML === 'Use Default List') {
-                setUsingDev('true');
-            } else {
-                setUsingDev('false');
-            }
-
-            setDisplayNext(displayNext + 1);
-        }
-
-        if (usingDev === 'true') {
-            if (e.target.innerHTML !== 'Use Default List') {
-                setUsingDev('false');
-            }
-        }
-
-        if (usingDev === 'false') {
-            if (e.target.innerHTML === 'Use Default List') {
-                setUsingDev('true');
-            }
-        }
+    const toggleUsingDev = () => {
+        setUsingDev(!usingDev);
     };
 
     const toggleVegetarian = (e) => {
-        if (vegetarian === 'undefined') {
-            if (e.target.innerHTML === 'Yes') {
-                setVegetarian('true');
-            } else {
-                setVegetarian('false');
-            }
-
-            setDisplayNext(displayNext + 1);
-        }
-
-        if (vegetarian === 'true') {
-            if (e.target.innerHTML !== 'Yes') {
-                setVegetarian('false');
-            }
-        }
-
-        if (vegetarian === 'false') {
-            if (e.target.innerHTML === 'Yes') {
-                setVegetarian('true');
-            }
-        }
+        setVegetarian(!vegetarian);
     };
 
     return (
@@ -76,91 +35,86 @@ const Preferences = () => {
             <div>
                 <h1>Preferences</h1>
                 <br />
-                <div className='inner-container'>
-                    <p className='no-click questionnaire'>
-                        Would you like to use the default recipe book or your
-                        own custom recipes?
-                    </p>
-                    <div className='ui horizontal list'>
-                        <div className='item'>
-                            <Button
-                                toggle
-                                active={usingDev === 'true'}
-                                size='big'
-                                style={{ height: '125px', width: '125px' }}
-                                onClick={toggleUsingDev}
-                            >
-                                Use Default List
-                            </Button>
-                        </div>
-                        <div className='item'>
-                            <Button
-                                toggle
-                                active={usingDev === 'false'}
-                                size='big'
-                                style={{ height: '125px', width: '125px' }}
-                                onClick={toggleUsingDev}
-                            >
-                                Use Custom List
-                            </Button>
-                        </div>
-                    </div>
-                    {usingDev === 'false' ? (
-                        <>
-                            <br />
-                            <br />
-                            <p className='no-click questionnaire'>
-                                Enter a database URL. Must be a valid
-                                sheets.best API endpoint.
+                <Grid>
+                    <Grid.Row columns={2}>
+                        <Grid.Column width={8}>
+                            <div className='no-click align-left app-subtitle'>
+                                <i className='book icon'></i>Use Default Recipe
+                                Book
+                            </div>
+                            <p className='no-click questionnaire-text'>
+                                You may use the default recipe book or your own.
+                                Requires proper configuration of a google sheets
+                                page with such recipes in order to function
+                                correctly in the application.
                             </p>
-                            <Input
-                                label='http://'
-                                placeholder='mysite.com'
-                                size='small'
-                                style={{ width: '80%' }}
+                        </Grid.Column>
+                        <Grid.Column width={6}></Grid.Column>
+                        <Grid.Column width={2} verticalAlign='middle'>
+                            <Checkbox
+                                className='toggle'
+                                checked={usingDev}
+                                onChange={toggleUsingDev}
+                                toggle
                             />
-                            <Button>Submit</Button>
-                        </>
+                        </Grid.Column>
+                    </Grid.Row>
+
+                    {!usingDev ? (
+                        <Grid.Row columns={1}>
+                            <Grid.Column width={16}>
+                                <p className='no-click questionnaire-text'>
+                                    Enter a database URL. Must be a valid
+                                    sheets.best API endpoint.
+                                </p>
+                                <Input
+                                    label='http://'
+                                    placeholder='mysite.com'
+                                    size='small'
+                                    className='left-align'
+                                />
+                                <Button>Submit</Button>
+                            </Grid.Column>
+                        </Grid.Row>
                     ) : (
                         <></>
                     )}
-                </div>
-                <div className='inner-container'>
-                    <p className='no-click questionnaire'>
-                        Are you a vegetarian?
-                    </p>
+                    <Grid.Row columns={3}>
+                        <Grid.Column width={8}>
+                            <div className='no-click align-left app-subtitle'>
+                                <i className='food icon'></i>Suggest Vegetarian
+                                Meals
+                            </div>
+                            <p className='no-click questionnaire-text'>
+                                Are you a vegetarian? Toggle to only see meals
+                                that are vegetarian or have vegetarian options
+                            </p>
+                        </Grid.Column>
+                        <Grid.Column width={6}></Grid.Column>
+                        <Grid.Column width={2} verticalAlign='middle'>
+                            <Checkbox
+                                toggle
+                                className='toggle'
+                                checked={vegetarian}
+                                onChange={toggleVegetarian}
+                                fitted
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                <br />
+                <div className='align-right'>
                     <div className='ui horizontal list'>
                         <div className='item'>
-                            <Button
-                                toggle
-                                active={vegetarian === 'true'}
-                                size='big'
-                                style={{ height: '125px', width: '125px' }}
-                                onClick={toggleVegetarian}
-                            >
-                                Yes
-                            </Button>
+                            <Button>Cancel</Button>
                         </div>
                         <div className='item'>
-                            <Button
-                                toggle
-                                active={vegetarian === 'false'}
-                                size='big'
-                                style={{ height: '125px', width: '125px' }}
-                                onClick={toggleVegetarian}
-                            >
-                                No
-                            </Button>
+                            <Button>Save</Button>
                         </div>
                     </div>
                 </div>
-                <br />
                 <div>
-                    <NavButton
-                        display={displayNext === 2}
-                        text={'Next'}
-                        link='/'
-                    />
+                    <NavButton text={'Next'} link='/' />
                 </div>
             </div>
         </div>

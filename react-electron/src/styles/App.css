@@ -159,6 +159,12 @@ body {
     font-weight: bold;
 }
 
+.app-subtitle {
+    font-size: clamp(18px, calc(18px + 2vw), 28px);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
 .footnote {
     font-size: 12px;
     padding-top: 30px;
@@ -170,6 +176,11 @@ body {
 
 .align-left {
     text-align: left !important;
+}
+
+.align-right {
+    text-align: right !important;
+    float: right;
 }
 
 .print-out {
@@ -184,10 +195,9 @@ body {
     font-family: Readex Pro, Calibri, sans-serif;
 }
 
-.questionnaire {
-    text-align: left;
-    margin-left: calc(25px + 2vw);
-    margin-right: calc(25px + 2vw);
+.questionnaire-text {
+    font-size: 85%;
+    text-align: left !important;
 }
 
 .table-subtitle {
@@ -199,4 +209,3 @@ body {
     transform: scale(1.2);
     transition-duration: 0.3s;
 }
-
