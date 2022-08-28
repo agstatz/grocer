@@ -342,6 +342,8 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
             return;
         }
 
+        console.log('hello??');
+
         let outputList = [...augmentedMealList];
 
         for (let i = 0; i < outputList[index].ingredients.length; i++) {
@@ -371,6 +373,12 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
                     outputList[index].ingredients[i].hidden = false;
                     outputList[index].ingredients[i].checked = true;
                 }
+            }
+
+            if (isNoneChecked(outputList)) {
+                setNoneChecked(true);
+            } else {
+                setNoneChecked(false);
             }
         }
 
@@ -552,7 +560,7 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
                     <div className='item'>
                         <NavButton
                             text={'Next'}
-                            display={!noneChecked}
+                            disabled={noneChecked}
                             link={'/review'}
                         />
                     </div>

@@ -24,7 +24,7 @@ const ChooseMeals = ({ handleChange, getMeals }) => {
     const [choices, setChoices] = useState('');
     const [input, setInput] = useState('');
     const [mealData, setMealData] = useState('');
-    const [displayButton, setDisplayButton] = useState(false);
+    const [disableButton, setDisableButton] = useState(false);
     const [selectedChoices, setSelectedChoices] = useState(choices);
 
     useEffect(() => {
@@ -95,9 +95,9 @@ const ChooseMeals = ({ handleChange, getMeals }) => {
         if (selectedChoices.length > 0) {
             const mealArray = getMealDetails(selectedChoices);
             handleChange(mealArray);
-            setDisplayButton(true);
+            setDisableButton(false);
         } else {
-            setDisplayButton(false);
+            setDisableButton(true);
         }
     }, [selectedChoices]);
 
@@ -153,8 +153,8 @@ const ChooseMeals = ({ handleChange, getMeals }) => {
                 <br />
                 <div className='item'>
                     <NavButton
+                        disabled={disableButton}
                         text={'Next'}
-                        display={displayButton}
                         onClick={finalSubmit}
                         link={'/ingredients'}
                     />

@@ -100,7 +100,9 @@ const ReviewList = ({ ingredients, handleChange }) => {
                     ingredients={ingredients}
                     handleChange={handleListChange}
                 />
-
+                <br />
+                <p className='align-left'>Finished? Decide what's next.</p>
+                <br />
                 <div className='ui horizontal list'>
                     <div
                         className='item'

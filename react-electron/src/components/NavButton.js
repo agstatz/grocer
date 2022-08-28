@@ -11,8 +11,16 @@ import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const NavButton = ({ display, text, link, onClick }) => {
-    if (display === true) {
+const NavButton = ({ disabled, text, link, onClick }) => {
+    if (disabled === true) {
+        return (
+            <div className='NavButton'>
+                <div>
+                    <Button disabled>{text}</Button>
+                </div>
+            </div>
+        );
+    } else {
         return (
             <div className='NavButton'>
                 <div>
@@ -22,8 +30,6 @@ const NavButton = ({ display, text, link, onClick }) => {
                 </div>
             </div>
         );
-    } else {
-        return <div className='NavButton'></div>;
     }
 };
 
