@@ -100,28 +100,43 @@ const ReviewList = ({ ingredients, handleChange }) => {
                     ingredients={ingredients}
                     handleChange={handleListChange}
                 />
+
                 <div className='ui horizontal list'>
-                    <div className='item'>
-                        <NavButton
-                            text={'Back'}
-                            display={true}
-                            link={'/ingredients'}
-                        />
+                    <div
+                        className='item'
+                        style={{ marginLeft: '30px', marginRight: '30px' }}
+                    >
+                        <Link to='/printGrocery'>
+                            <div className='icon-button'>
+                                <i className='huge print icon'></i>
+                            </div>
+                            <div style={{ marginTop: '10px' }}>
+                                Print Grocery List
+                            </div>
+                        </Link>
                     </div>
-                    <div className='item'>
-                        <NavButton
-                            text={'Print Grocery List'}
-                            display={true}
-                            link={'/printGrocery'}
-                        />
+                    <div
+                        className='item'
+                        style={{ marginLeft: '30px', marginRight: '30px' }}
+                    >
+                        <Link to='/orderGrocery'>
+                            <div className='icon-button'>
+                                <i className='huge shopping cart icon'></i>
+                            </div>
+                            <div style={{ marginTop: '10px' }}>
+                                Order Groceries
+                            </div>
+                        </Link>
                     </div>
-                    <div className='item'>
-                        <NavButton
-                            text={'Order Groceries'}
-                            display={true}
-                            link={'/orderGrocery'}
-                        />
-                    </div>
+                </div>
+                <br />
+                <br />
+                <div className='item'>
+                    <NavButton
+                        text={'Back'}
+                        display={true}
+                        link={'/ingredients'}
+                    />
                 </div>
             </div>
         </div>
