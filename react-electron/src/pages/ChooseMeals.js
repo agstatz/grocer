@@ -9,19 +9,15 @@ import React from 'react';
 import { SearchPanel, SearchPanelVariant } from 'react-search-panel';
 import { useEffect, useState } from 'react';
 import { NavButton } from '../components/';
-import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-// Set DEV_MODE to true to use a local database
-const DEV_MODE = true;
-
-// The URL here plugs in to the https://sheet.best API which allows for a simple way
-// to use a google sheet as a backend. Replace as needed.
-// ** sheet.best only allows for 100 requests per month, so use sparingly
-const sheetsAPIurl =
-    'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
-
-const ChooseMeals = ({ handleChange, getMeals }) => {
+const ChooseMeals = ({
+    handleChange,
+    getMeals,
+    devMode,
+    sheetsAPIurl,
+    isVegetarian,
+}) => {
     const [choices, setChoices] = useState('');
     const [input, setInput] = useState('');
     const [mealData, setMealData] = useState('');
@@ -48,7 +44,7 @@ const ChooseMeals = ({ handleChange, getMeals }) => {
 
         // There are limited calls to the google sheets API, so in the case that
         // we are in development mode, just use a local testing file.
-        if (DEV_MODE) {
+        if (devMode) {
             const getDevDatabase = async () => {
                 const response = await axios.get('./developmentDatabase.json');
                 setMealData(response.data);
@@ -74,6 +70,14 @@ const ChooseMeals = ({ handleChange, getMeals }) => {
                         input.toLowerCase()
                     )
                 ) {
+                    // skip including matches that are none veg
+                    // if the user is vegetarian
+                    if (isVegetarian) {
+                        if (mealData[i].VEGETARIAN === 'No') {
+                            continue;
+                        }
+                    }
+
                     matchList.push({
                         key: mealData[i].ID,
                         description: mealData[i].MEAL_NAME,

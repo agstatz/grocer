@@ -54,6 +54,11 @@ const App = () => {
     // another component (Preferences page)
     const updatePreferences = (newPrefs) => {
         setPreferences(newPrefs);
+        console.log(newPrefs);
+    };
+
+    const getDefaultRecipeBook = () => {
+        return SHEETS_API_URL;
     };
 
     // allows other components to access
@@ -95,6 +100,9 @@ const App = () => {
                         element={
                             <ChooseMeals
                                 handleChange={updateMeals}
+                                devMode={preferences.useDevMode}
+                                sheetsAPIurl={preferences.recipeBookURL}
+                                isVegetarian={preferences.isVegetarian}
                                 getMeals={getMeals}
                             />
                         }
@@ -107,6 +115,7 @@ const App = () => {
                                 getPreferences={getPreferences}
                                 updatePreferences={updatePreferences}
                                 preferences={preferences}
+                                getDefaultRecipeBook={getDefaultRecipeBook}
                             />
                         }
                     />
@@ -117,6 +126,7 @@ const App = () => {
                             <ChooseIngredients
                                 mealList={meals}
                                 handleChange={updateIngredients}
+                                isVegetarian={preferences.isVegetarian}
                             />
                         }
                     />

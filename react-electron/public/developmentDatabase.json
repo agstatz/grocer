@@ -102,7 +102,7 @@
         "INGREDIENTS": "Rotini, Mushroom, Spinach, White Onion, Garlic, Milk, Flour, Tomato, Olive/Vegetable Oil, Salt, Black Pepper, Oregano, Basil, Thyme, Parmesan",
         "MEAL_NAME": "Mushroom and Spinach Pasta",
         "OPTIONAL": "Breadsticks",
-        "VEGETARIAN": null
+        "VEGETARIAN": "Yes"
     },
     {
         "ID": "16",

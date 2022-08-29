@@ -14,15 +14,15 @@ const NavButton = ({ disabled, text, link, onClick }) => {
     if (disabled === true) {
         return (
             <div className='NavButton'>
-                <div class='ui right floated disabled primary button'>
+                <div className='ui right floated disabled primary button'>
                     {text === 'Back' ? (
-                        <i class='left chevron icon'></i>
+                        <i className='left chevron icon'></i>
                     ) : (
                         <></>
                     )}
                     {text}
                     {text === 'Next' ? (
-                        <i class='right chevron icon'></i>
+                        <i className='right chevron icon'></i>
                     ) : (
                         <></>
                     )}
@@ -36,16 +36,16 @@ const NavButton = ({ disabled, text, link, onClick }) => {
                     <Link to={link}>
                         <div
                             onClick={onClick}
-                            class='ui right floated primary button'
+                            className='ui right floated primary button'
                         >
                             {text === 'Back' ? (
-                                <i class='left chevron icon'></i>
+                                <i className='left chevron icon'></i>
                             ) : (
                                 <></>
                             )}
                             {text}
                             {text === 'Next' ? (
-                                <i class='right chevron icon'></i>
+                                <i className='right chevron icon'></i>
                             ) : (
                                 <></>
                             )}

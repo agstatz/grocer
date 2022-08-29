@@ -11,13 +11,9 @@ import { Popup, Breadcrumb } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { NavButton } from '../components';
 
-const ChooseIngredients = ({ mealList, handleChange }) => {
+const ChooseIngredients = ({ mealList, handleChange, isVegetarian }) => {
     const [augmentedMealList, setAugmentedMealList] = useState([]); // the list of meals and their respective ingredients
     const [noneChecked, setNoneChecked] = useState(false);
-    const breadcrumbSections = [
-        { key: 'meals', content: 'Choose Meals', link: true },
-        { key: 'ingredients', content: 'Choose Ingredients', active: true },
-    ];
 
     // initialize both ingredientList and augmentedMealList
     useEffect(() => {
@@ -48,6 +44,31 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
                 vegIsEditable: vegIsEditable,
             });
         }
+
+        // if the user is vegetarian, by default show the veg option only
+        if (isVegetarian) {
+            for (var i = 0; i < outputList.length; i++) {
+                if (!outputList[i].vegetarian) {
+                    for (var j = 0; j < outputList[i].ingredients.length; j++) {
+                        if (outputList[i].ingredients[j].vegAction === 'add') {
+                            outputList[i].ingredients[j].hidden = false;
+                            outputList[i].ingredients[j].checked = true;
+                        }
+
+                        if (
+                            outputList[i].ingredients[j].vegAction === 'remove'
+                        ) {
+                            outputList[i].ingredients[j].hidden = true;
+                            outputList[i].ingredients[j].checked = false;
+                        }
+                    }
+
+                    outputList[i].vegetarian = true;
+                }
+            }
+        }
+
+        console.log(outputList);
 
         setAugmentedMealList(outputList);
         return outputList;
@@ -383,6 +404,7 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
         outputList[index].vegetarian = vegetarian === 'false' ? true : false;
         setAugmentedMealList(outputList);
         updateIngredientsList(outputList);
+        console.log(outputList);
     };
 
     // isNoneChecked()
