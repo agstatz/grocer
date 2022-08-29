@@ -146,7 +146,7 @@ const ReviewList = ({ ingredients, handleChange }) => {
                 </div>
                 <br />
                 <br />
-                <div className='item'>
+                <div style={{ paddingBottom: '20px' }}>
                     <NavButton
                         text={'Back'}
                         display={true}

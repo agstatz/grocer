@@ -2,13 +2,14 @@
  * ChooseMeals.js
  * Page where the user chooses their meals
  *
- * @date 8/22/2022
+ * @date 8/28/2022
  * @author Ashton Statz
  */
 import React from 'react';
 import { SearchPanel, SearchPanelVariant } from 'react-search-panel';
 import { useEffect, useState } from 'react';
 import { NavButton } from '../components/';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 // Set DEV_MODE to true to use a local database
@@ -139,19 +140,17 @@ const ChooseMeals = ({ handleChange, getMeals }) => {
                     <SearchPanel
                         choices={choices}
                         chips
-                        maximumHeight={250}
+                        maximumHeight={200}
                         onChange={(event) => setInput(event.target.value)}
                         onSelectionChange={setSelectedChoices}
                         placeholder='Search'
                         variant={SearchPanelVariant.checkbox}
-                        shadow={true}
                         preSelectedChoices={selectedChoices}
                         value={input}
-                        width={'calc(300 + 10vmin)'}
                     />
                 </div>
                 <br />
-                <div className='item'>
+                <div style={{ paddingBottom: '20px' }}>
                     <NavButton
                         disabled={disableButton}
                         text={'Next'}

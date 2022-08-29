@@ -551,16 +551,17 @@ const ChooseIngredients = ({ mealList, handleChange }) => {
                     </table>
                     <br />
                 </div>
-                <div className='ui horizontal list'>
-                    <div className='item'>
-                        <NavButton text={'Back'} display={true} link={'/'} />
-                    </div>
-                    <div className='item'>
+
+                <div style={{ paddingBottom: '20px' }}>
+                    <div>
                         <NavButton
                             text={'Next'}
                             disabled={noneChecked}
                             link={'/review'}
                         />
+                    </div>
+                    <div>
+                        <NavButton text={'Back'} display={true} link={'/'} />
                     </div>
                 </div>
             </div>

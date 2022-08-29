@@ -10,6 +10,7 @@
 
 import './styles/App.css';
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import {
     ChooseMeals,
@@ -19,13 +20,35 @@ import {
     PrintGroceries,
     Preferences,
 } from './pages/';
-import { PreferenceButton } from './components/';
-import { useState } from 'react';
+import { Grid } from 'semantic-ui-react';
+import { PreferenceButton, HomeButton } from './components/';
+
+// The URL here plugs in to the https://sheet.best API which allows for a simple way
+// to use a google sheet as a backend. Replace as needed.
+// ** sheet.best only allows for 100 requests per month, so use sparingly
+const SHEETS_API_URL =
+    'https://sheet.best/api/sheets/279dbfb9-3342-4cf3-a733-6734a6d8a368';
 
 const App = () => {
-    const [preferences, setPreferences] = useState([]);
+    const [preferences, setPreferences] = useState({});
     const [meals, setMeals] = useState([]); // Stores selected meals
     const [ingredients, setIngredients] = useState([]); // Stores selected ingredients
+
+    useEffect(() => {
+        initializePreferences();
+    }, []);
+
+    // initializes the preferences to their default values
+    // TODO: make sure the values are obtained from some I/O
+    // mechanism that is updated as needed.
+    const initializePreferences = () => {
+        setPreferences({
+            useDefaultRecipeBook: true,
+            recipeBookURL: SHEETS_API_URL,
+            useDevMode: true,
+            isVegetarian: false,
+        });
+    };
 
     // sets preferences when change happens in
     // another component (Preferences page)
@@ -83,6 +106,7 @@ const App = () => {
                             <Preferences
                                 getPreferences={getPreferences}
                                 updatePreferences={updatePreferences}
+                                preferences={preferences}
                             />
                         }
                     />
@@ -114,7 +138,18 @@ const App = () => {
                     <Route path='*' element={<NoPageFound />} />
                 </Routes>
                 <br />
-                <PreferenceButton />
+                <Grid columns={8} style={{ paddingTop: '20px' }}>
+                    <Grid.Column></Grid.Column>
+                    <Grid.Column></Grid.Column>
+                    <Grid.Column></Grid.Column>
+                    <Grid.Column verticalAlign='middle'>
+                        <HomeButton />
+                    </Grid.Column>
+                    <Grid.Column verticalAlign='middle'>
+                        <PreferenceButton />
+                    </Grid.Column>
+                </Grid>
+
                 <p className='footnote'>
                     Grocer v0.2.0, created by Ashton Statz, 2021-22
                 </p>

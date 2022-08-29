@@ -4,19 +4,28 @@
  * button, takes in text, link, and whether to display
  * or not as properties
  *
- * @date 8/22/2022
+ * @date 8/28/2022
  * @author Ashton Statz
  */
 import React from 'react';
-import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const NavButton = ({ disabled, text, link, onClick }) => {
     if (disabled === true) {
         return (
             <div className='NavButton'>
-                <div>
-                    <Button disabled>{text}</Button>
+                <div class='ui right floated disabled primary button'>
+                    {text === 'Back' ? (
+                        <i class='left chevron icon'></i>
+                    ) : (
+                        <></>
+                    )}
+                    {text}
+                    {text === 'Next' ? (
+                        <i class='right chevron icon'></i>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         );
@@ -25,7 +34,22 @@ const NavButton = ({ disabled, text, link, onClick }) => {
             <div className='NavButton'>
                 <div>
                     <Link to={link}>
-                        <Button onClick={onClick}>{text}</Button>
+                        <div
+                            onClick={onClick}
+                            class='ui right floated primary button'
+                        >
+                            {text === 'Back' ? (
+                                <i class='left chevron icon'></i>
+                            ) : (
+                                <></>
+                            )}
+                            {text}
+                            {text === 'Next' ? (
+                                <i class='right chevron icon'></i>
+                            ) : (
+                                <></>
+                            )}
+                        </div>
                     </Link>
                 </div>
             </div>

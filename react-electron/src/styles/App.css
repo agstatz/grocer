@@ -50,7 +50,7 @@ h1 {
         border-radius: 10px;
         padding-top: calc(5px + 5vw);
         padding-bottom: calc(20px + 5vw);
-        margin-bottom: calc(20px + 3vw);
+        margin-bottom: 15px;
     }
 
     .breadcrumb {
@@ -71,11 +71,7 @@ h1 {
         color: #cacbcd;
     }
 
-    .preference-button {
-        margin-top: calc(20px + 1vw);
-        color: white !important;
-        font-size: clamp(6px, calc(6px + 1vw), 14px);
-    }
+
 }
 
 /* Light Mode */
@@ -105,7 +101,7 @@ h1 {
         border-radius: 10px;
         padding-top: calc(5px + 5vw);
         padding-bottom: calc(20px + 5vw);
-        margin-bottom: calc(20px + 3vw);
+        margin-bottom: 15px;
     }
 
     .breadcrumb {
@@ -126,11 +122,7 @@ h1 {
         color: rgb(66, 66, 66);
     }
 
-    .preference-button {
-        margin-top: calc(20px + 1vw);
-        color: black !important;
-        font-size: clamp(6px, calc(6px + 1vw), 14px);
-    }
+
 }
 
 /* font handling for the entire project
@@ -160,7 +152,7 @@ body {
 }
 
 .app-subtitle {
-    font-size: clamp(18px, calc(18px + 2vw), 28px);
+    font-size: clamp(16px, calc(1px + 3vw), 28px);
     margin-bottom: 10px;
     font-weight: bold;
 }
@@ -198,6 +190,7 @@ body {
 .questionnaire-text {
     font-size: 85%;
     text-align: left !important;
+    color: #ddd;
 }
 
 .table-subtitle {
