@@ -64,34 +64,30 @@ const PrintGroceries = ({ ingredients }) => {
                 <br />
                 <div style={{ paddingBottom: '20px' }}>
                     <div ref={ref} className='print-out'>
-                        <div className='ui one column stackable center aligned page grid'>
-                            <div className='column twelve wide'>
-                                <h2
-                                    style={{
-                                        textAlign: 'center',
-                                        paddingTop: '15px',
-                                    }}
-                                    className='print-out-header'
-                                >
-                                    Groceries <CurrentDate />
-                                </h2>
-                                <p
-                                    style={{
-                                        textAlign: 'center',
-                                    }}
-                                    className='print-out-header'
-                                >
-                                    Created using grocer
-                                </p>
-                                <div
-                                    style={{
-                                        padding: '10px',
-                                        textAlign: 'left',
-                                    }}
-                                >
-                                    <PrintableList ingredients={ingredients} />
-                                </div>
-                            </div>
+                        <h2
+                            style={{
+                                textAlign: 'center',
+                                paddingTop: '15px',
+                            }}
+                            className='print-out-header'
+                        >
+                            Groceries <CurrentDate />
+                        </h2>
+                        <p
+                            style={{
+                                textAlign: 'center',
+                            }}
+                            className='print-out-header'
+                        >
+                            Created using grocer
+                        </p>
+                        <div
+                            style={{
+                                padding: '10px',
+                                textAlign: 'left',
+                            }}
+                        >
+                            <PrintableList ingredients={ingredients} />
                         </div>
                     </div>
                 </div>

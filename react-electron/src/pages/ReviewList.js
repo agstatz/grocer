@@ -11,7 +11,7 @@ import React from 'react';
 import { useState, useReducer, useEffect } from 'react';
 import { NavButton, NewIngredient } from '../components';
 import { Link } from 'react-router-dom';
-import { Breadcrumb } from 'semantic-ui-react';
+import { Breadcrumb, List } from 'semantic-ui-react';
 
 const ReviewList = ({ ingredients, handleChange }) => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -80,22 +80,17 @@ const ReviewList = ({ ingredients, handleChange }) => {
                     Review the currently selected items on the grocery list and
                     add, remove, or edit items as needed.
                 </p>
-                <table className='ui padded small table'>
-                    <thead>
-                        <tr>
-                            <th>Currently Selected Grocery Items</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {localIngredientList.map((ingredient) => {
-                            return (
-                                <tr>
-                                    <td colSpan='1'>{ingredient.ingredient}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <List
+                    inverted
+                    animated
+                    verticalAlign='middle'
+                    className='align-left'
+                >
+                    {localIngredientList.map((ingredient) => {
+                        return <List.Item>{ingredient.ingredient}</List.Item>;
+                    })}
+                </List>
+
                 <NewIngredient
                     ingredients={ingredients}
                     handleChange={handleListChange}

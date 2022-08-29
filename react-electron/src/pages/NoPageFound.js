@@ -14,7 +14,9 @@ const NoPageFound = () => {
         <div className='basic-container'>
             <div className='NoPageFound'>
                 <p className='app-title'>No Page Found</p>
-                <NavButton text={'Return Home'} link={'/'} display={true} />
+                <div style={{ paddingBottom: '20px' }}>
+                    <NavButton text={'Return Home'} link={'/'} display={true} />
+                </div>
             </div>
         </div>
     );

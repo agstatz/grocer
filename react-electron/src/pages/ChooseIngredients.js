@@ -68,8 +68,6 @@ const ChooseIngredients = ({ mealList, handleChange, isVegetarian }) => {
             }
         }
 
-        console.log(outputList);
-
         setAugmentedMealList(outputList);
         return outputList;
     };
@@ -404,7 +402,6 @@ const ChooseIngredients = ({ mealList, handleChange, isVegetarian }) => {
         outputList[index].vegetarian = vegetarian === 'false' ? true : false;
         setAugmentedMealList(outputList);
         updateIngredientsList(outputList);
-        console.log(outputList);
     };
 
     // isNoneChecked()

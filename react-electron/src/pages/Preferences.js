@@ -159,9 +159,9 @@ const Preferences = ({
                             </div>
                             <p className='no-click questionnaire-text'>
                                 You may use the default recipe book or your own.
-                                Requires proper configuration of a google sheets
-                                page with recipes in order to function correctly
-                                in the application.
+                                Using your own requires proper configuration of
+                                a google sheets document with recipes in order
+                                to function correctly in the application.
                             </p>
                         </Grid.Column>
                         <Grid.Column width={6}></Grid.Column>
