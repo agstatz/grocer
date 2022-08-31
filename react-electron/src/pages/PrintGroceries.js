@@ -7,7 +7,8 @@
  * @author Ashton Statz
  */
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import { useState } from 'react';
+import { Button, Dimmer, Segment, Header, Icon } from 'semantic-ui-react';
 import { NavButton, PrintableList } from '../components/';
 import { Link } from 'react-router-dom';
 import { Breadcrumb } from 'semantic-ui-react';
@@ -26,6 +27,16 @@ function CurrentDate() {
 
 const PrintGroceries = ({ ingredients }) => {
     const ref = React.createRef();
+
+    const [active, setActive] = useState(false);
+
+    const handleShow = () => {
+        setActive(true);
+    };
+
+    const handleHide = () => {
+        setActive(false);
+    };
 
     return (
         <div className='basic-container'>
@@ -62,35 +73,55 @@ const PrintGroceries = ({ ingredients }) => {
                     Preview the grocery list and save as a PDF.
                 </p>
                 <br />
-                <div style={{ paddingBottom: '20px' }}>
-                    <div ref={ref} className='print-out'>
-                        <h2
-                            style={{
-                                textAlign: 'center',
-                                paddingTop: '15px',
-                            }}
-                            className='print-out-header'
-                        >
-                            Groceries <CurrentDate />
-                        </h2>
-                        <p
-                            style={{
-                                textAlign: 'center',
-                            }}
-                            className='print-out-header'
-                        >
-                            Created using grocer
-                        </p>
-                        <div
-                            style={{
-                                padding: '10px',
-                                textAlign: 'left',
-                            }}
-                        >
-                            <PrintableList ingredients={ingredients} />
+                <Dimmer.Dimmable
+                    as={Segment}
+                    raised
+                    dimmed={active}
+                    onMouseEnter={handleShow}
+                    onMouseLeave={handleHide}
+                    style={{ border: 'none' }}
+                >
+                    <div style={{ paddingBottom: '20px' }}>
+                        <div ref={ref} className='print-out'>
+                            <h2
+                                style={{
+                                    textAlign: 'center',
+                                    paddingTop: '15px',
+                                }}
+                                className='print-out-header'
+                            >
+                                Groceries <CurrentDate />
+                            </h2>
+                            <p
+                                style={{
+                                    textAlign: 'center',
+                                }}
+                                className='print-out-header'
+                            >
+                                Created using grocer
+                            </p>
+                            <div
+                                style={{
+                                    padding: '10px',
+                                    textAlign: 'left',
+                                }}
+                            >
+                                <PrintableList ingredients={ingredients} />
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <Dimmer active={active}>
+                        <Header icon style={{ color: 'white' }}>
+                            <Icon name='pdf file outline' />
+                        </Header>
+                        <br />
+                        <Pdf targetRef={ref} filename='groceries.pdf'>
+                            {({ toPdf }) => (
+                                <Button onClick={toPdf}>Download PDF</Button>
+                            )}
+                        </Pdf>
+                    </Dimmer>
+                </Dimmer.Dimmable>
                 <br />
                 <Pdf targetRef={ref} filename='groceries.pdf'>
                     {({ toPdf }) => (

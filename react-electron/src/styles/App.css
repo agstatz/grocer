@@ -178,9 +178,6 @@ body {
 .print-out {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: black;
-    font-size: 75%;
-    background-color: white;
-    box-shadow: inset 0 0 2px #666666;
     padding-left: clamp(50px, calc(1px + 5vw), 60px);
     padding-right: clamp(50px, calc(1px + 5vw), 60px);
 }

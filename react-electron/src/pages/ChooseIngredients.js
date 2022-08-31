@@ -3,7 +3,7 @@
  * Modular display component to allow the user
  * to choose the ingredients they would need
  *
- * @date 8/28/2022
+ * @date 8/31/2022
  * @author Ashton Statz
  */
 import React, { useEffect, useState } from 'react';
@@ -446,7 +446,7 @@ const ChooseIngredients = ({ mealList, handleChange, isVegetarian }) => {
                     prepared to make each meal.
                 </p>
                 <div className='ingredientSelector'>
-                    <table className='ui padded small table'>
+                    <table className='ui singleLine padded table'>
                         <tbody>
                             {augmentedMealList.map((item, index) => {
                                 return (
@@ -531,7 +531,7 @@ const ChooseIngredients = ({ mealList, handleChange, isVegetarian }) => {
                                                                 item.key
                                                             }
                                                         >
-                                                            <td>
+                                                            <td className='ui middle aligned'>
                                                                 <div className='ui fitted checkbox'>
                                                                     <input
                                                                         type='checkbox'
@@ -548,13 +548,12 @@ const ChooseIngredients = ({ mealList, handleChange, isVegetarian }) => {
                                                                         }
                                                                     ></input>
                                                                     <label></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
+                                                                </div>{' '}
                                                                 {
                                                                     ingredient.ingredient
                                                                 }
                                                             </td>
+                                                            <td></td>
                                                             <td></td>
                                                         </tr>
                                                     ) : (

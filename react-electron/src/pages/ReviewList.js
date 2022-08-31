@@ -82,7 +82,7 @@ const ReviewList = ({ ingredients, handleChange }) => {
                 </p>
                 <List
                     inverted
-                    animated
+                    divided
                     verticalAlign='middle'
                     className='align-left'
                 >

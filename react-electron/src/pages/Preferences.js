@@ -4,7 +4,7 @@
  * developer database or their own database by inputting their own
  * URL
  *
- * @date 8/28/2022
+ * @date 8/31/2022
  * @author Ashton Statz
  */
 import React from 'react';
@@ -21,7 +21,7 @@ import {
 const SHEETS_PLACEHOLDER = 'https://sheet.best/api/sheets/...';
 const INVALID_URL = 'invalid URL.';
 const INVALID_PREFERENCES =
-    'the selected preferences states are not compatible.';
+    'the selected preference states are not compatible.';
 
 const Preferences = ({
     getPreferences,
