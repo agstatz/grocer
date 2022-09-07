@@ -2,7 +2,7 @@
  * NewIngredient.js
  * Widget that handles adding a new ingredient
  *
- * @date 8/10/2022
+ * @date 9/6/2022
  * @author Ashton Statz
  */
 
@@ -33,7 +33,7 @@ const NewIngredient = ({ ingredients, handleChange }) => {
     };
 
     const validateIngredient = (newIngredient) => {
-        if (newIngredient.length <= 1) {
+        if (newIngredient.length < 1) {
             setErrorMessage('new item must have at least one character.');
             return false;
         }

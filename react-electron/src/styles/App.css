@@ -201,3 +201,23 @@ body {
     transform: scale(1.2);
     transition-duration: 0.3s;
 }
+
+/* Styles relating to item-list
+   which is used when there is a big list
+   of grocery items 
+*/
+
+.item-list {
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+
+.item-list-x {
+    font-size: clamp(16px, calc(10px + 3vw), 30px);
+}
+
+.item-list-edit {
+    font-size: clamp(13px, calc(6px + 2vw), 24px);
+}

@@ -3,7 +3,7 @@
  * Page where the user adds other ingredients
  * not included on their list
  *
- * @date 8/28/2022
+ * @date 9/6/2022
  * @author Ashton Statz
  */
 
@@ -11,11 +11,30 @@ import React from 'react';
 import { useState, useReducer, useEffect } from 'react';
 import { NavButton, NewIngredient } from '../components';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, List } from 'semantic-ui-react';
+import { Breadcrumb, List, Label } from 'semantic-ui-react';
 
 const ReviewList = ({ ingredients, handleChange }) => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
-    const [localIngredientList, setLocalIngredientList] = useState(ingredients);
+    const [localIngredientList, setLocalIngredientList] = useState([]);
+
+    const labelColors = [
+        'red',
+        'orange',
+        'yellow',
+        'olive',
+        'green',
+        'teal',
+        'blue',
+        'violet',
+        'purple',
+        'pink',
+    ];
+
+    // Upon loading the page, remove duplicates from the list
+    // of ingredients due to multiple meals having the same ingredient
+    useEffect(() => {
+        setLocalIngredientList(removeDuplicates(ingredients));
+    }, []);
 
     // removeDuplicates(list)
     // removes duplicates from a list of items
@@ -26,26 +45,101 @@ const ReviewList = ({ ingredients, handleChange }) => {
             set.add(list[i].ingredient);
         }
 
+        return listifyMeals(set, list);
+    };
+
+    // listifyMeals(set)
+    // takes a set as input, returns a list of
+    // ingredients with the meals it belongs to
+    // as a list within the object
+    const listifyMeals = (set, list) => {
         let outputList = [];
 
         for (var i = 0; i < set.size; i++) {
             const currentValue = [...set][i];
-            outputList.push({
+            let newEntry = {
                 ingredient: currentValue,
-            });
+            };
+
+            for (var j = 0; j < list.length; j++) {
+                if (list[j].ingredient) {
+                    if (list[j].ingredient === newEntry.ingredient) {
+                        if (list[j].meal) {
+                            if (Array.isArray(list[j].meal)) {
+                                for (var i = 0; i < list[j].meal.length; i++) {
+                                    if (newEntry.meal) {
+                                        newEntry.meal.push(list[j].meal[i]);
+                                    } else {
+                                        newEntry.meal = [list[j].meal[i]];
+                                    }
+                                }
+                                continue;
+                            }
+
+                            if (newEntry.meal) {
+                                newEntry.meal.push(list[j].meal);
+                            } else {
+                                newEntry.meal = [list[j].meal];
+                            }
+                        }
+                    }
+                }
+            }
+            outputList.push(newEntry);
         }
 
         return outputList;
     };
 
-    // Remove duplicates from the list
-    useEffect(() => {
-        setLocalIngredientList(removeDuplicates(localIngredientList));
-    }, []);
+    // removeIngredient()
+    // removes the ingredient from the list and updates
+    // accordingly
+    const removeIngredient = (e) => {
+        var outputList = localIngredientList;
 
+        // we do not allow users to delete the last item
+        if (outputList.length === 1) {
+            return;
+        }
+
+        var ingredient = e.target.id;
+        for (var i = 0; i < outputList.length; i++) {
+            if (outputList[i].ingredient === ingredient) {
+                outputList.splice(i, 1);
+                break;
+            }
+        }
+        handleListChange(outputList);
+    };
+
+    // handleItemEnter()
+    // shows x and edit buttons in an item list when
+    // the mouse enters the respective list item
+    const handleItemEnter = (e) => {
+        var otherItems = document.getElementsByClassName('edit-remove-group');
+        for (let i = 0; i < otherItems.length; i++) {
+            otherItems[i].hidden = true;
+        }
+
+        if (document.getElementById(e.target.id + '-info')) {
+            document.getElementById(e.target.id + '-info').hidden = false;
+        }
+    };
+
+    // handleItemExit()
+    // hides the x and edit buttons in an item list
+    // when the mouse leaves
+    const handleItemExit = (e) => {
+        if (document.getElementById(e.target.id + '-info')) {
+            document.getElementById(e.target.id + '-info').hidden = true;
+        }
+    };
+
+    // handleListChange(newList)
+    // updates any changes to the list across the
+    // app
     const handleListChange = (newList) => {
-        setLocalIngredientList(removeDuplicates(newList));
-
+        setLocalIngredientList(newList);
         handleChange(newList);
         forceUpdate();
     };
@@ -81,13 +175,70 @@ const ReviewList = ({ ingredients, handleChange }) => {
                     add, remove, or edit items as needed.
                 </p>
                 <List
-                    inverted
+                    size='large'
                     divided
+                    selection
                     verticalAlign='middle'
-                    className='align-left'
+                    style={{ backgroundColor: 'white' }}
+                    className='align-left item-list'
                 >
                     {localIngredientList.map((ingredient) => {
-                        return <List.Item>{ingredient.ingredient}</List.Item>;
+                        return (
+                            <List.Item
+                                key={ingredient.ingredient}
+                                id={ingredient.ingredient}
+                                onMouseEnter={handleItemEnter}
+                                onMouseLeave={handleItemExit}
+                            >
+                                <List.Content
+                                    floated='right'
+                                    verticalAlign='middle'
+                                >
+                                    <span
+                                        className='edit-remove-group'
+                                        id={ingredient.ingredient + '-info'}
+                                        hidden={true}
+                                    >
+                                        <span className='item-list-edit'>
+                                            <i className='edit icon'></i>
+                                        </span>{' '}
+                                        <span
+                                            id={ingredient.ingredient}
+                                            className='item-list-x'
+                                            onClick={removeIngredient}
+                                        >
+                                            ×
+                                        </span>{' '}
+                                    </span>
+                                </List.Content>
+                                <List.Content verticalAlign='middle'>
+                                    {ingredient.ingredient}
+                                    <List.Description>
+                                        {ingredient.meal ? (
+                                            ingredient.meal.map(
+                                                (meal, index) => {
+                                                    return (
+                                                        <>
+                                                            <Label
+                                                                color={
+                                                                    labelColors[
+                                                                        index
+                                                                    ]
+                                                                }
+                                                            >
+                                                                {meal}
+                                                            </Label>{' '}
+                                                        </>
+                                                    );
+                                                }
+                                            )
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </List.Description>
+                                </List.Content>
+                            </List.Item>
+                        );
                     })}
                 </List>
 

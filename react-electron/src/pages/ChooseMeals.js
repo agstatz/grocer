@@ -2,7 +2,7 @@
  * ChooseMeals.js
  * Page where the user chooses their meals
  *
- * @date 8/28/2022
+ * @date 9/6/2022
  * @author Ashton Statz
  */
 import React from 'react';
@@ -52,6 +52,10 @@ const ChooseMeals = ({
             getDevDatabase();
         } else {
             const getDatabase = async () => {
+                if (!sheetsAPIurl) {
+                    return;
+                }
+
                 const response = await axios.get(sheetsAPIurl);
                 setMealData(response.data);
             };
@@ -59,7 +63,31 @@ const ChooseMeals = ({
         }
     }, []);
 
-    // Searches list of meals for similar meal names
+    // Upon changing the api URL, this hook is run
+    // it calls the API to make sure the data is up
+    // to date
+    useEffect(() => {
+        if (devMode) {
+            const getDevDatabase = async () => {
+                const response = await axios.get('./developmentDatabase.json');
+                setMealData(response.data);
+            };
+            getDevDatabase();
+        } else {
+            const getDatabase = async () => {
+                if (!sheetsAPIurl) {
+                    return;
+                }
+
+                const response = await axios.get(sheetsAPIurl);
+                setMealData(response.data);
+            };
+            getDatabase();
+        }
+    }, [sheetsAPIurl]);
+
+    // Upon change to the input of the search bar,
+    // searches list of meals for similar meal names
     useEffect(() => {
         const getSearchResults = () => {
             let matchList = [];
@@ -106,6 +134,7 @@ const ChooseMeals = ({
         }
     }, [selectedChoices]);
 
+    // getMealDetails(selectedChoices)
     // Gets a list of details including ingredients about a selected
     // meal. Used when figuring out whether there are selected meals or not
     const getMealDetails = (selectedChoices) => {
