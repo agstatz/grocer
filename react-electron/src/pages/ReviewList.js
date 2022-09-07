@@ -3,7 +3,7 @@
  * Page where the user adds other ingredients
  * not included on their list
  *
- * @date 9/6/2022
+ * @date 9/7/2022
  * @author Ashton Statz
  */
 
@@ -66,20 +66,19 @@ const ReviewList = ({ ingredients, handleChange }) => {
                     if (list[j].ingredient === newEntry.ingredient) {
                         if (list[j].meal) {
                             if (Array.isArray(list[j].meal)) {
-                                for (var i = 0; i < list[j].meal.length; i++) {
+                                for (var k = 0; k < list[j].meal.length; k++) {
                                     if (newEntry.meal) {
-                                        newEntry.meal.push(list[j].meal[i]);
+                                        newEntry.meal.push(list[j].meal[k]);
                                     } else {
-                                        newEntry.meal = [list[j].meal[i]];
+                                        newEntry.meal = [list[j].meal[k]];
                                     }
                                 }
-                                continue;
-                            }
-
-                            if (newEntry.meal) {
-                                newEntry.meal.push(list[j].meal);
                             } else {
-                                newEntry.meal = [list[j].meal];
+                                if (newEntry.meal) {
+                                    newEntry.meal.push(list[j].meal);
+                                } else {
+                                    newEntry.meal = [list[j].meal];
+                                }
                             }
                         }
                     }
