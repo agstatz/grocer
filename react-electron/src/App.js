@@ -1,8 +1,8 @@
 /**
  * App.js
  * Primary file for the entire application.
- * Contains router through which the "pages" are
- * displayed.
+ * Contains the router through which the page components
+ * are displayed based on a given path
  *
  * @author Ashton Statz
  * @date 9/8/2022

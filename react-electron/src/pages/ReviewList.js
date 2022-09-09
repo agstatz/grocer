@@ -48,8 +48,6 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
                 color: labelColors[i],
             });
         }
-
-        console.log(newMealColors);
         setMealColors(newMealColors);
     };
 
