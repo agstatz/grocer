@@ -5,7 +5,7 @@
  * displayed.
  *
  * @author Ashton Statz
- * @date 8/28/2022
+ * @date 9/8/2022
  */
 
 import './styles/App.css';
@@ -135,6 +135,7 @@ const App = () => {
                         path='/review'
                         element={
                             <ReviewList
+                                meals={meals}
                                 ingredients={ingredients}
                                 handleChange={updateIngredients}
                             />

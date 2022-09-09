@@ -3,7 +3,7 @@
  * Page where the user adds other ingredients
  * not included on their list
  *
- * @date 9/7/2022
+ * @date 9/8/2022
  * @author Ashton Statz
  */
 
@@ -11,11 +11,13 @@ import React from 'react';
 import { useState, useReducer, useEffect } from 'react';
 import { NavButton, NewIngredient } from '../components';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, List, Label } from 'semantic-ui-react';
+import { Breadcrumb, List } from 'semantic-ui-react';
+import { MealTab } from '../components';
 
-const ReviewList = ({ ingredients, handleChange }) => {
+const ReviewList = ({ ingredients, meals, handleChange }) => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
     const [localIngredientList, setLocalIngredientList] = useState([]);
+    const [mealColors, setMealColors] = useState([]);
 
     const labelColors = [
         'red',
@@ -34,7 +36,22 @@ const ReviewList = ({ ingredients, handleChange }) => {
     // of ingredients due to multiple meals having the same ingredient
     useEffect(() => {
         setLocalIngredientList(removeDuplicates(ingredients));
+        setUpMealColors();
     }, []);
+
+    const setUpMealColors = () => {
+        let newMealColors = [];
+
+        for (var i = 0; i < meals.length; i++) {
+            newMealColors.push({
+                meal: meals[i],
+                color: labelColors[i],
+            });
+        }
+
+        console.log(newMealColors);
+        setMealColors(newMealColors);
+    };
 
     // removeDuplicates(list)
     // removes duplicates from a list of items
@@ -214,23 +231,14 @@ const ReviewList = ({ ingredients, handleChange }) => {
                                     {ingredient.ingredient}
                                     <List.Description>
                                         {ingredient.meal ? (
-                                            ingredient.meal.map(
-                                                (meal, index) => {
-                                                    return (
-                                                        <>
-                                                            <Label
-                                                                color={
-                                                                    labelColors[
-                                                                        index
-                                                                    ]
-                                                                }
-                                                            >
-                                                                {meal}
-                                                            </Label>{' '}
-                                                        </>
-                                                    );
-                                                }
-                                            )
+                                            ingredient.meal.map((meal) => {
+                                                return (
+                                                    <MealTab
+                                                        mealColors={mealColors}
+                                                        mealName={meal}
+                                                    />
+                                                );
+                                            })
                                         ) : (
                                             <></>
                                         )}
