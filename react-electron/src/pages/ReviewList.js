@@ -12,20 +12,22 @@ import { useState, useReducer, useEffect } from 'react';
 import { NavButton, NewIngredient } from '../components';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, List } from 'semantic-ui-react';
-import { MealTab } from '../components';
+import { MealTabGroup } from '../components';
 
 const ReviewList = ({ ingredients, meals, handleChange }) => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
     const [localIngredientList, setLocalIngredientList] = useState([]);
     const [mealColors, setMealColors] = useState([]);
 
+    // used for MealTabs where colors are
+    // assigned to differentiate meals
     const labelColors = [
-        'red',
-        'orange',
-        'yellow',
         'olive',
         'green',
         'teal',
+        'red',
+        'orange',
+        'yellow',
         'blue',
         'violet',
         'purple',
@@ -39,13 +41,26 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
         setUpMealColors();
     }, []);
 
+    useEffect(() => {}, [ingredients]);
+
+    // setUpMealColors()
+    // utilizes the labelColors and meals variables
+    // to set the value of mealColors to appropriately
+    // and consistently color the meal label tabs
     const setUpMealColors = () => {
         let newMealColors = [];
+        let usedColorIndices = [];
 
         for (var i = 0; i < meals.length; i++) {
+            var colorIndex = Math.floor(Math.random() * 10);
+            while (usedColorIndices.includes(colorIndex)) {
+                colorIndex = Math.floor(Math.random() * 10);
+            }
+            usedColorIndices.push(colorIndex);
+
             newMealColors.push({
                 meal: meals[i],
-                color: labelColors[i],
+                color: labelColors[colorIndex],
             });
         }
         setMealColors(newMealColors);
@@ -124,6 +139,15 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
             }
         }
         handleListChange(outputList);
+    };
+
+    // editIngredient()
+    // sets up the input for editing an ingredient
+    const editIngredient = (e) => {
+        // 1. set all other ingredients being to not being edited state
+        // 2. set ingredient to editing state
+        // 3. make this show input with correct name
+        // 4. show confirm button
     };
 
     // handleItemEnter()
@@ -213,7 +237,11 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
                                         id={ingredient.ingredient + '-info'}
                                         hidden={true}
                                     >
-                                        <span className='item-list-edit'>
+                                        <span
+                                            id={ingredient.ingredient}
+                                            className='item-list-edit'
+                                            onClick={editIngredient}
+                                        >
                                             <i className='edit icon'></i>
                                         </span>{' '}
                                         <span
@@ -228,18 +256,10 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
                                 <List.Content verticalAlign='middle'>
                                     {ingredient.ingredient}
                                     <List.Description>
-                                        {ingredient.meal ? (
-                                            ingredient.meal.map((meal) => {
-                                                return (
-                                                    <MealTab
-                                                        mealColors={mealColors}
-                                                        mealName={meal}
-                                                    />
-                                                );
-                                            })
-                                        ) : (
-                                            <></>
-                                        )}
+                                        <MealTabGroup
+                                            meals={ingredient.meal}
+                                            mealColors={mealColors}
+                                        />
                                     </List.Description>
                                 </List.Content>
                             </List.Item>

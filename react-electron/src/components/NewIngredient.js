@@ -6,7 +6,7 @@
  * @author Ashton Statz
  */
 
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Button, Input, Message } from 'semantic-ui-react';
 
 const NewIngredient = ({ ingredients, handleChange }) => {
@@ -14,6 +14,20 @@ const NewIngredient = ({ ingredients, handleChange }) => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('Error');
     const [ingredient, setIngredient] = useState('');
+
+    useEffect(() => {
+        var input = document.getElementById('newIngredientInput');
+
+        if (input !== null) {
+            input.addEventListener('keyup', function (KeyboardEvent) {
+                if (KeyboardEvent.key === 'Enter') {
+                    console.log('hey');
+                    KeyboardEvent.preventDefault();
+                    updateIngredient();
+                }
+            });
+        }
+    }, [mode]);
 
     const changeMode = (value) => {
         setMode(value);
@@ -73,6 +87,7 @@ const NewIngredient = ({ ingredients, handleChange }) => {
                     id='newIngredientInput'
                     placeholder='Add an Item'
                     onChange={endErrorMessage}
+                    autoFocus
                     action={{ icon: 'plus', onClick: updateIngredient }}
                 ></Input>
             )}

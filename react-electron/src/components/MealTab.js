@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { Label } from 'semantic-ui-react';
 
 const MealTab = ({ mealColors, mealName }) => {
-    const [color, setColor] = useState('red');
+    const [color, setColor] = useState('olive');
 
     useEffect(() => {
         for (var i = 0; i < mealColors.length; i++) {
