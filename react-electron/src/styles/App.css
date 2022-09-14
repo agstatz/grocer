@@ -200,6 +200,7 @@ body {
 .icon-button:hover {
     transform: scale(1.2);
     transition-duration: 0.3s;
+    cursor: pointer;
 }
 
 /* Styles relating to item-list

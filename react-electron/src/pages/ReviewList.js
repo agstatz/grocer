@@ -3,21 +3,26 @@
  * Page where the user adds other ingredients
  * not included on their list
  *
- * @date 9/8/2022
+ * @date 9/14/2022
  * @author Ashton Statz
  */
 
 import React from 'react';
 import { useState, useReducer, useEffect } from 'react';
-import { NavButton, NewIngredient } from '../components';
+import { NavButton, ItemAdder } from '../components';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, List } from 'semantic-ui-react';
+import { useNavigate } from 'react-router-dom';
 import { MealTabGroup } from '../components';
 
 const ReviewList = ({ ingredients, meals, handleChange }) => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
     const [localIngredientList, setLocalIngredientList] = useState([]);
     const [mealColors, setMealColors] = useState([]);
+    const [newIngredient, setNewIngredient] = useState('');
+    const [newIngredientError, setNewIngredientError] = useState(false);
+
+    let navigate = useNavigate();
 
     // used for MealTabs where colors are
     // assigned to differentiate meals
@@ -37,6 +42,7 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
     // Upon loading the page, remove duplicates from the list
     // of ingredients due to multiple meals having the same ingredient
     useEffect(() => {
+        window.scrollTo(0, 0);
         setLocalIngredientList(removeDuplicates(ingredients));
         setUpMealColors();
     }, []);
@@ -182,6 +188,24 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
         forceUpdate();
     };
 
+    // submitForm(link)
+    // checks if the input has unsaved progress,
+    // if so, we throw an error, else navigate user
+    // to link
+    const submitForm = (link) => {
+        if (newIngredient.length > 0) {
+            setNewIngredientError(true);
+        } else {
+            navigate(link);
+        }
+    };
+
+    // setNewItem(item)
+    // sets the New Ingredient to item
+    const setNewItem = (item) => {
+        setNewIngredient(item);
+    };
+
     return (
         <div className='basic-container'>
             <div>
@@ -256,20 +280,24 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
                                 <List.Content verticalAlign='middle'>
                                     {ingredient.ingredient}
                                     <List.Description>
-                                        <MealTabGroup
+                                        {/*<MealTabGroup
                                             meals={ingredient.meal}
                                             mealColors={mealColors}
-                                        />
+                        />*/}
                                     </List.Description>
                                 </List.Content>
                             </List.Item>
                         );
                     })}
                 </List>
-
-                <NewIngredient
+                <ItemAdder
                     ingredients={ingredients}
                     handleChange={handleListChange}
+                    setTypedIngredient={setNewItem}
+                    pageError={newIngredientError}
+                    resetPageError={() => {
+                        setNewIngredientError(false);
+                    }}
                 />
                 <br />
                 <p className='align-left'>Finished? Decide what's next.</p>
@@ -279,14 +307,17 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
                         className='item'
                         style={{ marginLeft: '30px', marginRight: '30px' }}
                     >
-                        <Link to='/printGrocery'>
-                            <div className='icon-button'>
-                                <i className='huge print icon'></i>
-                            </div>
-                            <div style={{ marginTop: '10px' }}>
-                                Print grocery list
-                            </div>
-                        </Link>
+                        <div
+                            className='icon-button'
+                            onClick={() => {
+                                submitForm('/printGrocery');
+                            }}
+                        >
+                            <i className='huge print icon'></i>
+                        </div>
+                        <div style={{ marginTop: '10px' }}>
+                            Print grocery list
+                        </div>
                     </div>
                     <div
                         className='item'

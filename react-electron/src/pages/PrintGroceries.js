@@ -3,11 +3,11 @@
  * Page where user can print a list
  * of groceries for their own use
  *
- * @date 8/23/2022
+ * @date 9/14/2022
  * @author Ashton Statz
  */
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Dimmer, Segment, Header, Icon } from 'semantic-ui-react';
 import { NavButton, PrintableList } from '../components/';
 import { Link } from 'react-router-dom';
@@ -27,8 +27,11 @@ function CurrentDate() {
 
 const PrintGroceries = ({ ingredients }) => {
     const ref = React.createRef();
-
     const [active, setActive] = useState(false);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleShow = () => {
         setActive(true);
