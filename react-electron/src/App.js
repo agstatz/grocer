@@ -34,6 +34,8 @@ const App = () => {
     const [meals, setMeals] = useState([]); // Stores selected meals
     const [ingredients, setIngredients] = useState([]); // Stores selected ingredients
 
+    const version = 'v0.3.0';
+
     useEffect(() => {
         initializePreferences();
     }, []);
@@ -162,7 +164,7 @@ const App = () => {
                 </Grid>
 
                 <p className='footnote'>
-                    Grocer v0.2.0, created by Ashton Statz, 2021-22
+                    Grocer {version}, created by Ashton Statz, 2021-22
                 </p>
                 <br />
             </Router>
