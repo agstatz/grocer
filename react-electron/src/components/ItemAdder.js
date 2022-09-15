@@ -1,7 +1,7 @@
 /**
  * ItemAdder.js
  * Widget that handles adding a new item to the
- * grocery list
+ * grocery list on the ReviewList page/component
  *
  * @date 9/14/2022
  * @author Ashton Statz
@@ -68,16 +68,26 @@ const ItemAdder = ({
         let newIngredient = ingredient;
         if (validateItem(newIngredient)) {
             var currentIngredients = ingredients;
-            currentIngredients.push({ ingredient: newIngredient, meal: null });
+            currentIngredients.push({
+                ingredient: newIngredient,
+                editing: false,
+                meal: null,
+            });
+            console.log(currentIngredients);
             handleChange(currentIngredients);
             changeMode('empty');
         }
     };
 
+    // submitItemFromEnter(newItem)
+    // validates the item passed as a parameter
+    // after a user presses enter and submits
+    // it to the grocery list
     const submitItemFromEnter = (newItem) => {
         if (validateItem(newItem)) {
             var currentIngredients = ingredients;
             currentIngredients.push({ ingredient: newItem, meal: null });
+            console.log(currentIngredients);
             handleChange(currentIngredients);
             changeMode('empty');
         }

@@ -11,7 +11,7 @@ import React from 'react';
 import { useState, useReducer, useEffect } from 'react';
 import { NavButton, ItemAdder } from '../components';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, List } from 'semantic-ui-react';
+import { Breadcrumb, List, Input, Label } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import { MealTabGroup } from '../components';
 
@@ -21,6 +21,10 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
     const [mealColors, setMealColors] = useState([]);
     const [newIngredient, setNewIngredient] = useState('');
     const [newIngredientError, setNewIngredientError] = useState(false);
+    const [editingItem, setEditingItem] = useState('');
+    const [originalItem, setOriginalItem] = useState('');
+    const [editingError, setEditingError] = useState(false);
+    const [editingErrorMessage, setEditingErrorMessage] = useState('');
 
     let navigate = useNavigate();
 
@@ -43,6 +47,7 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
     // of ingredients due to multiple meals having the same ingredient
     useEffect(() => {
         window.scrollTo(0, 0);
+        console.log(removeDuplicates(ingredients));
         setLocalIngredientList(removeDuplicates(ingredients));
         setUpMealColors();
     }, []);
@@ -95,6 +100,7 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
             const currentValue = [...set][i];
             let newEntry = {
                 ingredient: currentValue,
+                editing: false,
             };
 
             for (var j = 0; j < list.length; j++) {
@@ -148,12 +154,98 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
     };
 
     // editIngredient()
-    // sets up the input for editing an ingredient
+    // toggles visibility of an input for the user
+    // to edit one ingredient at a time
     const editIngredient = (e) => {
         // 1. set all other ingredients being to not being edited state
+        resetAllEditingStatus();
+
         // 2. set ingredient to editing state
-        // 3. make this show input with correct name
-        // 4. show confirm button
+        let ingredientId = e.target.parentElement.id;
+        setEditingTrue(ingredientId);
+        setOriginalItem(ingredientId);
+        setEditingItem(ingredientId);
+
+        forceUpdate();
+    };
+
+    // finishEditing()
+    // validates the final name and accordingly
+    // updates lists and sets the input to go back
+    // to being non editable
+    const finishEditing = () => {
+        // validate edited name works
+        let item = originalItem;
+        let list = localIngredientList;
+
+        if (editingItem.length === 0) {
+            // set error
+            setEditingError(true);
+            setEditingErrorMessage('Item must have at least one character');
+            return;
+        }
+
+        for (var i = 0; i < list.length; i++) {
+            if (
+                list[i].ingredient !== item &&
+                list[i].ingredient === editingItem
+            ) {
+                setEditingError(true);
+                setEditingErrorMessage(
+                    'This item is already included in the list'
+                );
+                return;
+            }
+        }
+
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].ingredient === item) {
+                list[i].ingredient = editingItem;
+                break;
+            }
+        }
+
+        handleListChange(list);
+        resetAllEditingStatus();
+        setEditingItem('');
+        setOriginalItem('');
+        forceUpdate();
+    };
+
+    // resetAllEditingStatus()
+    // sets all editing statuses in the list
+    // to editing = false
+    const resetAllEditingStatus = () => {
+        let list = localIngredientList;
+        for (var i = 0; i < list.length; i++) {
+            list[i].editing = false;
+        }
+        handleListChange(list);
+    };
+
+    // setEditingTrue(id)
+    // given an item id, updates the list
+    // item with the same name to be in the editing
+    // true state
+    const setEditingTrue = (id) => {
+        let list = localIngredientList;
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].ingredient === id) {
+                list[i].editing = true;
+                break;
+            }
+        }
+        handleListChange(list);
+    };
+
+    // updateEditingItem()
+    // saves changes made to the currenting being edited
+    // item in the variable editingItem
+    const updateEditingItem = () => {
+        setEditingError(false);
+        setEditingErrorMessage('');
+        var item = document.getElementById('editingItemInput').value;
+        setEditingItem(item);
     };
 
     // handleItemEnter()
@@ -277,21 +369,63 @@ const ReviewList = ({ ingredients, meals, handleChange }) => {
                                         </span>{' '}
                                     </span>
                                 </List.Content>
-                                <List.Content verticalAlign='middle'>
-                                    {ingredient.ingredient}
-                                    <List.Description>
-                                        {/*<MealTabGroup
-                                            meals={ingredient.meal}
-                                            mealColors={mealColors}
-                        />*/}
-                                    </List.Description>
-                                </List.Content>
+                                {ingredient.editing ? (
+                                    <List.Content verticalAlign='middle'>
+                                        <Input
+                                            size='mini'
+                                            id='editingItemInput'
+                                            autoFocus
+                                            onChange={updateEditingItem}
+                                            error={editingError}
+                                            value={editingItem}
+                                            action={{
+                                                icon: 'check',
+                                                onClick: finishEditing,
+                                            }}
+                                        />
+                                        {editingError ? (
+                                            <Label
+                                                basic
+                                                color='red'
+                                                pointing='left'
+                                            >
+                                                {editingErrorMessage}
+                                            </Label>
+                                        ) : (
+                                            <></>
+                                        )}
+                                        <List.Description>
+                                            {ingredient.meal ? (
+                                                <MealTabGroup
+                                                    meals={ingredient.meal}
+                                                    mealColors={mealColors}
+                                                />
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </List.Description>
+                                    </List.Content>
+                                ) : (
+                                    <List.Content verticalAlign='middle'>
+                                        {ingredient.ingredient}
+                                        <List.Description>
+                                            {ingredient.meal ? (
+                                                <MealTabGroup
+                                                    meals={ingredient.meal}
+                                                    mealColors={mealColors}
+                                                />
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </List.Description>
+                                    </List.Content>
+                                )}
                             </List.Item>
                         );
                     })}
                 </List>
                 <ItemAdder
-                    ingredients={ingredients}
+                    ingredients={localIngredientList}
                     handleChange={handleListChange}
                     setTypedIngredient={setNewItem}
                     pageError={newIngredientError}
